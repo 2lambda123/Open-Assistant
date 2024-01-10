@@ -5,7 +5,7 @@ example usage:
   data_augment.py --dataset essays.tsv --augmenter hierarchicalsummarizer --output out.json
 args:
   -- dataset: TSV file referencing txt files with essays/code
-  -- augmenter: the augmenter used: one of 'essayinstruction', 'essayrevision', 'stackexchange', 'hierarchicalsummarizer', 'entityrecognizedsummarizer', 'codebugger"
+  -- augmenter: the augmenter used: one of 'essayinstruction', 'essayrevision', 'stackexchange', 'hierarchicalsummarizer', 'entityrecognizedsummarizer', 'codebugger'
   -- output: where to save the output
 """
 
