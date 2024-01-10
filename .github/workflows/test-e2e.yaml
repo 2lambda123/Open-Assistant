@@ -18,22 +18,28 @@ jobs:
   test-e2e:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Start website, backend, etc
+      - name: Start website and backend
         run: docker compose --profile ci up --build -d
-      - name: Run Cypress tests
+      - name: Run Cypress tests for website
         uses: cypress-io/github-action@v5.0.2
         with:
           browser: chrome
           working-directory: website
-      - uses: actions/upload-artifact@v3
-        if: failure() # NOTE: screenshots will be generated only if E2E test failed
+      - name: Upload Cypress test artifacts
+        if: failure()
+        uses: actions/upload-artifact@v3
+      - name: Upload Cypress videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        if: failure()
+        uses: actions/upload-artifact@v3
         with:
           name: cypress-screenshots
           path: website/cypress/screenshots
-      - uses: actions/upload-artifact@v3
-        if: always()
+      - if: always()
+        uses: actions/upload-artifact@v3
         with:
           name: cypress-videos
           path: website/cypress/videos
