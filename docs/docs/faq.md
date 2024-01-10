@@ -43,7 +43,6 @@ help us improve the model in future!
 ### Can I install Open Assistant locally and chat with it?
 
 </summary>
-
 The candidate Pythia SFT models are
 [available on HuggingFace](https://huggingface.co/OpenAssistant) and can be
 loaded via the HuggingFace Transformers library. As such you may be able to use
@@ -58,7 +57,6 @@ weights will be released soon.
 
 <details>
 <summary>
-
 ### What is the Docker command in the README for?
 
 </summary>
