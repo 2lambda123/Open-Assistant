@@ -67,6 +67,9 @@ like a person would.
     <https://huggingface.co/allenai/tk-instruct-3b-def>
 
 ### Blended Skill Talk
+- Used by Facebook in Blenderbot project
+- HuggingFace dataset: <https://huggingface.co/datasets/blended_skill_talk>
+- Example model trained on it: <https://huggingface.co/facebook/blenderbot_small-90M>
 
 - used by Facebook in Blenderbot project
 - HuggingFace dataset: <https://huggingface.co/datasets/blended_skill_talk>
@@ -74,6 +77,8 @@ like a person would.
   <https://huggingface.co/facebook/blenderbot_small-90M>
 
 ### SODA
+- GitHub: <https://github.com/skywalker023/sodaverse>
+- Paper: <https://arxiv.org/abs/2212.10465>
 
 - GitHub: <https://github.com/skywalker023/sodaverse>
 - paper: <https://arxiv.org/abs/2212.10465>
