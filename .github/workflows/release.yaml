@@ -7,6 +7,8 @@ on:
   release:
     types:
       - released
+  branches:
+    - main
 
 jobs:
   pre-commit:
@@ -90,6 +92,8 @@ jobs:
       - build-bot
       - build-inference-server
     uses: ./.github/workflows/deploy-to-node.yaml
+    env:
+      NODE_ENV: production
     secrets: inherit
     with:
       stack-name: ${{ github.event_name == 'release' && 'staging' || 'dev' }}
