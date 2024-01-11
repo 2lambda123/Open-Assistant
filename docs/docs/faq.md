@@ -242,11 +242,20 @@ Check the
 <details>
 <summary>
 
-### Where can I report a bug or create a new feature request?
+### How to report an issue or request a new feature?
+
+If you encounter a bug or want to request a new feature, please follow these steps:
+1. Open an issue on the [GitHub issues](https://github.com/LAION-AI/Open-Assistant/issues).
+2. Provide a detailed description of the problem, including error logs and any additional information that can help us understand and resolve the issue.
+
+To report a bug or request a new feature, please provide a detailed description of the problem, error logs, and any additional information that can help us understand and resolve the issue.
+
+If you encounter a bug or want to request a new feature, please open an issue on the
+[GitHub issues page](https://github.com/LAION-AI/Open-Assistant/issues). Please provide a detailed description of the problem, error logs, and any additional information that can help us understand and resolve the issue.
 
 </summary>
 
-In the [GitHub issues](https://github.com/LAION-AI/Open-Assistant/issues).
+[GitHub issues page](https://github.com/LAION-AI/Open-Assistant/issues)
 
 </details>
 
