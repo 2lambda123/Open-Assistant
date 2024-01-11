@@ -1,4 +1,7 @@
-"""Script for a variety of data augmentation techniques for generating Question answer pairs.
+import logging
+import sys
+import traceback
+from scripts.utils.error_logging import log_error, log_exception, log_debug"""Script for a variety of data augmentation techniques for generating Question answer pairs.
 Depending on the class used it takes in the input files and generates summaries from essays (which then will result in a "write a story about [summary]"-> essay pair),#
 buggs code (in order to have bugged code + "please fix" -> code), ...
 example usage:
@@ -35,7 +38,7 @@ class DataAugmenter:
             pass  # Add initialization code here
         except Exception as e:
             # Log the exception
-            print('An error occurred:', e)
+            print('log_exception(e)', e)
 
     def parse(self, essays):
         prompts = []
