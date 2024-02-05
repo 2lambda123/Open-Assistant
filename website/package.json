@@ -59,7 +59,7 @@
     "next": "13.5.6",
     "next-auth": "^4.24.5",
     "next-i18next": "^13.2.2",
-    "nodemailer": "^6.9.1",
+    "nodemailer": "^6.9.9",
     "postcss-focus-visible": "^7.1.0",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
