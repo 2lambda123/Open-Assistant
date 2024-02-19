@@ -16,7 +16,7 @@ export default {
       option
         .setName("message")
         .setDescription("The message for the AI")
-        .setRequired(true)
+        .setRequired(true),
     )
     .addStringOption((option) =>
       option
@@ -26,7 +26,7 @@ export default {
         .addChoices({
           name: "OA_SFT_Llama_30B",
           value: "OA_SFT_Llama_30B",
-        })
+        }),
     )
     .addStringOption((option) =>
       option
@@ -49,8 +49,8 @@ export default {
           {
             name: "typical3",
             value: "typical3",
-          }
-        )
+          },
+        ),
     ),
   async execute(interaction, client, commands, commandType, options) {
     var message;
@@ -79,7 +79,7 @@ export default {
 
     const OA = await createInferenceClient(
       interaction.user.username,
-      interaction.user.id
+      interaction.user.id,
     );
 
     try {
@@ -104,7 +104,7 @@ export default {
       });
       await redis.set(
         `chat_${interaction.user.id}`,
-        `${chatId}_${assistant_message.id}`
+        `${chatId}_${assistant_message.id}`,
       );
 
       const row = new ActionRowBuilder().addComponents(
@@ -115,7 +115,7 @@ export default {
         new ButtonBuilder()
           .setStyle(ButtonStyle.Secondary)
           .setLabel(`👎`)
-          .setCustomId(`vote_${assistant_message.id}_down`)
+          .setCustomId(`vote_${assistant_message.id}_down`),
       );
       // using events
       let events = await OA.stream_events({
@@ -135,7 +135,7 @@ export default {
       // get details of the error
       await commandType.reply(
         interaction,
-        `There was an error while executing this command! ${err.message}`
+        `There was an error while executing this command! ${err.message}`,
       );
     }
   },

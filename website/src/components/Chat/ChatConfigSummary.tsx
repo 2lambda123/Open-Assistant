@@ -9,7 +9,11 @@ export default function ChatConfigSummary() {
   const { watch } = useFormContext<ChatConfigFormData>();
   const config = watch();
   return (
-    <Grid gridTemplateColumns="repeat(2, max-content)" columnGap={4} fontSize="sm">
+    <Grid
+      gridTemplateColumns="repeat(2, max-content)"
+      columnGap={4}
+      fontSize="sm"
+    >
       <Text>{t("model")}</Text>
       <Text>{config["model_config_name"]}</Text>
       {Object.entries(config)

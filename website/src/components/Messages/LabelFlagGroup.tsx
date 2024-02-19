@@ -21,15 +21,22 @@ export const LabelFlagGroup = ({
 }: LabelFlagGroupProps) => {
   const { t } = useTranslation("labelling");
   const currentLanguage = useCurrentLocale();
-  const expectedLanguageName = getLocaleDisplayName(expectedLanguage, currentLanguage);
+  const expectedLanguageName = getLocaleDisplayName(
+    expectedLanguage,
+    currentLanguage,
+  );
   return (
     <Flex wrap="wrap" gap="4">
       {labelNames.map((name, idx) => (
         <Tooltip
           key={name}
-          label={`${t(getTypeSafei18nKey(`${name}.explanation`), `${name}.explanation`, {
-            language: expectedLanguageName,
-          })}`}
+          label={`${t(
+            getTypeSafei18nKey(`${name}.explanation`),
+            `${name}.explanation`,
+            {
+              language: expectedLanguageName,
+            },
+          )}`}
         >
           <Button
             onClick={() => {
@@ -40,7 +47,9 @@ export const LabelFlagGroup = ({
             isDisabled={!isEditable}
             colorScheme={values[idx] === 1 ? "blue" : undefined}
           >
-            {t(getTypeSafei18nKey(`${name}`), name, { language: expectedLanguageName })}
+            {t(getTypeSafei18nKey(`${name}`), name, {
+              language: expectedLanguageName,
+            })}
           </Button>
         </Tooltip>
       ))}

@@ -19,84 +19,119 @@ interface MessageTreeProps {
 }
 
 // eslint-disable-next-line react/display-name
-export const MessageTree = memo(({ tree, messageId, scrollToHighlighted }: MessageTreeProps) => {
-  const highlightedElementRef = useRef<HTMLDivElement>(null);
-  useScrollToElementOnMount(highlightedElementRef);
+export const MessageTree = memo(
+  ({ tree, messageId, scrollToHighlighted }: MessageTreeProps) => {
+    const highlightedElementRef = useRef<HTMLDivElement>(null);
+    useScrollToElementOnMount(highlightedElementRef);
 
-  const renderChildren = (children: MessageWithChildren[], depth = 1) => {
-    const hasSibling = children.length > 1;
-    return children.map((child, idx) => {
-      const hasChildren = child.children.length > 0;
-      const isLastChild = idx === children.length - 1;
-      return (
-        <Fragment key={child.id}>
-          <Box position="relative" className="box2">
-            <ConnectionCurveBottom left={{ base: toPx(-8), md: toPx(avatarSize / 2 - 1) }}></ConnectionCurveBottom>
-            <Box paddingLeft={{ md: "32px", base: "16px" }} position="relative" className="box3">
-              {hasSibling && !isLastChild && <Connection isSibling></Connection>}
-              <Box pt={`${messagePaddingTop}px`} position="relative" className="box4">
-                {hasChildren && depth < maxDepth && <Connection className="connection1"></Connection>}
-                <MessageTableEntry
-                  ref={scrollToHighlighted && child.id === messageId ? highlightedElementRef : undefined}
-                  showAuthorBadge
-                  highlight={child.id === messageId}
-                  message={child}
-                  showCreatedDate
-                ></MessageTableEntry>
+    const renderChildren = (children: MessageWithChildren[], depth = 1) => {
+      const hasSibling = children.length > 1;
+      return children.map((child, idx) => {
+        const hasChildren = child.children.length > 0;
+        const isLastChild = idx === children.length - 1;
+        return (
+          <Fragment key={child.id}>
+            <Box position="relative" className="box2">
+              <ConnectionCurveBottom
+                left={{ base: toPx(-8), md: toPx(avatarSize / 2 - 1) }}
+              ></ConnectionCurveBottom>
+              <Box
+                paddingLeft={{ md: "32px", base: "16px" }}
+                position="relative"
+                className="box3"
+              >
+                {hasSibling && !isLastChild && (
+                  <Connection isSibling></Connection>
+                )}
+                <Box
+                  pt={`${messagePaddingTop}px`}
+                  position="relative"
+                  className="box4"
+                >
+                  {hasChildren && depth < maxDepth && (
+                    <Connection className="connection1"></Connection>
+                  )}
+                  <MessageTableEntry
+                    ref={
+                      scrollToHighlighted && child.id === messageId
+                        ? highlightedElementRef
+                        : undefined
+                    }
+                    showAuthorBadge
+                    highlight={child.id === messageId}
+                    message={child}
+                    showCreatedDate
+                  ></MessageTableEntry>
+                </Box>
+                {depth < maxDepth && renderChildren(child.children, depth + 1)}
               </Box>
-              {depth < maxDepth && renderChildren(child.children, depth + 1)}
             </Box>
-          </Box>
-        </Fragment>
-      );
-    });
-  };
+          </Fragment>
+        );
+      });
+    };
 
-  return (
-    <>
-      <Box position="relative" className="root">
-        {tree.children.length > 0 && (
-          <>
-            <Box
-              className="root-connection"
-              top={{ base: toPx(0), md: toPx(8) }}
-              height={{ base: `calc(100% - ${toPx(8 + avatarSize / 2)})`, md: `calc(100% - 8px)` }}
-              position="absolute"
-              width="2px"
-              bg={connectionColor}
-              left={toPx(avatarSize / 2 - 1)}
-            ></Box>
-            <Box
-              display={{ base: "block", md: "none" }}
-              position="absolute"
-              height={`calc(100% - ${toPx(6 + avatarSize / 2)})`}
-              width={`10px`}
-              top={toPx(6 + avatarSize / 2)}
-              borderTopWidth="2px"
-              borderTopLeftRadius="10px"
-              left="-8px"
-              borderTopStyle="solid"
-              borderLeftWidth="2px"
-              borderColor={connectionColor}
-              className="root-curve"
-            ></Box>
-          </>
-        )}
-        <MessageTableEntry
-          ref={scrollToHighlighted && tree.id === messageId ? highlightedElementRef : undefined}
-          showAuthorBadge
-          message={tree}
-          highlight={tree.id === messageId}
-          showCreatedDate
-        />
-      </Box>
-      {renderChildren(tree.children)}
-    </>
+    return (
+      <>
+        <Box position="relative" className="root">
+          {tree.children.length > 0 && (
+            <>
+              <Box
+                className="root-connection"
+                top={{ base: toPx(0), md: toPx(8) }}
+                height={{
+                  base: `calc(100% - ${toPx(8 + avatarSize / 2)})`,
+                  md: `calc(100% - 8px)`,
+                }}
+                position="absolute"
+                width="2px"
+                bg={connectionColor}
+                left={toPx(avatarSize / 2 - 1)}
+              ></Box>
+              <Box
+                display={{ base: "block", md: "none" }}
+                position="absolute"
+                height={`calc(100% - ${toPx(6 + avatarSize / 2)})`}
+                width={`10px`}
+                top={toPx(6 + avatarSize / 2)}
+                borderTopWidth="2px"
+                borderTopLeftRadius="10px"
+                left="-8px"
+                borderTopStyle="solid"
+                borderLeftWidth="2px"
+                borderColor={connectionColor}
+                className="root-curve"
+              ></Box>
+            </>
+          )}
+          <MessageTableEntry
+            ref={
+              scrollToHighlighted && tree.id === messageId
+                ? highlightedElementRef
+                : undefined
+            }
+            showAuthorBadge
+            message={tree}
+            highlight={tree.id === messageId}
+            showCreatedDate
+          />
+        </Box>
+        {renderChildren(tree.children)}
+      </>
+    );
+  },
+);
+
+const Connection = ({
+  className,
+  isSibling = false,
+}: {
+  isSibling?: boolean;
+  className?: string;
+}) => {
+  const baseTop = toPx(
+    messagePaddingTop + avatarSize / 2 + 6 - (isSibling ? 10 : 0),
   );
-});
-
-const Connection = ({ className, isSibling = false }: { isSibling?: boolean; className?: string }) => {
-  const baseTop = toPx(messagePaddingTop + avatarSize / 2 + 6 - (isSibling ? 10 : 0));
   const mdTop = toPx(messagePaddingTop + avatarSize / 2 - (isSibling ? 6 : 0));
   return (
     <Box

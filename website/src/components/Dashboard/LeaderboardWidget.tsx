@@ -10,8 +10,14 @@ export function LeaderboardWidget() {
     <main className="h-fit col-span-3">
       <div className="flex flex-col gap-4">
         <div className="flex items-end justify-between">
-          <Text className="text-2xl font-bold">{t("top_5_contributors_today")}</Text>
-          <Link as={NextLink} href="/leaderboard" _hover={{ textDecoration: "none" }}>
+          <Text className="text-2xl font-bold">
+            {t("top_5_contributors_today")}
+          </Text>
+          <Link
+            as={NextLink}
+            href="/leaderboard"
+            _hover={{ textDecoration: "none" }}
+          >
             <Text color="blue.400" className="text-sm font-bold">
               {t("view_all")} -&gt;
             </Text>
@@ -19,7 +25,12 @@ export function LeaderboardWidget() {
         </div>
         <Card>
           <CardBody>
-            <LeaderboardTable timeFrame={LeaderboardTimeFrame.day} limit={5} rowPerPage={5} hideCurrentUserRanking />
+            <LeaderboardTable
+              timeFrame={LeaderboardTimeFrame.day}
+              limit={5}
+              rowPerPage={5}
+              hideCurrentUserRanking
+            />
           </CardBody>
         </Card>
       </div>

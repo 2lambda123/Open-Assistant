@@ -21,19 +21,18 @@ export default {
     var shard = client.shard.client.options.shards[0] + 1;
 
     await commandType.load(interaction);
-    var totalGuildsR = await client.shard.fetchClientValues(
-      "guilds.cache.size"
-    );
+    var totalGuildsR =
+      await client.shard.fetchClientValues("guilds.cache.size");
     const totalGuilds = totalGuildsR.reduce(
       (acc, guildCount) => acc + guildCount,
-      0
+      0,
     );
     var totalMembersR = await client.shard.broadcastEval((c) =>
-      c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)
+      c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0),
     );
     const totalMembers = totalMembersR.reduce(
       (acc, memberCount) => acc + memberCount,
-      0
+      0,
     );
 
     var embed = new EmbedBuilder()
@@ -77,7 +76,7 @@ export default {
         {
           name: "RAM Usage",
           value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(
-            2
+            2,
           )} MB`,
           inline: true,
         },
@@ -92,7 +91,7 @@ export default {
       new ButtonBuilder()
         .setLabel("Add me")
         .setURL(
-          `https://discord.com/api/oauth2/authorize?client_id=${client.id}&permissions=281357371712&scope=bot%20applications.commands`
+          `https://discord.com/api/oauth2/authorize?client_id=${client.id}&permissions=281357371712&scope=bot%20applications.commands`,
         )
         .setStyle(ButtonStyle.Link),
       new ButtonBuilder()
@@ -102,7 +101,7 @@ export default {
       new ButtonBuilder()
         .setLabel("Github Repo")
         .setURL("https://github.com/LAION-AI/Open-Assistant")
-        .setStyle(ButtonStyle.Link)
+        .setStyle(ButtonStyle.Link),
     );
     await commandType.reply(interaction, {
       embeds: [embed],

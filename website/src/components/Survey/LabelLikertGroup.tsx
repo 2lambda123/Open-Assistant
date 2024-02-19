@@ -19,7 +19,10 @@ interface LabelInfo {
   inverted: boolean;
 }
 
-export const getLabelInfo = (label: string, t: (key: string) => string): LabelInfo => {
+export const getLabelInfo = (
+  label: string,
+  t: (key: string) => string,
+): LabelInfo => {
   switch (label) {
     case "spam":
       return {
@@ -63,7 +66,10 @@ export const getLabelInfo = (label: string, t: (key: string) => string): LabelIn
         zeroText: t("safe"),
         zeroDescription: [],
         oneText: t("harmful"),
-        oneDescription: [t("harmful.one_desc.line_1"), t("harmful.one_desc.line_2")],
+        oneDescription: [
+          t("harmful.one_desc.line_1"),
+          t("harmful.one_desc.line_2"),
+        ],
         inverted: true,
       };
     case "sexual_content":
@@ -111,7 +117,10 @@ export const getLabelInfo = (label: string, t: (key: string) => string): LabelIn
         zeroText: t("safe"),
         zeroDescription: [],
         oneText: t("hateful"),
-        oneDescription: [t("hateful.one_desc.line_1"), t("hateful.one_desc.line_2")],
+        oneDescription: [
+          t("hateful.one_desc.line_1"),
+          t("hateful.one_desc.line_2"),
+        ],
         inverted: true,
       };
     case "threat":
@@ -167,7 +176,10 @@ export const getLabelInfo = (label: string, t: (key: string) => string): LabelIn
         zeroText: t("ordinary"),
         zeroDescription: [],
         oneText: t("creative"),
-        oneDescription: [t("creative.one_desc.line_1"), t("creative.one_desc.line_2")],
+        oneDescription: [
+          t("creative.one_desc.line_1"),
+          t("creative.one_desc.line_2"),
+        ],
         inverted: false,
       };
     default:
@@ -181,25 +193,44 @@ export const getLabelInfo = (label: string, t: (key: string) => string): LabelIn
   }
 };
 
-export const LabelLikertGroup = ({ labelIDs, onChange, isEditable = true }: LabelInputGroupProps) => {
+export const LabelLikertGroup = ({
+  labelIDs,
+  onChange,
+  isEditable = true,
+}: LabelInputGroupProps) => {
   const { t } = useTranslation("labelling");
-  const [labelValues, setLabelValues] = useState<number[]>(Array.from({ length: labelIDs.length }).map(() => null));
+  const [labelValues, setLabelValues] = useState<number[]>(
+    Array.from({ length: labelIDs.length }).map(() => null),
+  );
 
   const cardColor = useColorModeValue("gray.50", "gray.800");
 
   return (
     <Grid templateColumns={"minmax(min-content, 30em)"} rowGap={2}>
       {labelIDs.map((labelId, idx) => {
-        const { zeroText, oneText, zeroDescription, oneDescription, inverted } = getLabelInfo(labelId, t);
+        const { zeroText, oneText, zeroDescription, oneDescription, inverted } =
+          getLabelInfo(labelId, t);
 
         let textA = zeroText;
         let textB = oneText;
         let descriptionA = zeroDescription;
         let descriptionB = oneDescription;
-        if (inverted) [textA, textB, descriptionA, descriptionB] = [textB, textA, descriptionB, descriptionA];
+        if (inverted)
+          [textA, textB, descriptionA, descriptionB] = [
+            textB,
+            textA,
+            descriptionB,
+            descriptionA,
+          ];
 
         return (
-          <Box key={idx} padding={2} bg={cardColor} borderRadius="md" position="relative">
+          <Box
+            key={idx}
+            padding={2}
+            bg={cardColor}
+            borderRadius="md"
+            position="relative"
+          >
             <Grid
               templateColumns={{
                 base: "minmax(0, 1fr) minmax(0, 1fr)",
@@ -209,25 +240,39 @@ export const LabelLikertGroup = ({ labelIDs, onChange, isEditable = true }: Labe
             >
               <Text as="div" display="flex" alignItems="center">
                 {textA}
-                {descriptionA.length > 0 ? <Explain explanation={descriptionA} /> : null}
+                {descriptionA.length > 0 ? (
+                  <Explain explanation={descriptionA} />
+                ) : null}
               </Text>
-              <GridItem colSpan={{ base: 2, sm: 1 }} gridColumnStart={{ base: 1, sm: 2 }} gridRow={{ base: 2, sm: 1 }}>
+              <GridItem
+                colSpan={{ base: 2, sm: 1 }}
+                gridColumnStart={{ base: 1, sm: 2 }}
+                gridRow={{ base: 2, sm: 1 }}
+              >
                 <LikertButtons
                   isDisabled={!isEditable}
                   count={5}
                   data-cy="label-options"
                   onChange={(value) => {
                     const newState = labelValues.slice();
-                    newState[idx] = value === null ? null : inverted ? 1 - value : value;
+                    newState[idx] =
+                      value === null ? null : inverted ? 1 - value : value;
                     onChange(newState);
                     setLabelValues(newState);
                   }}
                 />
               </GridItem>
               <GridItem>
-                <Text as="div" display="flex" alignItems="center" justifyContent="end">
+                <Text
+                  as="div"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="end"
+                >
                   {textB}
-                  {descriptionB.length > 0 ? <Explain explanation={descriptionB} /> : null}
+                  {descriptionB.length > 0 ? (
+                    <Explain explanation={descriptionB} />
+                  ) : null}
                 </Text>
               </GridItem>
             </Grid>

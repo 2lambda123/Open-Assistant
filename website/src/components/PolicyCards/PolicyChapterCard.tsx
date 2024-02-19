@@ -1,4 +1,11 @@
-import { Box, Flex, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 export interface ChapterInfo {
   number: string;

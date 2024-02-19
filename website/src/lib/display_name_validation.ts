@@ -8,7 +8,10 @@ export const validDisplayNameRegex = /^\S+/g;
  * @param {string} id The user's ID.
  * @returns {string} A valid display name.
  */
-export const getValidDisplayName = (displayName: string, id: string): string => {
+export const getValidDisplayName = (
+  displayName: string,
+  id: string,
+): string => {
   return !isValidDisplayName(displayName) ? id : displayName;
 };
 

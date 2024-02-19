@@ -47,9 +47,11 @@ const errorMessages: Record<SignInErrorTypes, string> = {
   OAuthCreateAccount: "Try signing in with a different account.",
   EmailCreateAccount: "Try signing in with a different account.",
   Callback: "Try signing in with a different account.",
-  OAuthAccountNotLinked: "To confirm your identity, sign in with the same account you used originally.",
+  OAuthAccountNotLinked:
+    "To confirm your identity, sign in with the same account you used originally.",
   EmailSignin: "The e-mail could not be sent.",
-  CredentialsSignin: "Sign in failed. Check the details you provided are correct.",
+  CredentialsSignin:
+    "Sign in failed. Check the details you provided are correct.",
   SessionRequired: "Please sign in to access this page.",
   InvalidCaptcha: "Invalid captcha",
   default: "Unable to sign in.",
@@ -64,7 +66,12 @@ interface SigninProps {
   cloudflareCaptchaSiteKey: string;
 }
 
-function Signin({ providers, enableEmailSignin, enableEmailSigninCaptcha, cloudflareCaptchaSiteKey }: SigninProps) {
+function Signin({
+  providers,
+  enableEmailSignin,
+  enableEmailSigninCaptcha,
+  cloudflareCaptchaSiteKey,
+}: SigninProps) {
   const router = useRouter();
   const { discord, email, google, credentials } = providers;
   const [error, setError] = useState("");
@@ -107,7 +114,9 @@ function Signin({ providers, enableEmailSignin, enableEmailSigninCaptcha, cloudf
               size="lg"
               color="white"
               leftIcon={<Discord />}
-              onClick={() => signIn(discord.id, { callbackUrl: REDIRECT_AFTER_LOGIN })}
+              onClick={() =>
+                signIn(discord.id, { callbackUrl: REDIRECT_AFTER_LOGIN })
+              }
             >
               Continue with Discord
             </Button>
@@ -120,7 +129,9 @@ function Signin({ providers, enableEmailSignin, enableEmailSigninCaptcha, cloudf
               size="lg"
               color="white"
               leftIcon={<Google />}
-              onClick={() => signIn(google.id, { callbackUrl: REDIRECT_AFTER_LOGIN })}
+              onClick={() =>
+                signIn(google.id, { callbackUrl: REDIRECT_AFTER_LOGIN })
+              }
             >
               Continue with Google
             </Button>
@@ -129,11 +140,19 @@ function Signin({ providers, enableEmailSignin, enableEmailSigninCaptcha, cloudf
         <hr className="mt-14 mb-4 h-px bg-gray-200 border-0" />
         <div className="text-center">
           By signing up you agree to our <br></br>
-          <Link href="/terms-of-service" aria-label="Terms of Service" className="hover:underline underline-offset-4">
+          <Link
+            href="/terms-of-service"
+            aria-label="Terms of Service"
+            className="hover:underline underline-offset-4"
+          >
             <b>Terms of Service</b>
           </Link>{" "}
           and{" "}
-          <Link href="/privacy-policy" aria-label="Privacy Policy" className="hover:underline underline-offset-4">
+          <Link
+            href="/privacy-policy"
+            aria-label="Privacy Policy"
+            className="hover:underline underline-offset-4"
+          >
             <b>Privacy Policy</b>
           </Link>
           .
@@ -183,7 +202,10 @@ const EmailSignInForm = ({
             variant="outline"
             size="lg"
             placeholder="Email Address"
-            {...register("email", { required: true, pattern: /[^\s@]+@[^\s@]+\.[^\s@]+/g })}
+            {...register("email", {
+              required: true,
+              pattern: /[^\s@]+@[^\s@]+\.[^\s@]+/g,
+            })}
             errorBorderColor="orange.600"
           />
           <FormErrorMessage>
@@ -253,7 +275,10 @@ const DebugSigninForm = ({ providerId }: { providerId: string }) => {
       onSubmit={handleSubmit(signinWithDebugCredentials)}
       className="border-2 border-orange-600 rounded-md p-4 relative"
     >
-      <Box bg={bgColorClass} className={`text-orange-600 absolute -top-3 left-5 px-1 z-20`}>
+      <Box
+        bg={bgColorClass}
+        className={`text-orange-600 absolute -top-3 left-5 px-1 z-20`}
+      >
         For Debugging Only
       </Box>
       <Stack>
@@ -271,10 +296,14 @@ const DebugSigninForm = ({ providerId }: { providerId: string }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<SigninProps> = async ({ locale = "en" }) => {
+export const getServerSideProps: GetServerSideProps<SigninProps> = async ({
+  locale = "en",
+}) => {
   const providers = (await getProviders())!;
   const enableEmailSignin = boolean(process.env.ENABLE_EMAIL_SIGNIN);
-  const enableEmailSigninCaptcha = boolean(process.env.ENABLE_EMAIL_SIGNIN_CAPTCHA);
+  const enableEmailSigninCaptcha = boolean(
+    process.env.ENABLE_EMAIL_SIGNIN_CAPTCHA,
+  );
   const cloudflareCaptchaSiteKey = process.env.CLOUDFLARE_CAPTCHA_SITE_KEY;
   return {
     props: {

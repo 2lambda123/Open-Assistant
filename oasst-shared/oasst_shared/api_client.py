@@ -1,4 +1,5 @@
 """API Client for interacting with the OASST backend."""
+
 import enum
 import typing as t
 from http import HTTPStatus

@@ -26,7 +26,14 @@ function CircleBackground() {
       className="animate-spin-slower"
     >
       <defs>
-        <linearGradient id={id} x1="79" y1="16" x2="105" y2="237" gradientUnits="userSpaceOnUse">
+        <linearGradient
+          id={id}
+          x1="79"
+          y1="16"
+          x2="105"
+          y2="237"
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor={gradStopColor} />
           <stop offset="1" stopColor={baseRingColor} stopOpacity="0" />
         </linearGradient>
@@ -36,7 +43,11 @@ function CircleBackground() {
         d="M1 279C1 125.465 125.465 1 279 1s278 124.465 278 278-124.465 278-278 278S1 432.535 1 279Z"
         stroke={baseRingColor}
       />
-      <path d="M1 279C1 125.465 125.465 1 279 1" stroke={`url(#${id})`} strokeLinecap="round" />
+      <path
+        d="M1 279C1 125.465 125.465 1 279 1"
+        stroke={`url(#${id})`}
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -59,7 +70,10 @@ export function CallToAction() {
       </Box>
       <Container className="relative">
         <Box className="mx-auto max-w-md sm:text-center">
-          <Text as="h2" className={`text-3xl font-medium tracking-tight sm:text-4xl ${headingColorClass}`}>
+          <Text
+            as="h2"
+            className={`text-3xl font-medium tracking-tight sm:text-4xl ${headingColorClass}`}
+          >
             {t("index:join_us_title")}
           </Text>
 
@@ -68,7 +82,11 @@ export function CallToAction() {
           </Text>
 
           <Box className="mt-8 flex justify-center" gap={["2", "4"]}>
-            <Link href="https://ykilcher.com/open-assistant-discord" rel="noreferrer" target="_blank">
+            <Link
+              href="https://ykilcher.com/open-assistant-discord"
+              rel="noreferrer"
+              target="_blank"
+            >
               <button
                 type="button"
                 className="mb-2 flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -79,7 +97,11 @@ export function CallToAction() {
                 </Text>
               </button>
             </Link>
-            <Link href="https://github.com/LAION-AI/Open-Assistant" rel="noreferrer" target="_blank">
+            <Link
+              href="https://github.com/LAION-AI/Open-Assistant"
+              rel="noreferrer"
+              target="_blank"
+            >
               <button
                 type="button"
                 className="mb-2 flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"

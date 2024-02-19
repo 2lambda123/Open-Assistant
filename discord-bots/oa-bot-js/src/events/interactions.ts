@@ -30,7 +30,7 @@ export default {
 
     if (!interact) {
       console.error(
-        `No interaction matching ${interaction.customId} was found.`
+        `No interaction matching ${interaction.customId} was found.`,
       );
       return;
     }
@@ -44,7 +44,7 @@ export default {
         arg3,
         arg4,
         arg5,
-        arg6
+        arg6,
       );
     } catch (error) {
       console.error(error);

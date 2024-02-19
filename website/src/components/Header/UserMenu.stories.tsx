@@ -24,4 +24,9 @@ const Template: ComponentStory<any> = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = { session: { data: { user: { name: "StoryBook user" } }, status: "authenticated" } };
+Default.args = {
+  session: {
+    data: { user: { name: "StoryBook user" } },
+    status: "authenticated",
+  },
+};

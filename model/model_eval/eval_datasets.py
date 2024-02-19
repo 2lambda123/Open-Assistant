@@ -37,7 +37,6 @@ class SamplingDataCollator(RankingDataCollator):
 
 
 class SamplingDataset(Dataset):
-
     """
     Dataset for loading sampling reports
     """

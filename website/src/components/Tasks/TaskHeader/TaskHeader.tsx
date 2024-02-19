@@ -1,4 +1,11 @@
-import { HStack, IconButton, Link, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  HStack,
+  IconButton,
+  Link,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { HelpCircle } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import { getTypeSafei18nKey } from "src/lib/i18n";
@@ -25,7 +32,11 @@ const TaskHeader = ({ taskType }: TaskHeaderProps) => {
           {t(getTypeSafei18nKey(`${taskType.id}.label`))}
         </Text>
         <Link href={taskType.help_link} isExternal>
-          <IconButton variant="ghost" aria-label="More Information" icon={<HelpCircle size="1em" />} />
+          <IconButton
+            variant="ghost"
+            aria-label="More Information"
+            icon={<HelpCircle size="1em" />}
+          />
         </Link>
       </HStack>
       <Text fontSize="md" color={labelColor}>

@@ -10,7 +10,13 @@ import { useTaskContext } from "src/context/TaskContext";
 import { ERROR_CODES } from "src/lib/errors";
 import { getTypeSafei18nKey } from "src/lib/i18n";
 import { OasstError } from "src/lib/oasst_api_client";
-import { BaseTask, TaskCategory, TaskContent, TaskInfo, TaskReplyValidity } from "src/types/Task";
+import {
+  BaseTask,
+  TaskCategory,
+  TaskContent,
+  TaskInfo,
+  TaskReplyValidity,
+} from "src/types/Task";
 import { CreateTaskType, LabelTaskType, RankTaskType } from "src/types/Tasks";
 
 interface EditMode {
@@ -27,7 +33,11 @@ interface SubmittedMode {
   mode: "SUBMITTED";
 }
 
-export type TaskStatus = EditMode | DefaultWarnMode | ReviewMode | SubmittedMode;
+export type TaskStatus =
+  | EditMode
+  | DefaultWarnMode
+  | ReviewMode
+  | SubmittedMode;
 
 interface NewTask {
   action: "NEW_TASK";
@@ -68,17 +78,35 @@ export const Task = () => {
   const { t } = useTranslation(["tasks", "error"]);
   const rootEl = useRef<HTMLDivElement>(null);
   const replyContent = useRef<TaskContent>(null);
-  const { rejectTask, completeTask, isLoading, task, taskInfo, isRejecting, isSubmitting } = useTaskContext();
+  const {
+    rejectTask,
+    completeTask,
+    isLoading,
+    task,
+    taskInfo,
+    isRejecting,
+    isSubmitting,
+  } = useTaskContext();
   const [taskStatus, taskEvent] = useReducer(
     (
       status: TaskStatus,
-      event: NewTask | UpdateValidity | AcceptDefault | Review | ReturnToEdit | SetSubmitted
+      event:
+        | NewTask
+        | UpdateValidity
+        | AcceptDefault
+        | Review
+        | ReturnToEdit
+        | SetSubmitted,
     ): TaskStatus => {
       switch (event.action) {
         case "NEW_TASK":
-          return status.mode !== "EDIT" ? { mode: "EDIT", replyValidity: "INVALID" } : status;
+          return status.mode !== "EDIT"
+            ? { mode: "EDIT", replyValidity: "INVALID" }
+            : status;
         case "UPDATE_VALIDITY":
-          return status.mode === "EDIT" ? { mode: "EDIT", replyValidity: event.replyValidity } : status;
+          return status.mode === "EDIT"
+            ? { mode: "EDIT", replyValidity: event.replyValidity }
+            : status;
         case "ACCEPT_DEFAULT":
           return status.mode === "DEFAULT_WARN" ? { mode: "REVIEW" } : status;
         case "REVIEW": {
@@ -110,12 +138,13 @@ export const Task = () => {
         }
       }
     },
-    { mode: "EDIT", replyValidity: "INVALID" }
+    { mode: "EDIT", replyValidity: "INVALID" },
   );
 
   const updateValidity = useCallback(
-    (replyValidity: TaskReplyValidity) => taskEvent({ action: "UPDATE_VALIDITY", replyValidity }),
-    [taskEvent]
+    (replyValidity: TaskReplyValidity) =>
+      taskEvent({ action: "UPDATE_VALIDITY", replyValidity }),
+    [taskEvent],
   );
 
   useEffect(() => {
@@ -127,7 +156,7 @@ export const Task = () => {
     (content: TaskContent) => {
       replyContent.current = content;
     },
-    [replyContent]
+    [replyContent],
   );
 
   const toast = useToast();
@@ -150,9 +179,13 @@ export const Task = () => {
 
         toast({
           status: "error",
-          description: t(getTypeSafei18nKey(`error:err_${errorCode}`), fallbackMessage, {
-            task_type: t(getTypeSafei18nKey(`tasks:${taskInfo.type}.label`)),
-          }),
+          description: t(
+            getTypeSafei18nKey(`error:err_${errorCode}`),
+            fallbackMessage,
+            {
+              task_type: t(getTypeSafei18nKey(`tasks:${taskInfo.type}.label`)),
+            },
+          ),
         });
         taskEvent({ action: "RETURN_EDIT" });
       }
@@ -204,7 +237,14 @@ export const Task = () => {
           />
         );
     }
-  }, [taskInfo, task, taskStatus.mode, onReplyChanged, updateValidity, handleKeyboardSubmit]);
+  }, [
+    taskInfo,
+    task,
+    taskStatus.mode,
+    onReplyChanged,
+    updateValidity,
+    handleKeyboardSubmit,
+  ]);
 
   return (
     <div ref={rootEl}>
@@ -222,9 +262,18 @@ export const Task = () => {
       />
       <UnchangedWarning
         show={taskStatus.mode === "DEFAULT_WARN"}
-        title={t(getTypeSafei18nKey(`${taskInfo.id}.unchanged_title`), t("default.unchanged_title"))}
-        message={t(getTypeSafei18nKey(`${taskInfo.id}.unchanged_message`), t("default.unchanged_message"))}
-        continueButtonText={t(getTypeSafei18nKey(`${taskInfo.id}.continue_anyway`), t("default.continue_anyway"))}
+        title={t(
+          getTypeSafei18nKey(`${taskInfo.id}.unchanged_title`),
+          t("default.unchanged_title"),
+        )}
+        message={t(
+          getTypeSafei18nKey(`${taskInfo.id}.unchanged_message`),
+          t("default.unchanged_message"),
+        )}
+        continueButtonText={t(
+          getTypeSafei18nKey(`${taskInfo.id}.continue_anyway`),
+          t("default.continue_anyway"),
+        )}
         onClose={() => taskEvent({ action: "RETURN_EDIT" })}
         onContinueAnyway={() => {
           taskEvent({ action: "ACCEPT_DEFAULT" });

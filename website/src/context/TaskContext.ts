@@ -12,4 +12,5 @@ export interface TaskContextType<Task extends BaseTask, ResponseContent>
 
 export const TaskContext = createContext(null);
 
-export const useTaskContext = () => useContext<TaskContextType<KnownTaskType, AllTaskReplies>>(TaskContext);
+export const useTaskContext = () =>
+  useContext<TaskContextType<KnownTaskType, AllTaskReplies>>(TaskContext);

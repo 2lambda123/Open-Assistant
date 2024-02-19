@@ -9,7 +9,9 @@ const handler = withoutRole("banned", async (req, res, token) => {
   }
   const client = createInferenceClient(token);
 
-  const data = await client.post_assistant_message(req.body as InferencePostAssistantMessageParams);
+  const data = await client.post_assistant_message(
+    req.body as InferencePostAssistantMessageParams,
+  );
 
   if (data) {
     return res.status(200).json(data);

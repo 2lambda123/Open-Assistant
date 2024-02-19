@@ -1,4 +1,5 @@
 """Guild settings."""
+
 import hikari
 import lightbulb
 from aiosqlite import Connection

@@ -50,7 +50,15 @@ const handler = withoutRole("banned", async (req, res, token) => {
 
   const user = await getBackendUserCore(token.sub);
   try {
-    await oasstApiClient.interactTask(update_type, taskId, frontendId, interaction.id, content, user!, lang);
+    await oasstApiClient.interactTask(
+      update_type,
+      taskId,
+      frontendId,
+      interaction.id,
+      content,
+      user!,
+      lang,
+    );
     return res.status(204).send("");
   } catch (err: unknown) {
     console.error(JSON.stringify(err));

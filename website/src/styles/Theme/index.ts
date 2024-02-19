@@ -89,5 +89,5 @@ export const theme = extendTheme(
         fontSize: "1rem",
       },
     },
-  })
+  }),
 );

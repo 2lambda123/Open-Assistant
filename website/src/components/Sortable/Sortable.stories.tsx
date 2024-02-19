@@ -10,14 +10,23 @@ export default {
 };
 
 const Template: Story<any> = ({ items, isEditable, isDisabled }) => {
-  return <Sortable items={items} isEditable={isEditable} isDisabled={isDisabled} className="my-8" />;
+  return (
+    <Sortable
+      items={items}
+      isEditable={isEditable}
+      isDisabled={isDisabled}
+      className="my-8"
+    />
+  );
 };
 
 const props = {
   items: [
     { text: "Who were the 8 presidents before George Washington?" },
     { text: "euirdteunvglfe23908230892309832098 AAAAAAAA" },
-    { text: "Sorry, my cat sat on my keyboard. Can you print a cat in ASCII art?" },
+    {
+      text: "Sorry, my cat sat on my keyboard. Can you print a cat in ASCII art?",
+    },
     {
       text: "This is a new line\nThis is a new line\nThis is a new line\nThis is a new line\nThis is a new line\nThis is a new line\nThis is a new line\nThis is a new line\nThis is a new line\nThis is a new line\n",
     },

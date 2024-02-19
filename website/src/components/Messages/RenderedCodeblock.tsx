@@ -46,7 +46,14 @@ export const RenderedCodeblock = ({
     <Flex pos="relative" flexDir="row" role="group">
       <Suspense
         fallback={
-          <Box as="pre" className={className} my=".5em" p="1em" bgColor="#282C34 !important" borderRadius="0.3em">
+          <Box
+            as="pre"
+            className={className}
+            my=".5em"
+            p="1em"
+            bgColor="#282C34 !important"
+            borderRadius="0.3em"
+          >
             {children}
           </Box>
         }

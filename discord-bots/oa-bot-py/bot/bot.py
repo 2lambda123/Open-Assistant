@@ -1,4 +1,5 @@
 """Bot logic."""
+
 from datetime import datetime
 
 import aiosqlite

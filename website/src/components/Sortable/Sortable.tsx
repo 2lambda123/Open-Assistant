@@ -18,7 +18,10 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import type { DragEndEvent } from "@dnd-kit/core/dist/types/events";
-import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
+import {
+  restrictToVerticalAxis,
+  restrictToWindowEdges,
+} from "@dnd-kit/modifiers";
 import {
   arrayMove,
   SortableContext,
@@ -48,7 +51,11 @@ interface SortableItem {
   item: Message;
 }
 
-export const Sortable = ({ onChange, revealSynthetic, ...props }: SortableProps) => {
+export const Sortable = ({
+  onChange,
+  revealSynthetic,
+  ...props
+}: SortableProps) => {
   const [itemsWithIds, setItemsWithIds] = useState<SortableItem[]>([]);
   const [modalText, setModalText] = useState<string | null>(null);
   useEffect(() => {
@@ -57,7 +64,7 @@ export const Sortable = ({ onChange, revealSynthetic, ...props }: SortableProps)
         item,
         id: idx + 1, // +1 because dndtoolkit has problem with "falsy" ids
         originalIndex: idx,
-      }))
+      })),
     );
   }, [props.items]);
 
@@ -68,7 +75,7 @@ export const Sortable = ({ onChange, revealSynthetic, ...props }: SortableProps)
     useSensor(MouseSensor, { activationConstraint: { distance: 10 } }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
   const { isOpen, onOpen, onClose } = useDisclosure();
   const extraClasses = props.className || "";
@@ -87,7 +94,7 @@ export const Sortable = ({ onChange, revealSynthetic, ...props }: SortableProps)
         return newArray;
       });
     },
-    [onChange]
+    [onChange],
   );
 
   return (
@@ -98,7 +105,10 @@ export const Sortable = ({ onChange, revealSynthetic, ...props }: SortableProps)
         onDragEnd={handleDragEnd}
         modifiers={[restrictToWindowEdges, restrictToVerticalAxis]}
       >
-        <SortableContext items={itemsWithIds} strategy={verticalListSortingStrategy}>
+        <SortableContext
+          items={itemsWithIds}
+          strategy={verticalListSortingStrategy}
+        >
           <Flex direction="column" gap={4} className={extraClasses}>
             {itemsWithIds.map(({ id, item }, index) => (
               <SortableItem

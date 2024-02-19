@@ -30,7 +30,7 @@ export async function initInteraction(interaction, translation, lang) {
       .setLabel("Change language")
       .setCustomId(`oa_lang-btn_n_${interaction.user.id}`)
       .setStyle(ButtonStyle.Secondary)
-      .setDisabled(false)
+      .setDisabled(false),
   );
   await interaction.editReply({
     embeds: [embed],

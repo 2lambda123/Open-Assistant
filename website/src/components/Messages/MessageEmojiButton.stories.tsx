@@ -23,7 +23,13 @@ const Template: Story<any> = ({
   disabled?: boolean;
   userReacted: boolean;
 }) => {
-  return <MessageEmojiButton emoji={{ name: emoji, count }} onClick={undefined} {...rest} />;
+  return (
+    <MessageEmojiButton
+      emoji={{ name: emoji, count }}
+      onClick={undefined}
+      {...rest}
+    />
+  );
 };
 
 export const Default = Template.bind({});

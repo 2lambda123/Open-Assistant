@@ -11,7 +11,7 @@ const msgType = {
   reply: async (msg, content) => {
     try {
       const userReactions = msg.reactions.cache.filter((reaction) =>
-        reaction.users.cache.has(process.env.CLIENT_ID)
+        reaction.users.cache.has(process.env.CLIENT_ID),
       );
       try {
         for (const reaction of userReactions.values()) {

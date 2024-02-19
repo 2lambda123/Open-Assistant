@@ -6,7 +6,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Verify() {
   const { colorMode } = useColorMode();
-  const bgColorClass = colorMode === "light" ? "bg-gray-50" : "bg-chakra-gray-900";
+  const bgColorClass =
+    colorMode === "light" ? "bg-gray-50" : "bg-chakra-gray-900";
 
   return (
     <>
@@ -14,16 +15,23 @@ export default function Verify() {
         <title>Sign Up - Open Assistant</title>
         <meta name="Sign Up" content="Sign up to access Open Assistant" />
       </Head>
-      <div className={`flex h-full justify-center items-center ${bgColorClass}`}>
+      <div
+        className={`flex h-full justify-center items-center ${bgColorClass}`}
+      >
         <div className={bgColorClass}>
-          <h1 className="text-lg">A sign-in link has been sent to your email address (likely going to spam).</h1>
+          <h1 className="text-lg">
+            A sign-in link has been sent to your email address (likely going to
+            spam).
+          </h1>
         </div>
       </div>
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = "en" }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale = "en",
+}) => {
   const csrfToken = await getCsrfToken();
   const providers = await getProviders();
   return {

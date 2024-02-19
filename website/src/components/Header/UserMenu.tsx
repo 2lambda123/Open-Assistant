@@ -70,7 +70,12 @@ export function UserMenu() {
 
   return (
     <Menu>
-      <MenuButton border="solid" borderRadius="full" borderWidth="thin" borderColor={borderColor}>
+      <MenuButton
+        border="solid"
+        borderRadius="full"
+        borderWidth="thin"
+        borderColor={borderColor}
+      >
         <Box display="flex" alignItems="center" gap="3" p="1">
           <Avatar size="sm" src={session.user.image!} />
           <Text data-cy="username" className="hidden lg:flex ltr:pr-2 rtl:pl-2">
@@ -79,7 +84,14 @@ export function UserMenu() {
         </Box>
       </MenuButton>
       <MenuList p="2" borderRadius="xl" shadow="none">
-        <Box display="flex" flexDirection="column" alignItems="center" borderRadius="md" p="1" gap="2">
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          borderRadius="md"
+          p="1"
+          gap="2"
+        >
           <Text>
             {session.user.name}
             {isAdminOrMod ? (
@@ -101,7 +113,11 @@ export function UserMenu() {
               _hover={{ textDecoration: "none" }}
             >
               <MenuItem gap="3" borderRadius="md" p="4">
-                <item.icon size="1em" className="text-blue-500" aria-hidden="true" />
+                <item.icon
+                  size="1em"
+                  className="text-blue-500"
+                  aria-hidden="true"
+                />
                 <Text>{item.name}</Text>
               </MenuItem>
             </Link>

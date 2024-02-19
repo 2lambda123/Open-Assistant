@@ -1,4 +1,5 @@
 """Work plugin for collecting user data."""
+
 import asyncio
 import typing as t
 from uuid import UUID

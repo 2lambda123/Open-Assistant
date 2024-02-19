@@ -7,7 +7,11 @@ export default withoutRole("banned", async (req, res, token) => {
     return res.status(404).end();
   }
   const client = createInferenceClient(token);
-  const { chat_id, message_id, score } = req.body as { chat_id: string; message_id: string; score: number };
+  const { chat_id, message_id, score } = req.body as {
+    chat_id: string;
+    message_id: string;
+    score: number;
+  };
   if (![-1, 0, 1].includes(score)) {
     return res.status(400).send("Invalid score");
   }

@@ -50,9 +50,17 @@ const DateDiff = ({ children }: { children: string | Date | number }) => {
   );
 };
 
-export const AdminMessageTable = ({ userId, includeUser }: { userId?: string; includeUser?: boolean }) => {
+export const AdminMessageTable = ({
+  userId,
+  includeUser,
+}: {
+  userId?: string;
+  includeUser?: boolean;
+}) => {
   const [deleteMessageId, setDeleteMessageId] = useState<string | null>(null);
-  const [undeleteMessageId, setUndeleteMessageId] = useState<string | null>(null);
+  const [undeleteMessageId, setUndeleteMessageId] = useState<string | null>(
+    null,
+  );
   const [activeMessageId, setActiveMessageId] = useState<string>();
   const { pagination, toNextPage, toPreviousPage } = useCursorPagination();
   const {
@@ -69,21 +77,20 @@ export const AdminMessageTable = ({ userId, includeUser }: { userId?: string; in
     get,
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   const data = useMemo(() => {
-    return res?.items.map((m) => ({ ...m, isActive: m.id === activeMessageId })) || [];
+    return (
+      res?.items.map((m) => ({ ...m, isActive: m.id === activeMessageId })) ||
+      []
+    );
   }, [activeMessageId, res?.items]);
 
-  const { isMutating: isDeleteMutating, trigger: deleteTrigger } = useDeleteMessage(
-    deleteMessageId!,
-    mutateMessageList
-  );
-  const { isMutating: isUndeleteMutating, trigger: undeleteTrigger } = useUndeleteMessage(
-    undeleteMessageId,
-    mutateMessageList
-  );
+  const { isMutating: isDeleteMutating, trigger: deleteTrigger } =
+    useDeleteMessage(deleteMessageId!, mutateMessageList);
+  const { isMutating: isUndeleteMutating, trigger: undeleteTrigger } =
+    useUndeleteMessage(undeleteMessageId, mutateMessageList);
 
   const { isOpen, onOpen, onClose: disclosureClose } = useDisclosure();
   const onClose = () => {
@@ -114,10 +121,19 @@ export const AdminMessageTable = ({ userId, includeUser }: { userId?: string; in
           const limit = 95;
           const text = getValue();
           const isActive = row.original.isActive;
-          const renderText = isActive ? text : text.length > limit ? `${text.slice(0, limit)}...` : text;
+          const renderText = isActive
+            ? text
+            : text.length > limit
+              ? `${text.slice(0, limit)}...`
+              : text;
 
           return (
-            <Box display="-webkit-box" wordBreak="break-all" whiteSpace="pre-wrap" w="md">
+            <Box
+              display="-webkit-box"
+              wordBreak="break-all"
+              whiteSpace="pre-wrap"
+              w="md"
+            >
               <Avatar
                 size="xs"
                 mr="2"
@@ -134,7 +150,9 @@ export const AdminMessageTable = ({ userId, includeUser }: { userId?: string; in
                   Deleted
                 </Badge>
               )}
-              {row.original.review_result === false && <Badge colorScheme="yellow">Spam</Badge>}
+              {row.original.review_result === false && (
+                <Badge colorScheme="yellow">Spam</Badge>
+              )}
             </Box>
           );
         },
@@ -142,7 +160,9 @@ export const AdminMessageTable = ({ userId, includeUser }: { userId?: string; in
 
       columnHelper.accessor("lang", {
         header: "Language",
-        cell: ({ getValue }) => <Badge textTransform="uppercase">{getValue()}</Badge>,
+        cell: ({ getValue }) => (
+          <Badge textTransform="uppercase">{getValue()}</Badge>
+        ),
       }),
       columnHelper.accessor("emojis", {
         header: "Reactions",
@@ -224,7 +244,13 @@ export const AdminMessageTable = ({ userId, includeUser }: { userId?: string; in
         },
       }),
     ];
-  }, [deleteMessageId, isDeleteMutating, isUndeleteMutating, onOpen, undeleteMessageId]);
+  }, [
+    deleteMessageId,
+    isDeleteMutating,
+    isUndeleteMutating,
+    onOpen,
+    undeleteMessageId,
+  ]);
 
   const { t } = useTranslation(["common", "message"]);
   const rowProps: DataTableRowPropsCallback<Message> = useCallback(
@@ -235,15 +261,20 @@ export const AdminMessageTable = ({ userId, includeUser }: { userId?: string; in
         },
       };
     },
-    [setActiveMessageId]
+    [setActiveMessageId],
   );
-  const columnVisibility = useMemo(() => ({ user: !!includeUser }), [includeUser]);
+  const columnVisibility = useMemo(
+    () => ({ user: !!includeUser }),
+    [includeUser],
+  );
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Confirm {deleteMessageId ? "deleting" : "undeleting"} this message</ModalHeader>
+          <ModalHeader>
+            Confirm {deleteMessageId ? "deleting" : "undeleting"} this message
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <p>
@@ -251,7 +282,8 @@ export const AdminMessageTable = ({ userId, includeUser }: { userId?: string; in
                 ? "By undeleting this message you take the risk to undelete every parent messages that may also be deleted."
                 : ""}
             </p>
-            {deleteMessageId ? "Delete" : "Are you sure to undelete"} this message? <p></p>
+            {deleteMessageId ? "Delete" : "Are you sure to undelete"} this
+            message? <p></p>
           </ModalBody>
           <ModalFooter>
             <Button variant="ghost" mr={3} onClick={onClose}>

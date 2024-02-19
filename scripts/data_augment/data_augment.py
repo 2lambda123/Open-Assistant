@@ -9,7 +9,6 @@ args:
   -- output: where to save the output
 """
 
-
 import argparse
 import json
 import random

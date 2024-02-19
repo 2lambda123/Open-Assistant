@@ -3,15 +3,21 @@ import prisma from "src/lib/prismadb";
 import { getBatchFrontendUserIdFromBackendUser } from "src/lib/users";
 import { AuthMethod } from "src/types/Providers";
 
-export const updateUsersDisplayNames = <T extends { display_name: string; username: string }>(entries: T[]) => {
+export const updateUsersDisplayNames = <
+  T extends { display_name: string; username: string },
+>(
+  entries: T[],
+) => {
   return entries.map((entry) => ({
     ...entry,
     display_name: getValidDisplayName(entry.display_name, entry.username),
   }));
 };
 
-export const updateUsersProfilePictures = async <T extends { auth_method: AuthMethod; username: string }>(
-  entires: T[]
+export const updateUsersProfilePictures = async <
+  T extends { auth_method: AuthMethod; username: string },
+>(
+  entires: T[],
 ) => {
   const frontendUserIds = await getBatchFrontendUserIdFromBackendUser(entires);
 

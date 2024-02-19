@@ -25,7 +25,9 @@ const handler = withoutRole("banned", async (req, res, token) => {
 
   // Get updated emoji
   const message = await oasstApiClient.fetch_message(messageId, user);
-  res.status(200).json({ emojis: message.emojis, user_emojis: message.user_emojis });
+  res
+    .status(200)
+    .json({ emojis: message.emojis, user_emojis: message.user_emojis });
 });
 
 export default handler;

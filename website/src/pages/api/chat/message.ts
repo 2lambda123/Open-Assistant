@@ -8,7 +8,10 @@ const handler = withoutRole("banned", async (req, res, token) => {
   }
   const client = createInferenceClient(token);
 
-  const data = await client.get_message(req.query.chat_id as string, req.query.message_id as string);
+  const data = await client.get_message(
+    req.query.chat_id as string,
+    req.query.message_id as string,
+  );
   if (data) {
     return res.status(200).json(data);
   }

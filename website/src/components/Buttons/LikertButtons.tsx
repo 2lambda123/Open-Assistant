@@ -12,7 +12,9 @@ export const LikertButtons = ({
   onChange: (value: number) => void;
   "data-cy"?: string;
 }>) => {
-  const valueMap = Object.fromEntries(Array.from({ length: count }, (_, idx) => [`${idx}`, idx / (count - 1)]));
+  const valueMap = Object.fromEntries(
+    Array.from({ length: count }, (_, idx) => [`${idx}`, idx / (count - 1)]),
+  );
 
   return (
     <RadioGroup
@@ -25,7 +27,14 @@ export const LikertButtons = ({
     >
       {Object.keys(valueMap).map((value) => {
         return (
-          <Radio key={value} value={value} borderColor="gray.400" data-cy="radio-option" size="md" padding="0.6em" />
+          <Radio
+            key={value}
+            value={value}
+            borderColor="gray.400"
+            data-cy="radio-option"
+            size="md"
+            padding="0.6em"
+          />
         );
       })}
     </RadioGroup>

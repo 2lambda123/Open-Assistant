@@ -32,11 +32,21 @@ export const MessageEmojiButton = ({
 
   const isDisabled = !!(userIsAuthor ? true : disabled);
   const showCount =
-    forceHideCount !== undefined ? !forceHideCount : (emoji.count > 0 && userReacted) || userIsAuthor || isAdminOrMod;
+    forceHideCount !== undefined
+      ? !forceHideCount
+      : (emoji.count > 0 && userReacted) || userIsAuthor || isAdminOrMod;
 
   return (
-    <BaseMessageEmojiButton onClick={onClick} isDisabled={isDisabled} emoji={EmojiIcon} checked={checked} sx={sx}>
-      {showCount && <span style={{ marginInlineEnd: "0.25em" }}>{emoji.count}</span>}
+    <BaseMessageEmojiButton
+      onClick={onClick}
+      isDisabled={isDisabled}
+      emoji={EmojiIcon}
+      checked={checked}
+      sx={sx}
+    >
+      {showCount && (
+        <span style={{ marginInlineEnd: "0.25em" }}>{emoji.count}</span>
+      )}
     </BaseMessageEmojiButton>
   );
 };

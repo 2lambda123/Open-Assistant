@@ -13,7 +13,11 @@ export default {
 const Template: Story<any> = ({ enabled, highlight, ...message }) => {
   return (
     <SessionProvider>
-      <MessageTableEntry message={message} enabled={enabled} highlight={highlight} />
+      <MessageTableEntry
+        message={message}
+        enabled={enabled}
+        highlight={highlight}
+      />
     </SessionProvider>
   );
 };

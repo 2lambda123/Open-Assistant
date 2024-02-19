@@ -11,7 +11,7 @@ import { getUserLang, setUserLang } from "../modules/open-assistant/user.js";
 import OpenAssistant from "open-assistant.js";
 var oa: OpenAssistant = new OpenAssistant(
   process.env.OA_APIKEY,
-  process.env.OA_APIURL
+  process.env.OA_APIURL,
 );
 import {
   getLocaleDisplayName,
@@ -46,7 +46,7 @@ export default {
     authorId,
     labelTag,
     labelValue,
-    labelFlag
+    labelFlag,
   ) {
     if (!interaction) return;
     var user = {
@@ -105,8 +105,8 @@ export default {
         .setTimestamp()
         .setDescription(
           `Language changed to **${getLocaleDisplayName(
-            selected
-          )} (${selected})**`
+            selected,
+          )} (${selected})**`,
         )
         .setURL("https://open-assistant.io/?ref=turing");
       interaction.editReply({
@@ -179,7 +179,7 @@ export default {
           .setMinLength(10)
           .setLabel(translation[formatTaskType(task.type)].label)
           .setPlaceholder(
-            translation[formatTaskType(task.type)].response_placeholder
+            translation[formatTaskType(task.type)].response_placeholder,
           )
           .setRequired(true)
           // Paragraph means multiple lines of text.
@@ -191,7 +191,7 @@ export default {
           .setTitle(
             translation[formatTaskType(task.type)].instruction
               ? translation[formatTaskType(task.type)].instruction
-              : translation[formatTaskType(task.type)].label
+              : translation[formatTaskType(task.type)].label,
           );
         modal.addComponents(firstActionRow);
         await interaction.showModal(modal);
@@ -233,7 +233,7 @@ export default {
           new ButtonBuilder()
             .setCustomId(`oa_skip_${task.id}_${interaction.user.id}`)
             .setLabel(`${translation.skip} task`)
-            .setStyle(ButtonStyle.Danger)
+            .setStyle(ButtonStyle.Danger),
         );
         await interaction.editReply({
           embeds: [readyEmbed],
@@ -273,7 +273,7 @@ export default {
           { text: task.text },
           lang,
           task,
-          client
+          client,
         );
       }
     }
@@ -299,7 +299,7 @@ export default {
           labelTag,
           labelValue,
           user,
-          labelFlag
+          labelFlag,
         );
       }
     }

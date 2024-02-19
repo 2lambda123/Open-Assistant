@@ -5,7 +5,8 @@ import { getBackendUserCore } from "src/lib/users";
 import { BackendUserCore } from "src/types/Users";
 
 export default withoutRole("banned", async (req, res, token) => {
-  const isModOrAdmin = token.role === ROLES.ADMIN || token.role === ROLES.MODERATOR;
+  const isModOrAdmin =
+    token.role === ROLES.ADMIN || token.role === ROLES.MODERATOR;
 
   let user: BackendUserCore;
   // uid query param is only allowed for moderators and admins else it will be ignored and the user's own stats will be returned

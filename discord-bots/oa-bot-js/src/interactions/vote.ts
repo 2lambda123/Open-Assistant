@@ -23,7 +23,7 @@ export default {
     var row;
     const OA = await createInferenceClient(
       interaction.user.username,
-      interaction.user.id
+      interaction.user.id,
     );
     let score = 0;
     if (voteType == "up") {
@@ -38,7 +38,7 @@ export default {
           .setStyle(ButtonStyle.Secondary)
           .setLabel(`👎`)
           .setDisabled(true)
-          .setCustomId(`vote__down`)
+          .setCustomId(`vote__down`),
       );
     }
     if (voteType == "down") {
@@ -52,7 +52,7 @@ export default {
           .setStyle(ButtonStyle.Primary)
           .setLabel(`👎`)
           .setDisabled(true)
-          .setCustomId(`vote__down`)
+          .setCustomId(`vote__down`),
       );
     }
     let vote = await OA.vote({

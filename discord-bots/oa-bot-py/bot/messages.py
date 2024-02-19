@@ -78,15 +78,17 @@ def _ordered_list(items: list[protocol_schema.ConversationMessage]) -> str:
 def _conversation(conv: protocol_schema.Conversation) -> list[str]:
     # return "\n".join([_assistant(msg.text) if msg.is_assistant else _user(msg.text) for msg in conv.messages])
     messages = map(
-        lambda m: f"""\
+        lambda m: (
+            f"""\
 :robot: __Assistant__:
 {m.text}
 """
-        if m.is_assistant
-        else f"""\
+            if m.is_assistant
+            else f"""\
 :person_red_hair: __User__:
 {m.text}
-""",
+"""
+        ),
         conv.messages,
     )
     return list(messages)

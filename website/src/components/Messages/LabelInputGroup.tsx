@@ -45,9 +45,15 @@ export const LabelInputGroup = ({
   onChange,
 }: LabelInputGroupProps) => {
   const { t } = useTranslation(["labelling"]);
-  const yesNoIndexes = labels.map((label, idx) => (label.widget === "yes_no" ? idx : null)).filter((v) => v !== null);
-  const flagIndexes = labels.map((label, idx) => (label.widget === "flag" ? idx : null)).filter((v) => v !== null);
-  const likertIndexes = labels.map((label, idx) => (label.widget === "likert" ? idx : null)).filter((v) => v !== null);
+  const yesNoIndexes = labels
+    .map((label, idx) => (label.widget === "yes_no" ? idx : null))
+    .filter((v) => v !== null);
+  const flagIndexes = labels
+    .map((label, idx) => (label.widget === "flag" ? idx : null))
+    .filter((v) => v !== null);
+  const likertIndexes = labels
+    .map((label, idx) => (label.widget === "likert" ? idx : null))
+    .filter((v) => v !== null);
 
   const langDisplayName = getLocaleDisplayName(useCurrentLocale());
 
@@ -63,7 +69,10 @@ export const LabelInputGroup = ({
             requiredLabels={requiredLabels}
             onChange={(yesNoValues) => {
               const newValues = values.slice();
-              yesNoIndexes.forEach((idx, yesNoIndex) => (newValues[idx!] = yesNoValues[yesNoIndex]));
+              yesNoIndexes.forEach(
+                (idx, yesNoIndex) =>
+                  (newValues[idx!] = yesNoValues[yesNoIndex]),
+              );
               onChange(newValues);
             }}
           />
@@ -86,9 +95,12 @@ export const LabelInputGroup = ({
                   </Text>
                   <Text as="span">
                     {/* @ts-expect-errors getTypeSafei18nKey doesn't work*/}
-                    {`: ${t(getTypeSafei18nKey(`${labels[idx!].name}.explanation`), {
-                      language: langDisplayName,
-                    })}`}
+                    {`: ${t(
+                      getTypeSafei18nKey(`${labels[idx!].name}.explanation`),
+                      {
+                        language: langDisplayName,
+                      },
+                    )}`}
                   </Text>
                 </Fragment>
               ))}
@@ -101,7 +113,9 @@ export const LabelInputGroup = ({
             isEditable={isEditable}
             onChange={(flagValues) => {
               const newValues = values.slice();
-              flagIndexes.forEach((idx, flagIndex) => (newValues[idx!] = flagValues[flagIndex]));
+              flagIndexes.forEach(
+                (idx, flagIndex) => (newValues[idx!] = flagValues[flagIndex]),
+              );
               onChange(newValues);
             }}
           />
@@ -115,7 +129,10 @@ export const LabelInputGroup = ({
             isEditable={isEditable}
             onChange={(likertValues) => {
               const newValues = values.slice();
-              likertIndexes.forEach((idx, likertIndex) => (newValues[idx!] = likertValues[likertIndex]));
+              likertIndexes.forEach(
+                (idx, likertIndex) =>
+                  (newValues[idx!] = likertValues[likertIndex]),
+              );
               onChange(newValues);
             }}
           />

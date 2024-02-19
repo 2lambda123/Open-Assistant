@@ -97,7 +97,9 @@ const MessageDetail = () => {
                         </Tr>
                         <Tr>
                           <Td>Active</Td>
-                          <Td>{data.tree_state.active ? "Active" : "Not active"}</Td>
+                          <Td>
+                            {data.tree_state.active ? "Active" : "Not active"}
+                          </Td>
                         </Tr>
                         <Tr>
                           <Td>Origin</Td>
@@ -122,10 +124,16 @@ MessageDetail.getLayout = getAdminLayout;
 
 export default MessageDetail;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = "en" }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  locale = "en",
+}) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "labelling", "message"])),
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "labelling",
+        "message",
+      ])),
     },
   };
 };

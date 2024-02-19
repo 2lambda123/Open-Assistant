@@ -1,5 +1,14 @@
 export { getServerSideProps } from "src/lib/defaultServerSideProps";
-import { Box, Card, CardBody, Grid, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Card,
+  CardBody,
+  Grid,
+  Heading,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import React from "react";
@@ -30,7 +39,10 @@ const Team = () => {
                   <Heading as="h3" size="md">
                     {group.name}
                   </Heading>
-                  <Grid gap="6" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))">
+                  <Grid
+                    gap="6"
+                    gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+                  >
                     {group.members.map((id) => {
                       const info = people[id] ?? {};
                       return <TeamMember {...info} key={id} />;

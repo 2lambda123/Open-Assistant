@@ -13,11 +13,12 @@ const handler = withAnyRole(["admin", "moderator"], async (req, res) => {
     auth_method: "local",
   };
   const oasstApiClient = createApiClientFromUser(dummyUser);
-  const [tasksAvailabilityOutcome, statsOutcome, treeManagerOutcome] = await Promise.allSettled([
-    oasstApiClient.fetch_tasks_availability(dummyUser),
-    oasstApiClient.fetch_stats(),
-    oasstApiClient.fetch_tree_manager(),
-  ]);
+  const [tasksAvailabilityOutcome, statsOutcome, treeManagerOutcome] =
+    await Promise.allSettled([
+      oasstApiClient.fetch_tasks_availability(dummyUser),
+      oasstApiClient.fetch_stats(),
+      oasstApiClient.fetch_tree_manager(),
+    ]);
 
   const status = {
     tasksAvailability: tasksAvailabilityOutcome,

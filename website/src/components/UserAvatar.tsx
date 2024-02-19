@@ -1,8 +1,14 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
-export function UserAvatar({ displayName, avatarUrl }: { displayName: string; avatarUrl?: string }) {
+export function UserAvatar({
+  displayName,
+  avatarUrl,
+}: {
+  displayName: string;
+  avatarUrl?: string;
+}) {
   const diceBearURL = `https://api.dicebear.com/5.x/initials/png?seed=${encodeURIComponent(
-    displayName
+    displayName,
   )}&radius=50&backgroundType=gradientLinear`;
 
   const [src, setSrc] = useState(avatarUrl ? avatarUrl : diceBearURL);

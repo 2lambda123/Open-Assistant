@@ -6,6 +6,7 @@
     had to do this in a quick fashion, please tolerate the hackiness in the code
 
 """
+
 import json
 import os
 
@@ -180,7 +181,7 @@ def rallio_conversation(prefixes, tokenizer, model, top_k=2, temperature=0.7, ma
             output_scores=True,
             return_dict_in_generate=True,
             repetition_penalty=1.03,
-            use_cache=True
+            use_cache=True,
             # dialogue_collator.py line 36
         )
         gen_sequences = outputs.sequences[:, inputs["input_ids"].shape[-1] :]

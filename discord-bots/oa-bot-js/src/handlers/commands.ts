@@ -26,8 +26,8 @@ export default async function commandHandler(client) {
     } else {
       console.log(
         chalk.yellow(
-          `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
-        )
+          `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
+        ),
       );
     }
   }
@@ -38,12 +38,12 @@ export default async function commandHandler(client) {
   (async () => {
     try {
       console.log(
-        `Started refreshing ${commands.length} application (/) commands.`
+        `Started refreshing ${commands.length} application (/) commands.`,
       );
       // The put method is used to fully refresh all commands in the guild with the current set
       const data = await rest.put(
         Routes.applicationCommands(process.env.CLIENT_ID),
-        { body: commands }
+        { body: commands },
       );
 
       console.log(`Successfully reloaded application (/) commands.`);

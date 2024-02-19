@@ -19,7 +19,12 @@ export const Explain = ({ explanation }: ExplainProps) => {
   return (
     <Popover>
       <PopoverTrigger>
-        <IconButton aria-label="explanation" variant="link" size="xs" icon={<Info size="16" />}></IconButton>
+        <IconButton
+          aria-label="explanation"
+          variant="link"
+          size="xs"
+          icon={<Info size="16" />}
+        ></IconButton>
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />

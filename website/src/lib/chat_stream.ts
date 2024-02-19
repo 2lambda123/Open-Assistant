@@ -28,7 +28,10 @@ export async function handleChatEventStream({
     try {
       const chunk: InferenceEvent = JSON.parse(data);
       if (chunk.event_type === "pending") {
-        await onPending({ queuePosition: chunk.queue_position, queueSize: chunk.queue_size });
+        await onPending({
+          queuePosition: chunk.queue_position,
+          queueSize: chunk.queue_size,
+        });
       } else if (chunk.event_type === "token") {
         tokens += chunk.text;
         await onToken(tokens);

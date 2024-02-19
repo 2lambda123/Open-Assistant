@@ -1,4 +1,11 @@
-import { Box, Heading, Link, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Link,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { PolicyChapterCard } from "src/components/PolicyCards/PolicyChapterCard";
 import { PolicySectionCard } from "src/components/PolicyCards/PolicySectionCard";
@@ -175,17 +182,26 @@ const PrivacyPolicy = () => {
               Privacy Policy
             </Heading>
 
-            <Box bg={backgroundColor} p="6" pt="4" borderRadius="xl" shadow="base">
+            <Box
+              bg={backgroundColor}
+              p="6"
+              pt="4"
+              borderRadius="xl"
+              shadow="base"
+            >
               <Stack>
                 <Heading as="h3" size="lg">
                   Overview
                 </Heading>
                 <Text>
-                  We are pleased that you are interested in our work and welcome you to our website open-assistant.io.
-                  In this Privacy Policy you will learn which personal data we process when you visit our website and to
-                  what kind of purpose, and also what rights you have regarding these data. Categorically, we only store
-                  data as long as we need them. There is no legal obligation to provide us with personal data. Automated
-                  decision-making, as per Article 22 of the EU-GDPR, will not happen.
+                  We are pleased that you are interested in our work and welcome
+                  you to our website open-assistant.io. In this Privacy Policy
+                  you will learn which personal data we process when you visit
+                  our website and to what kind of purpose, and also what rights
+                  you have regarding these data. Categorically, we only store
+                  data as long as we need them. There is no legal obligation to
+                  provide us with personal data. Automated decision-making, as
+                  per Article 22 of the EU-GDPR, will not happen.
                 </Text>
               </Stack>
             </Box>
@@ -203,14 +219,25 @@ const PrivacyPolicy = () => {
             ))}
           </Stack>
 
-          <Box bg={backgroundColor} p="6" pt="4" mt="8" borderRadius="xl" shadow="base">
+          <Box
+            bg={backgroundColor}
+            p="6"
+            pt="4"
+            mt="8"
+            borderRadius="xl"
+            shadow="base"
+          >
             <Stack>
               <Heading as="h3" size="lg">
                 Submitting Requests
               </Heading>
               <Text>
                 Email:{" "}
-                <Link href="mailto:privacy@open-assistant.io" color="blue.500" fontWeight="bold">
+                <Link
+                  href="mailto:privacy@open-assistant.io"
+                  color="blue.500"
+                  fontWeight="bold"
+                >
                   privacy@open-assistant.io
                 </Link>
               </Text>

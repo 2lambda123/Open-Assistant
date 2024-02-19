@@ -34,12 +34,10 @@ const Chat = ({ id, modelInfos, messages }: ChatProps) => {
 
 Chat.getLayout = getChatLayout;
 
-export const getServerSideProps: GetServerSideProps<ChatProps, { id: string }> = async ({
-  locale = "en",
-  params,
-  req,
-  query,
-}) => {
+export const getServerSideProps: GetServerSideProps<
+  ChatProps,
+  { id: string }
+> = async ({ locale = "en", params, req, query }) => {
   if (!boolean(process.env.ENABLE_CHAT)) {
     return {
       notFound: true,
@@ -48,13 +46,18 @@ export const getServerSideProps: GetServerSideProps<ChatProps, { id: string }> =
 
   const token = await getToken({ req });
   const client = createInferenceClient(token!);
-  const [modelInfos, chat] = await Promise.all([client.get_models(), client.get_chat(query.id as string)]);
+  const [modelInfos, chat] = await Promise.all([
+    client.get_models(),
+    client.get_chat(query.id as string),
+  ]);
 
   return {
     props: {
       id: params!.id,
       modelInfos,
-      messages: chat.messages.sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at)),
+      messages: chat.messages.sort(
+        (a, b) => Date.parse(a.created_at) - Date.parse(b.created_at),
+      ),
       ...(await serverSideTranslations(locale)),
     },
   };

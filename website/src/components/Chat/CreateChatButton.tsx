@@ -7,7 +7,10 @@ import useSWRMutation from "swr/mutation";
 
 export const useCreateChat = () => {
   const router = useRouter();
-  const { trigger: newChatTrigger } = useSWRMutation<{ id: string }>(API_ROUTES.LIST_CHAT, post);
+  const { trigger: newChatTrigger } = useSWRMutation<{ id: string }>(
+    API_ROUTES.LIST_CHAT,
+    post,
+  );
   const createChat = useCallback(async () => {
     const { id } = await newChatTrigger();
     router.push(`/chat/${id}`);

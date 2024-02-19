@@ -1,11 +1,22 @@
-import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Divider, Flex, Text } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
+  Divider,
+  Flex,
+  Text,
+} from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import { memo } from "react";
 import { JsonCard } from "src/components/JsonCard";
 import { InferenceMessage, SamplingParameters } from "src/types/Chat";
 
-export const areParametersEqual = (a: SamplingParameters, b: SamplingParameters) => {
+export const areParametersEqual = (
+  a: SamplingParameters,
+  b: SamplingParameters,
+) => {
   return (
     a.top_k === b.top_k &&
     a.top_p === b.top_p &&
@@ -22,7 +33,10 @@ export const WorkParametersDisplay = memo(function WorkParametersDisplay({
   parameters: NonNullable<InferenceMessage["work_parameters"]>;
 }) {
   const { seed: _, ...rest } = parameters;
-  const model_id = parameters.model_config.model_id.replace("OpenAssistant/", "");
+  const model_id = parameters.model_config.model_id.replace(
+    "OpenAssistant/",
+    "",
+  );
   const { t } = useTranslation("chat");
 
   return (

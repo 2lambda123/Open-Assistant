@@ -30,7 +30,9 @@ export const LabelYesNoGroup = ({
             key={name}
             question={t(getTypeSafei18nKey(`${name}.question`))}
             explanation={oneDescription}
-            value={values[idx] === null ? null : values[idx] > 0.1 ? true : false}
+            value={
+              values[idx] === null ? null : values[idx] > 0.1 ? true : false
+            }
             onChange={(value) => {
               const newValues = values.slice();
               newValues[idx] = value;
@@ -75,7 +77,9 @@ const YesNoQuestion = ({
           data-cy="yes"
           isDisabled={!isEditable}
           colorScheme={value === true ? "blue" : undefined}
-          onClick={() => onChange(isRequired ? true : value === null ? true : null)}
+          onClick={() =>
+            onChange(isRequired ? true : value === null ? true : null)
+          }
         >
           {t("yes")}
         </Button>
@@ -83,7 +87,9 @@ const YesNoQuestion = ({
           data-cy="no"
           isDisabled={!isEditable}
           colorScheme={value === false ? "blue" : undefined}
-          onClick={() => onChange(isRequired ? false : value === null ? false : null)}
+          onClick={() =>
+            onChange(isRequired ? false : value === null ? false : null)
+          }
         >
           {t("no")}
         </Button>

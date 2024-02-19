@@ -1,4 +1,10 @@
-import { Box, Flex, Text, TextProps, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  TextProps,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 
 const TitleClasses: TextProps = {

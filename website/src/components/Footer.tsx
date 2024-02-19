@@ -29,7 +29,12 @@ export function Footer() {
           <Flex alignItems="center">
             <Box pr="2">
               <Link href="/" aria-label="Home">
-                <Image src="/images/logos/logo.svg" width="52" height="52" alt="logo" />
+                <Image
+                  src="/images/logos/logo.svg"
+                  width="52"
+                  height="52"
+                  alt="logo"
+                />
               </Link>
             </Box>
 
@@ -44,29 +49,55 @@ export function Footer() {
           </Flex>
 
           <nav>
-            <Box display="flex" flexDirection={["column", "row"]} gap={["6", "14"]} fontSize="sm">
+            <Box
+              display="flex"
+              flexDirection={["column", "row"]}
+              gap={["6", "14"]}
+              fontSize="sm"
+            >
               <Flex direction="column" alignItems={["center", "start"]}>
                 <Text fontWeight="bold" color={textColor}>
                   {t("legal")}
                 </Text>
-                <FooterLink href="/privacy-policy" label={t("privacy_policy")} />
-                <FooterLink href="/terms-of-service" label={t("terms_of_service")} />
+                <FooterLink
+                  href="/privacy-policy"
+                  label={t("privacy_policy")}
+                />
+                <FooterLink
+                  href="/terms-of-service"
+                  label={t("terms_of_service")}
+                />
               </Flex>
               <Flex direction="column" alignItems={["center", "start"]}>
                 <Text fontWeight="bold" color={textColor}>
                   {t("connect")}
                 </Text>
-                <FooterLink href="https://github.com/LAION-AI/Open-Assistant" label={t("github")} />
-                <FooterLink href="https://ykilcher.com/open-assistant-discord" label={t("discord")} />
-                <FooterLink href="https://huggingface.co/OpenAssistant" label={t("hugging_face")} />
+                <FooterLink
+                  href="https://github.com/LAION-AI/Open-Assistant"
+                  label={t("github")}
+                />
+                <FooterLink
+                  href="https://ykilcher.com/open-assistant-discord"
+                  label={t("discord")}
+                />
+                <FooterLink
+                  href="https://huggingface.co/OpenAssistant"
+                  label={t("hugging_face")}
+                />
               </Flex>
               <Flex direction="column" alignItems={["center", "start"]}>
                 <Text fontWeight="bold" color={textColor}>
                   {t("about")}
                 </Text>
                 <FooterLink href="/team" label={t("who_are_we")} />
-                <FooterLink href="https://projects.laion.ai/Open-Assistant" label={t("docs")} />
-                <FooterLink href="https://projects.laion.ai/Open-Assistant/docs/faq" label={t("faq")} />
+                <FooterLink
+                  href="https://projects.laion.ai/Open-Assistant"
+                  label={t("docs")}
+                />
+                <FooterLink
+                  href="https://projects.laion.ai/Open-Assistant/docs/faq"
+                  label={t("faq")}
+                />
               </Flex>
             </Box>
           </nav>
@@ -79,11 +110,20 @@ export function Footer() {
 const FooterLink = ({ href, label }: { href: string; label: string }) =>
   useMemo(
     () => (
-      <Link href={href} rel="noopener noreferrer nofollow" target="_blank" aria-label={label}>
-        <Text color="blue.500" textUnderlineOffset={2} _hover={{ textDecoration: "underline" }}>
+      <Link
+        href={href}
+        rel="noopener noreferrer nofollow"
+        target="_blank"
+        aria-label={label}
+      >
+        <Text
+          color="blue.500"
+          textUnderlineOffset={2}
+          _hover={{ textDecoration: "underline" }}
+        >
           {label}
         </Text>
       </Link>
     ),
-    [href, label]
+    [href, label],
   );

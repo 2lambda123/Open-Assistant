@@ -129,9 +129,9 @@ def extract_accepted_data(folder="biostars", merged_json_file=None):
 
         entry["INSTRUCTION"] = entry_dict["content"]
         entry["SOURCE"] = "biostars"
-        entry[
-            "METADATA"
-        ] = f'{{"uid": {entry_dict["uid"]}, "view_count": {entry_dict["view_count"]}, "vote_count": {entry_dict["vote_count"]}}}'
+        entry["METADATA"] = (
+            f'{{"uid": {entry_dict["uid"]}, "view_count": {entry_dict["view_count"]}, "vote_count": {entry_dict["vote_count"]}}}'
+        )
 
         entry_obj = answers_df[answers_df["uid"] == int(match["answer"])]
         entry_dict = entry_obj.iloc[0].to_dict()

@@ -7,7 +7,10 @@ const handler = withoutRole("banned", async (req, res, token) => {
   const user = await getBackendUserCore(token.sub);
   const oasstApiClient = createApiClientFromUser(user!);
   const userLanguage = getLanguageFromRequest(req);
-  const availableTasks = await oasstApiClient.fetch_available_tasks(user!, userLanguage);
+  const availableTasks = await oasstApiClient.fetch_available_tasks(
+    user!,
+    userLanguage,
+  );
   res.status(200).json(availableTasks);
 });
 

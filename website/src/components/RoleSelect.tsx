@@ -16,16 +16,18 @@ type RoleSelectProps = Omit<SelectProps, "defaultValue"> & {
   value?: Role;
 };
 
-export const RoleSelect = forwardRef<HTMLSelectElement, RoleSelectProps>((props, ref) => {
-  return (
-    <Select {...props} ref={ref}>
-      {Object.values(ROLES).map((role) => (
-        <option value={role} key={role}>
-          {role}
-        </option>
-      ))}
-    </Select>
-  );
-});
+export const RoleSelect = forwardRef<HTMLSelectElement, RoleSelectProps>(
+  (props, ref) => {
+    return (
+      <Select {...props} ref={ref}>
+        {Object.values(ROLES).map((role) => (
+          <option value={role} key={role}>
+            {role}
+          </option>
+        ))}
+      </Select>
+    );
+  },
+);
 
 RoleSelect.displayName = "RoleSelect";

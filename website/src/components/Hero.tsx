@@ -12,7 +12,9 @@ export function Hero() {
   const { colorMode } = useColorMode();
   const pTextColor = colorMode === "light" ? "text-gray-600" : "text-white";
   const fancyTextGradientClasses =
-    colorMode === "light" ? "from-blue-600 via-sky-400 to-blue-700" : "from-blue-500 via-sky-300 to-blue-400";
+    colorMode === "light"
+      ? "from-blue-600 via-sky-400 to-blue-700"
+      : "from-blue-500 via-sky-300 to-blue-400";
   return (
     <Box className="overflow-hidden py-20 sm:py-32 lg:pb-32 xl:pb-36">
       <Container className="">
@@ -42,7 +44,10 @@ export function Hero() {
                   {t("index:help_us_improve")}
                 </Button>
               </Link>
-              <Link href="https://huggingface.co/OpenAssistant" aria-label="Hugging face">
+              <Link
+                href="https://huggingface.co/OpenAssistant"
+                aria-label="Hugging face"
+              >
                 <Button variant="outline" px={5} py={6}>
                   {t("index:hugging_face_link")}
                 </Button>

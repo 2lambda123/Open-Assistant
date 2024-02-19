@@ -102,7 +102,7 @@ export class OasstInferenceClient {
           "Cache-Control": "no-cache, no-transform",
         },
         responseType: "stream",
-      }
+      },
     );
   }
 

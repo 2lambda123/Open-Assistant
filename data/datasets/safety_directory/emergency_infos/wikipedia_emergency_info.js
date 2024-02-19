@@ -23,7 +23,7 @@ console.log(jsonDatas);
 const element = document.createElement("a");
 element.setAttribute(
   "href",
-  "data:text/plain;charset=utf-8," + encodeURIComponent(jsonDatas)
+  "data:text/plain;charset=utf-8," + encodeURIComponent(jsonDatas),
 );
 element.setAttribute("download", "wikipedia_emergency_info.json");
 

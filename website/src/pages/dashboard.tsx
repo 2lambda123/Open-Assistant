@@ -2,7 +2,11 @@ import { Button, Card, CardBody, Flex, Heading } from "@chakra-ui/react";
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import { useMemo } from "react";
-import { LeaderboardWidget, TaskOption, WelcomeCard } from "src/components/Dashboard";
+import {
+  LeaderboardWidget,
+  TaskOption,
+  WelcomeCard,
+} from "src/components/Dashboard";
 import { getDashboardLayout } from "src/components/Layout";
 import { get } from "src/lib/api";
 import { AvailableTasks, TaskCategory } from "src/types/Task";
@@ -18,9 +22,13 @@ import useSWR from "swr";
 const Dashboard = () => {
   const { t } = useTranslation(["dashboard", "common", "tasks"]);
   const lang = useCurrentLocale();
-  const { data } = useSWR<AvailableTasks>(API_ROUTES.AVAILABLE_TASK({ lang }), get, {
-    refreshInterval: 2 * 60 * 1000, //2 minutes
-  });
+  const { data } = useSWR<AvailableTasks>(
+    API_ROUTES.AVAILABLE_TASK({ lang }),
+    get,
+    {
+      refreshInterval: 2 * 60 * 1000, //2 minutes
+    },
+  );
 
   const availableTaskTypes = useMemo(() => {
     const taskTypes = filterAvailableTasks(data ?? {});
@@ -31,7 +39,11 @@ const Dashboard = () => {
     <>
       <Head>
         <title>{`${t("dashboard")} - ${t("common:title")}`}</title>
-        <meta name="description" content="Chat with Open Assistant and provide feedback." key="description" />
+        <meta
+          name="description"
+          content="Chat with Open Assistant and provide feedback."
+          key="description"
+        />
       </Head>
       <Flex direction="column" gap="10">
         <WelcomeCard />

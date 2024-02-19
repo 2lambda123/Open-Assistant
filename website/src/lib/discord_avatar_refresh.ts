@@ -12,7 +12,8 @@ class DiscordAvatarRefresher {
       return;
     }
 
-    const { access_token, token_type, providerAccountId, provider, userId } = account;
+    const { access_token, token_type, providerAccountId, provider, userId } =
+      account;
     console.assert(provider === "discord");
 
     const lastUpdate = this.lastUpdated[providerAccountId];
@@ -46,6 +47,9 @@ class DiscordAvatarRefresher {
   }
 }
 
-const globalForRefresh = global as unknown as { discordAvatarRefresh: DiscordAvatarRefresher };
+const globalForRefresh = global as unknown as {
+  discordAvatarRefresh: DiscordAvatarRefresher;
+};
 
-export const discordAvatarRefresh = globalForRefresh.discordAvatarRefresh || new DiscordAvatarRefresher();
+export const discordAvatarRefresh =
+  globalForRefresh.discordAvatarRefresh || new DiscordAvatarRefresher();

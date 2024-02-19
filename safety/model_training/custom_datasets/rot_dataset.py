@@ -15,7 +15,6 @@ LABEL2ID = {
 
 
 class SafetyDataset(Dataset):
-
     """
     Dataset to train safety model with context and ROT from prosocial-dialog
     input format : input<ctx>context</s>

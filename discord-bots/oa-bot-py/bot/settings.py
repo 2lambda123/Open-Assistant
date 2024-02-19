@@ -1,4 +1,5 @@
 """Configuration for the bot."""
+
 from pydantic import BaseSettings, Field
 
 

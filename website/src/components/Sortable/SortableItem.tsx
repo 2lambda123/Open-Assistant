@@ -28,8 +28,12 @@ export const SortableItem = ({
   const activeBackgroundColor = useColorModeValue("gray.600", "gray.600");
   const textColor = useColorModeValue("white", "white");
 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id, disabled: !isEditable });
-  const pcListeners = { onKeyDown: listeners?.onKeyDown, onMouseDown: listeners?.onMouseDown } as SyntheticListenerMap;
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id, disabled: !isEditable });
+  const pcListeners = {
+    onKeyDown: listeners?.onKeyDown,
+    onMouseDown: listeners?.onMouseDown,
+  } as SyntheticListenerMap;
   const sx = useMemo(
     () => ({
       "&:active": {
@@ -37,7 +41,7 @@ export const SortableItem = ({
         cursor: `${isEditable ? "grabbing" : "default"}`,
       },
     }),
-    [isEditable, activeBackgroundColor, backgroundColor]
+    [isEditable, activeBackgroundColor, backgroundColor],
   );
 
   return (
@@ -59,11 +63,15 @@ export const SortableItem = ({
       aria-roledescription="sortable"
       className="relative"
     >
-      <Box pr="4">{isEditable ? <GripVertical size="20px" /> : `${index + 1}.`}</Box>
+      <Box pr="4">
+        {isEditable ? <GripVertical size="20px" /> : `${index + 1}.`}
+      </Box>
       {children}
       <div
         onClick={OpenModal}
-        onPointerDown={listeners?.onPointerDown as PointerEventHandler<HTMLDivElement>}
+        onPointerDown={
+          listeners?.onPointerDown as PointerEventHandler<HTMLDivElement>
+        }
         className="w-[67%] lg:w-[80%]  h-full  absolute ltr:left-0 rtl:right-0 top-0 touch-none"
       ></div>
       <Flex

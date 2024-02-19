@@ -1,6 +1,7 @@
 """
     High level functions for model training
 """
+
 from typing import Optional
 
 import numpy as np

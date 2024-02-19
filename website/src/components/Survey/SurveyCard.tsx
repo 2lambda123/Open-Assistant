@@ -13,7 +13,7 @@ export const SurveyCard = (props: BoxProps) => {
       ...props,
       className: clsx("p-4 sm:p-6", props.className),
     }),
-    [props]
+    [props],
   );
 
   return (

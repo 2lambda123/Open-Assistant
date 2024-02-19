@@ -1,4 +1,12 @@
-import { Box, CircularProgress, Stack, StackProps, Text, TextProps, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  CircularProgress,
+  Stack,
+  StackProps,
+  Text,
+  TextProps,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { MessageTableEntry } from "src/components/Messages/MessageTableEntry";
 import { get } from "src/lib/api";
 import { Message } from "src/types/Conversation";
@@ -29,11 +37,13 @@ export function MessageWithChildren(props: MessageWithChildrenProps) {
   const childBackgroundColor = useColorModeValue("gray.200", "gray.700");
   const { id, depth = 0, maxDepth, isOnlyChild = true } = props;
 
-  const { isLoading, data: message } = useSWRImmutable<Message>(`/api/messages/${id}`, get);
-  const { isLoading: isLoadingChildren, data: children = [] } = useSWRImmutable<Message[]>(
-    `/api/messages/${id}/children`,
-    get
+  const { isLoading, data: message } = useSWRImmutable<Message>(
+    `/api/messages/${id}`,
+    get,
   );
+  const { isLoading: isLoadingChildren, data: children = [] } = useSWRImmutable<
+    Message[]
+  >(`/api/messages/${id}/children`, get);
 
   const renderRecursive = depth < maxDepth || depth === 0;
   const isFirst = depth === 0;
@@ -51,7 +61,13 @@ export function MessageWithChildren(props: MessageWithChildrenProps) {
             <Text textAlign="left" {...MessageHeaderProps}>
               {isFirst ? "Message" : depth === 1 ? "Children" : "Ancestor"}
             </Text>
-            <Box width="fit-content" bg={backgroundColor} padding="4" borderRadius="xl" boxShadow="base">
+            <Box
+              width="fit-content"
+              bg={backgroundColor}
+              padding="4"
+              borderRadius="xl"
+              boxShadow="base"
+            >
               <MessageTableEntry enabled message={message} />
             </Box>
           </Box>
@@ -75,7 +91,9 @@ export function MessageWithChildren(props: MessageWithChildrenProps) {
           </Stack>
         ) : (
           <>
-            <Text {...MessageHeaderProps}>{isFirstOrOnly ? "Children" : "Ancestor"}</Text>
+            <Text {...MessageHeaderProps}>
+              {isFirstOrOnly ? "Children" : "Ancestor"}
+            </Text>
             <Stack {...MessageStackProps}>
               <Box
                 bg={backgroundColor}

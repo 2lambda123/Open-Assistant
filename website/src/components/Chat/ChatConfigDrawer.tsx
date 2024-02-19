@@ -39,12 +39,20 @@ export const ChatConfigDrawer = memo(function ChatConfigDrawer() {
   const { t } = useTranslation("chat");
   return (
     <>
-      <IconButton aria-label={t("config_title")} icon={<Settings />} onClick={onOpen} size="lg" borderRadius="xl" />
+      <IconButton
+        aria-label={t("config_title")}
+        icon={<Settings />}
+        onClick={onOpen}
+        size="lg"
+        borderRadius="xl"
+      />
       <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px">{t("config_title")}</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px">
+            {t("config_title")}
+          </DrawerHeader>
           <DrawerBody>
             <ChatConfigForm />
           </DrawerBody>
@@ -116,12 +124,20 @@ const ChatConfigForm = () => {
   const { t } = useTranslation("chat");
   const { modelInfos } = useChatContext();
 
-  const { control, register, reset, getValues } = useFormContext<ChatConfigFormData>();
-  const selectedModel = useWatch({ name: "model_config_name", control: control });
-  const presets = modelInfos.find((model) => model.name === selectedModel)!.parameter_configs;
+  const { control, register, reset, getValues } =
+    useFormContext<ChatConfigFormData>();
+  const selectedModel = useWatch({
+    name: "model_config_name",
+    control: control,
+  });
+  const presets = modelInfos.find(
+    (model) => model.name === selectedModel,
+  )!.parameter_configs;
   const [selectedPresetName, setSelectedPresetName] = useState(
     () =>
-      presets.find((preset) => areParametersEqual(preset.sampling_parameters, getValues()))?.name ?? customPresetName
+      presets.find((preset) =>
+        areParametersEqual(preset.sampling_parameters, getValues()),
+      )?.name ?? customPresetName,
   );
   const handlePresetChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
@@ -129,11 +145,12 @@ const ChatConfigForm = () => {
       const config =
         newPresetName === customPresetName
           ? customPresetDefaultValue
-          : presets.find((preset) => preset.name === newPresetName)!.sampling_parameters;
+          : presets.find((preset) => preset.name === newPresetName)!
+              .sampling_parameters;
       reset({ ...config, model_config_name: selectedModel });
       setSelectedPresetName(newPresetName);
     },
-    [presets, reset, selectedModel]
+    [presets, reset, selectedModel],
   );
 
   return (
@@ -192,14 +209,26 @@ type NumberInputSliderProps = {
   description?: string;
 };
 
-const ChatParameterField = memo(function ChatParameterField(props: NumberInputSliderProps) {
-  const { max = 1, precision = 2, step = 0.01, min = 0, value, isDisabled, description, name, onChange } = props;
+const ChatParameterField = memo(function ChatParameterField(
+  props: NumberInputSliderProps,
+) {
+  const {
+    max = 1,
+    precision = 2,
+    step = 0.01,
+    min = 0,
+    value,
+    isDisabled,
+    description,
+    name,
+    onChange,
+  } = props;
 
   const handleChange = useCallback(
     (val: string | number) => {
       onChange(Number(val));
     },
-    [onChange]
+    [onChange],
   );
 
   const handleShowSliderChange = useCallback(
@@ -207,7 +236,7 @@ const ChatParameterField = memo(function ChatParameterField(props: NumberInputSl
       const checked = e.target.checked;
       onChange(checked ? customPresetDefaultValue[name] : null);
     },
-    [onChange, name]
+    [onChange, name],
   );
   const label = parameterLabel[name];
   const showSlider = value !== null;
@@ -218,7 +247,10 @@ const ChatParameterField = memo(function ChatParameterField(props: NumberInputSl
         <FormLabel mb="0">
           <Tooltip label={description}>{label}</Tooltip>
         </FormLabel>
-        <Switch isChecked={showSlider} onChange={handleShowSliderChange}></Switch>
+        <Switch
+          isChecked={showSlider}
+          onChange={handleShowSliderChange}
+        ></Switch>
       </Flex>
       {showSlider && (
         <Flex gap="4">

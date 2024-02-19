@@ -162,7 +162,9 @@ export const TermsOfService = () => (
     {TermsData.map((chapter, chapterIndex) => (
       <PolicyChapterCard key={chapterIndex} chapter={chapter}>
         {chapter.sections && chapter.sections.length
-          ? chapter.sections.map((section, sectionIndex) => <PolicySectionCard key={sectionIndex} section={section} />)
+          ? chapter.sections.map((section, sectionIndex) => (
+              <PolicySectionCard key={sectionIndex} section={section} />
+            ))
           : ""}
       </PolicyChapterCard>
     ))}

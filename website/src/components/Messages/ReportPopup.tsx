@@ -42,7 +42,11 @@ export const ReportPopup = ({ messageId, show, onClose }: ReportPopupProps) => {
         <ModalHeader>{t("report_title")}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Textarea onChange={(e) => setText(e.target.value)} resize="none" placeholder={t("report_placeholder")} />
+          <Textarea
+            onChange={(e) => setText(e.target.value)}
+            resize="none"
+            placeholder={t("report_placeholder")}
+          />
         </ModalBody>
 
         <ModalFooter>

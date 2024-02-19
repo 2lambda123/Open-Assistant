@@ -1,4 +1,5 @@
 """Task plugin for testing different data collection methods."""
+
 # TODO: Delete this once user input method has been decided for final bot.
 import asyncio
 import typing as t
