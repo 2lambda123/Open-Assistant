@@ -27,7 +27,10 @@ export { getServerSideProps } from "src/lib/defaultServerSideProps";
  */
 
 const StatusIndex = () => {
-  const { data: dataStatus, error: errorStatus } = useSWRImmutable("/api/admin/status", get);
+  const { data: dataStatus, error: errorStatus } = useSWRImmutable(
+    "/api/admin/status",
+    get,
+  );
 
   const { tasksAvailability, stats, treeManager } = dataStatus || {};
 
@@ -47,9 +50,13 @@ const StatusIndex = () => {
               <Card variant="json">
                 <CardBody>
                   {tasksAvailability?.status === "fulfilled" ? (
-                    <pre>{JSON.stringify(tasksAvailability.value, null, 2)}</pre>
+                    <pre>
+                      {JSON.stringify(tasksAvailability.value, null, 2)}
+                    </pre>
                   ) : tasksAvailability?.status === "rejected" ? (
-                    <pre>{JSON.stringify(tasksAvailability.reason, null, 2)}</pre>
+                    <pre>
+                      {JSON.stringify(tasksAvailability.reason, null, 2)}
+                    </pre>
                   ) : errorStatus ? (
                     <pre>{JSON.stringify(errorStatus, null, 2)}</pre>
                   ) : (
@@ -94,7 +101,9 @@ const StatusIndex = () => {
                 </Text>
                 <Card variant="json">
                   <CardBody>
-                    <pre>{JSON.stringify(treeManager.value.state_counts, null, 2)}</pre>
+                    <pre>
+                      {JSON.stringify(treeManager.value.state_counts, null, 2)}
+                    </pre>
                   </CardBody>
                 </Card>
                 <TableContainer>
@@ -117,7 +126,15 @@ const StatusIndex = () => {
                     </Thead>
                     <Tbody>
                       {treeManager.value.message_counts.map(
-                        ({ message_tree_id, state, depth, oldest, youngest, count, goal_tree_size }) => (
+                        ({
+                          message_tree_id,
+                          state,
+                          depth,
+                          oldest,
+                          youngest,
+                          count,
+                          goal_tree_size,
+                        }) => (
                           <Tr key={message_tree_id}>
                             <Td>{message_tree_id}</Td>
                             <Td>{state}</Td>
@@ -127,7 +144,7 @@ const StatusIndex = () => {
                             <Td>{count}</Td>
                             <Td>{goal_tree_size}</Td>
                           </Tr>
-                        )
+                        ),
                       )}
                     </Tbody>
                   </Table>

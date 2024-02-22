@@ -5,6 +5,7 @@
     >> pip install fastlangid
 
 """
+
 import glob
 import json
 import random

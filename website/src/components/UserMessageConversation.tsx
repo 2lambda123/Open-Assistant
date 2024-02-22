@@ -11,13 +11,14 @@ const UserMessageConversation = () => {
   const { pagination, toNextPage, toPreviousPage } = useCursorPagination();
   const { t } = useTranslation("leaderboard");
 
-  const { data, error, isLoading } = useSWRImmutable<FetchMessagesCursorResponse>(
-    `/api/messages/user?cursor=${encodeURIComponent(pagination.cursor)}&direction=${pagination.direction}`, // If we want to show own deleted messages, add:  &include_deleted=true
-    get,
-    {
-      revalidateOnMount: true,
-    }
-  );
+  const { data, error, isLoading } =
+    useSWRImmutable<FetchMessagesCursorResponse>(
+      `/api/messages/user?cursor=${encodeURIComponent(pagination.cursor)}&direction=${pagination.direction}`, // If we want to show own deleted messages, add:  &include_deleted=true
+      get,
+      {
+        revalidateOnMount: true,
+      },
+    );
 
   if (isLoading && !data) {
     return <CircularProgress isIndeterminate />;

@@ -10,10 +10,10 @@ import { BaseMessageEmojiButton } from "../Messages/MessageEmojiButton";
 import { MessageInlineEmojiRow } from "../Messages/MessageInlineEmojiRow";
 import { ChatMessageEntry, ChatMessageEntryProps } from "./ChatMessageEntry";
 
-type ChatConversationTreeProps = { messages: InferenceMessage[]; retryingParentId: string | null } & StrictOmit<
-  ChatMessageEntryProps,
-  "message"
->;
+type ChatConversationTreeProps = {
+  messages: InferenceMessage[];
+  retryingParentId: string | null;
+} & StrictOmit<ChatMessageEntryProps, "message">;
 
 export const LAST_ASSISTANT_MESSAGE_ID = "last_assistant_message";
 
@@ -29,7 +29,11 @@ export const ChatConversationTree = memo(function ChatConversationTree({
     <>
       <ChatMessageEntry message={tree} {...props}></ChatMessageEntry>
       {tree.children.length > 0 && (
-        <TreeChildren trees={tree.children} {...props} retryingParentId={retryingParentId} />
+        <TreeChildren
+          trees={tree.children}
+          {...props}
+          retryingParentId={retryingParentId}
+        />
       )}
     </>
   );
@@ -39,16 +43,20 @@ const TreeChildren = ({
   trees,
   retryingParentId,
   ...props
-}: { trees: Tree<InferenceMessage>[]; retryingParentId: string | null } & StrictOmit<
-  ChatMessageEntryProps,
-  "message" | "canRetry"
->) => {
+}: {
+  trees: Tree<InferenceMessage>[];
+  retryingParentId: string | null;
+} & StrictOmit<ChatMessageEntryProps, "message" | "canRetry">) => {
   const [index, setIndex] = useState(trees.length - 1);
   useIsomorphicLayoutEffect(() => {
     setIndex(trees.length - 1); // always show last child
   }, [trees.length]);
 
-  const sortedTrees = useMemo(() => trees.sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at)), [trees]);
+  const sortedTrees = useMemo(
+    () =>
+      trees.sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at)),
+    [trees],
+  );
   const actualIndex = Math.min(index, trees.length - 1); // index sometimes out of bounds because useIsomorphicLayoutEffect only reset the index on the next render
 
   const currentTree = sortedTrees[actualIndex];
@@ -63,7 +71,9 @@ const TreeChildren = ({
     setIndex((i) => (i < length - 1 ? i + 1 : i));
   }, [length]);
 
-  const isRegenerating = retryingParentId !== null && trees.findIndex((t) => t.parent_id === retryingParentId) !== -1;
+  const isRegenerating =
+    retryingParentId !== null &&
+    trees.findIndex((t) => t.parent_id === retryingParentId) !== -1;
 
   if (isRegenerating && trees[0].role === "assistant") {
     return null; // this node is being regenerated, so we skip render
@@ -77,7 +87,11 @@ const TreeChildren = ({
       {...props}
       canRetry={isLeaf}
       // TODO refacor away from this dirty hack
-      id={isLeaf && currentTree.role === "assistant" ? LAST_ASSISTANT_MESSAGE_ID : undefined}
+      id={
+        isLeaf && currentTree.role === "assistant"
+          ? LAST_ASSISTANT_MESSAGE_ID
+          : undefined
+      }
       data-id={currentTree.id}
       pagingSlot={
         hasSibling ? (
@@ -109,7 +123,11 @@ const TreeChildren = ({
     <>
       {node}
       {currentTree.children.length > 0 && (
-        <TreeChildren retryingParentId={retryingParentId} trees={currentTree.children} {...props} />
+        <TreeChildren
+          retryingParentId={retryingParentId}
+          trees={currentTree.children}
+          {...props}
+        />
       )}
     </>
   );

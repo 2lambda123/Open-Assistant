@@ -30,9 +30,15 @@ export const EvaluateTask = ({
   useEffect(() => {
     if (ranking === null) {
       if (task.type === TaskType.rank_initial_prompts) {
-        onReplyChanged({ ranking: task.prompts.map((_, idx) => idx), not_rankable: notRankable });
+        onReplyChanged({
+          ranking: task.prompts.map((_, idx) => idx),
+          not_rankable: notRankable,
+        });
       } else {
-        onReplyChanged({ ranking: task.replies.map((_, idx) => idx), not_rankable: notRankable });
+        onReplyChanged({
+          ranking: task.replies.map((_, idx) => idx),
+          not_rankable: notRankable,
+        });
       }
       onValidityChanged(notRankable ? "VALID" : "DEFAULT");
     } else {
@@ -41,14 +47,19 @@ export const EvaluateTask = ({
     }
   }, [task, ranking, onReplyChanged, onValidityChanged, notRankable]);
 
-  const handleNotRankableChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setNotRankable(e.target.checked);
-  }, []);
+  const handleNotRankableChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setNotRankable(e.target.checked);
+    },
+    [],
+  );
 
   const { t } = useTranslation("tasks");
   // @notmd: I haven't test `rank_initial_prompts` type yet
   const sortableItems =
-    task.type === TaskType.rank_initial_prompts ? (task.prompts as unknown as Message[]) : task.reply_messages;
+    task.type === TaskType.rank_initial_prompts
+      ? (task.prompts as unknown as Message[])
+      : task.reply_messages;
   return (
     <div data-cy="task" data-task-type="evaluate-task">
       <Box mb="4">

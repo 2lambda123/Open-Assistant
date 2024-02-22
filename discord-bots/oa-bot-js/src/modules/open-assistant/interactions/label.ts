@@ -23,7 +23,7 @@ export async function labelInteraction(
   labelTag,
   labelValue,
   user,
-  labelFlagValue
+  labelFlagValue,
 ) {
   var translation = await getTranlation(lang);
   var task = client.tasks.find((x) => x.id == taskId);
@@ -85,7 +85,7 @@ export async function labelInteraction(
       lang,
       task,
       client,
-      messageId
+      messageId,
     );
     return;
   }
@@ -101,7 +101,7 @@ export async function labelInteraction(
       ) {
         task.labels.find((x) => x.name == labelValue).value = formatLabel(
           labelFlagValue,
-          true
+          true,
         );
       }
     } else {
@@ -153,7 +153,7 @@ export async function labelInteraction(
               if (labelTxt.question) {
                 name = labelTxt.question.replaceAll(
                   "{{language}}",
-                  getLocaleDisplayName(lang)
+                  getLocaleDisplayName(lang),
                 );
               }
               if (labelTxt.max) {
@@ -167,7 +167,7 @@ export async function labelInteraction(
               };
             }
           }
-        })
+        }),
       );
     row.addComponents(
       new ButtonBuilder()
@@ -181,7 +181,7 @@ export async function labelInteraction(
       new ButtonBuilder()
         .setCustomId(`oa_skip_${task.id}_${interaction.user.id}`)
         .setLabel(`${translation.skip} task`)
-        .setStyle(ButtonStyle.Danger)
+        .setStyle(ButtonStyle.Danger),
     );
     await interaction.editReply({
       embeds: [readyEmbed],
@@ -202,12 +202,12 @@ export async function labelInteraction(
           return {
             name: `${x.question.replaceAll(
               "{{language}}",
-              getLocaleDisplayName(lang)
+              getLocaleDisplayName(lang),
             )}`,
             value: `${x.description ? x.description : "  "}`,
             inline: false,
           };
-        })
+        }),
       );
     }
 
@@ -226,14 +226,17 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${task.id}_${
               interaction.user.id
-            }_flags_${flag.name.replaceAll("_", "-")}_${nextValue}`
+            }_flags_${flag.name.replaceAll("_", "-")}_${nextValue}`,
           )
           .setLabel(
-            flag.question.replaceAll("{{language}}", getLocaleDisplayName(lang))
+            flag.question.replaceAll(
+              "{{language}}",
+              getLocaleDisplayName(lang),
+            ),
           )
           .setStyle(
-            nextValue == 1 ? ButtonStyle.Secondary : ButtonStyle.Primary
-          )
+            nextValue == 1 ? ButtonStyle.Secondary : ButtonStyle.Primary,
+          ),
       );
     }
     row2.addComponents(
@@ -244,7 +247,7 @@ export async function labelInteraction(
       new ButtonBuilder()
         .setCustomId(`oa_label_${task.id}_${interaction.user.id}_flags_skip`)
         .setLabel(`${translation.skip} label`)
-        .setStyle(ButtonStyle.Danger)
+        .setStyle(ButtonStyle.Danger),
     );
     rows.push(row);
     embeds.push(embed);
@@ -258,8 +261,8 @@ export async function labelInteraction(
         .setTitle(
           `${lbl.question.replaceAll(
             "{{language}}",
-            getLocaleDisplayName(lang)
-          )}`
+            getLocaleDisplayName(lang),
+          )}`,
         );
       if (lbl.description) {
         embed.setDescription(`${lbl.description}`);
@@ -270,8 +273,8 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${taskId}_${interaction.user.id}_${lbl.name.replaceAll(
               "_",
-              "-"
-            )}_yes`
+              "-",
+            )}_yes`,
           )
           .setLabel(`✔`)
           .setStyle(ButtonStyle.Secondary),
@@ -279,11 +282,11 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${taskId}_${interaction.user.id}_${lbl.name.replaceAll(
               "_",
-              "-"
-            )}_no`
+              "-",
+            )}_no`,
           )
           .setLabel(`❌`)
-          .setStyle(ButtonStyle.Secondary)
+          .setStyle(ButtonStyle.Secondary),
       );
     } else if (lbl.type == "number") {
       var embed = new EmbedBuilder()
@@ -300,8 +303,8 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${taskId}_${interaction.user.id}_${lbl.name.replaceAll(
               "_",
-              "-"
-            )}_1`
+              "-",
+            )}_1`,
           )
           .setLabel(`1(${lbl.min})`)
           .setStyle(ButtonStyle.Secondary),
@@ -309,8 +312,8 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${taskId}_${interaction.user.id}_${lbl.name.replaceAll(
               "_",
-              "-"
-            )}_2`
+              "-",
+            )}_2`,
           )
           .setLabel(`2`)
           .setStyle(ButtonStyle.Secondary),
@@ -318,8 +321,8 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${taskId}_${interaction.user.id}_${lbl.name.replaceAll(
               "_",
-              "-"
-            )}_3`
+              "-",
+            )}_3`,
           )
           .setLabel(`3`)
           .setStyle(ButtonStyle.Secondary),
@@ -327,8 +330,8 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${taskId}_${interaction.user.id}_${lbl.name.replaceAll(
               "_",
-              "-"
-            )}_4`
+              "-",
+            )}_4`,
           )
           .setLabel(`4`)
           .setStyle(ButtonStyle.Secondary),
@@ -336,11 +339,11 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${taskId}_${interaction.user.id}_${lbl.name.replaceAll(
               "_",
-              "-"
-            )}_5`
+              "-",
+            )}_5`,
           )
           .setLabel(`5(${lbl.max})`)
-          .setStyle(ButtonStyle.Secondary)
+          .setStyle(ButtonStyle.Secondary),
       );
       rows.push(row);
     }
@@ -350,11 +353,11 @@ export async function labelInteraction(
           .setCustomId(
             `oa_label_${task.id}_${interaction.user.id}_${lbl.name.replaceAll(
               "_",
-              "-"
-            )}_skip`
+              "-",
+            )}_skip`,
           )
           .setLabel(`${translation.skip} label`)
-          .setStyle(ButtonStyle.Danger)
+          .setStyle(ButtonStyle.Danger),
       );
     }
   }
@@ -368,7 +371,7 @@ export async function labelInteraction(
       .setLabel("Change language")
       .setCustomId(`oa_lang-btn_n_${interaction.user.id}`)
       .setStyle(ButtonStyle.Secondary)
-      .setDisabled(false)
+      .setDisabled(false),
   );
 
   rows.push(row2);

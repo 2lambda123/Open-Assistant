@@ -18,7 +18,12 @@ export const UserStats = ({
   return (
     <SurveyCard>
       <Title>{title || t("your_stats")}</Title>
-      {[LeaderboardTimeFrame.day, LeaderboardTimeFrame.week, LeaderboardTimeFrame.month, LeaderboardTimeFrame.total]
+      {[
+        LeaderboardTimeFrame.day,
+        LeaderboardTimeFrame.week,
+        LeaderboardTimeFrame.month,
+        LeaderboardTimeFrame.total,
+      ]
         .map((key) => ({ key, values: stats[key] }))
         .filter(({ values }) => values)
         .map(({ key, values }) => (
@@ -29,19 +34,40 @@ export const UserStats = ({
                 <Entry title={t("score")} value={values.leader_score} />
                 <Entry title={t("rank")} value={values.rank} />
                 <Entry title={t("prompt")} value={values.prompts} />
-                <Entry title={t("accepted_prompts")} value={values.accepted_prompts} />
+                <Entry
+                  title={t("accepted_prompts")}
+                  value={values.accepted_prompts}
+                />
               </TableColumn>
               <TableColumn>
-                <Entry title={t("replies_assistant")} value={values.replies_assistant} />
-                <Entry title={t("accepted")} value={values.accepted_replies_assistant} />
-                <Entry title={t("replies_prompter")} value={values.replies_prompter} />
-                <Entry title={t("accepted")} value={values.accepted_replies_prompter} />
+                <Entry
+                  title={t("replies_assistant")}
+                  value={values.replies_assistant}
+                />
+                <Entry
+                  title={t("accepted")}
+                  value={values.accepted_replies_assistant}
+                />
+                <Entry
+                  title={t("replies_prompter")}
+                  value={values.replies_prompter}
+                />
+                <Entry
+                  title={t("accepted")}
+                  value={values.accepted_replies_prompter}
+                />
               </TableColumn>
               <TableColumn>
                 <Entry title={t("labels_full")} value={values.labels_full} />
-                <Entry title={t("labels_simple")} value={values.labels_simple} />
+                <Entry
+                  title={t("labels_simple")}
+                  value={values.labels_simple}
+                />
                 <Entry title={t("rankings")} value={values.rankings_total} />
-                <Entry title={t("reply_ranked_1")} value={values.reply_ranked_1} />
+                <Entry
+                  title={t("reply_ranked_1")}
+                  value={values.reply_ranked_1}
+                />
               </TableColumn>
             </Flex>
           </Box>

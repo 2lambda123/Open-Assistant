@@ -6,6 +6,10 @@ import { BackendUserCore } from "src/types/Users";
 export const createApiClientFromUser = (user: BackendUserCore) =>
   new OasstApiClient(process.env.FASTAPI_URL, process.env.FASTAPI_KEY, user);
 
-export const createApiClient = async (token: JWT) => createApiClientFromUser(await getBackendUserCore(token.sub));
+export const createApiClient = async (token: JWT) =>
+  createApiClientFromUser(await getBackendUserCore(token.sub));
 
-export const userlessApiClient = new OasstApiClient(process.env.FASTAPI_URL, process.env.FASTAPI_KEY);
+export const userlessApiClient = new OasstApiClient(
+  process.env.FASTAPI_URL,
+  process.env.FASTAPI_KEY,
+);

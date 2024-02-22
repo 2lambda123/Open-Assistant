@@ -160,7 +160,9 @@ const RenderedMarkdown = ({ markdown }: RenderedMarkdownProps) => {
   );
 };
 
-const MemorizedMarkdown = memo(function MemorizedMarkdown(props: ReactMarkdownOptions) {
+const MemorizedMarkdown = memo(function MemorizedMarkdown(
+  props: ReactMarkdownOptions,
+) {
   return (
     <Prose as="div" sx={sx}>
       <ReactMarkdown

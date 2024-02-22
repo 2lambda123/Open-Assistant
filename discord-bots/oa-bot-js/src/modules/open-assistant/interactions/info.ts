@@ -13,7 +13,7 @@ export async function infoInteraction(translation, interaction, lang) {
     .setTimestamp()
     .setTitle("Open assistant Info")
     .setDescription(
-      `${translation.blurb}${translation.blurb1}${translation.description}\n**${translation.faq_title}**`
+      `${translation.blurb}${translation.blurb1}${translation.description}\n**${translation.faq_title}**`,
     )
     .setFields(
       {
@@ -39,7 +39,7 @@ export async function infoInteraction(translation, interaction, lang) {
       {
         name: translation.faq_items.q5,
         value: translation.faq_items.a5,
-      }
+      },
     )
     .setURL("https://open-assistant.io/?ref=turing")
     .setFooter({ text: `${getLocaleDisplayName(lang)}` })
@@ -54,7 +54,7 @@ export async function infoInteraction(translation, interaction, lang) {
       .setLabel("Change language")
       .setCustomId(`oa_lang-btn_n_${interaction.user.id}`)
       .setStyle(ButtonStyle.Secondary)
-      .setDisabled(false)
+      .setDisabled(false),
   );
   await interaction.editReply({
     embeds: [embed],

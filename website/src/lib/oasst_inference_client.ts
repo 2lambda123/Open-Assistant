@@ -38,7 +38,8 @@ export class OasstInferenceClient {
   }
 
   async create_chat(): Promise<ChatItem> {
-    const create = () => this.request<ChatItem>("/chats", { method: "POST", data: "" });
+    const create = () =>
+      this.request<ChatItem>("/chats", { method: "POST", data: "" });
     try {
       return await create();
     } catch (err) {
@@ -70,27 +71,59 @@ export class OasstInferenceClient {
     return this.request(`/chats/${chat_id}`, { method: "DELETE" });
   }
 
-  post_prompter_message({ chat_id, ...data }: InferencePostPrompterMessageParams): Promise<InferenceMessage> {
-    return this.request(`/chats/${chat_id}/prompter_message`, { method: "POST", data });
-  }
-
-  post_assistant_message({ chat_id, ...data }: InferencePostAssistantMessageParams): Promise<InferenceMessage> {
-    return this.request(`/chats/${chat_id}/assistant_message`, { method: "POST", data });
-  }
-
-  stream_events({ chat_id, message_id }: { chat_id: string; message_id: string }) {
-    return this.request<Readable>(`/chats/${chat_id}/messages/${message_id}/events`, {
-      headers: {
-        Accept: "text/event-stream",
-        Connection: "keep-alive",
-        "Cache-Control": "no-cache, no-transform",
-      },
-      responseType: "stream",
+  post_prompter_message({
+    chat_id,
+    ...data
+  }: InferencePostPrompterMessageParams): Promise<InferenceMessage> {
+    return this.request(`/chats/${chat_id}/prompter_message`, {
+      method: "POST",
+      data,
     });
   }
 
-  vote({ chat_id, message_id, score }: { chat_id: string; message_id: string; score: number }) {
-    return this.request(`/chats/${chat_id}/messages/${message_id}/votes`, { method: "POST", data: { score } });
+  post_assistant_message({
+    chat_id,
+    ...data
+  }: InferencePostAssistantMessageParams): Promise<InferenceMessage> {
+    return this.request(`/chats/${chat_id}/assistant_message`, {
+      method: "POST",
+      data,
+    });
+  }
+
+  stream_events({
+    chat_id,
+    message_id,
+  }: {
+    chat_id: string;
+    message_id: string;
+  }) {
+    return this.request<Readable>(
+      `/chats/${chat_id}/messages/${message_id}/events`,
+      {
+        headers: {
+          Accept: "text/event-stream",
+          Connection: "keep-alive",
+          "Cache-Control": "no-cache, no-transform",
+        },
+        responseType: "stream",
+      },
+    );
+  }
+
+  vote({
+    chat_id,
+    message_id,
+    score,
+  }: {
+    chat_id: string;
+    message_id: string;
+    score: number;
+  }) {
+    return this.request(`/chats/${chat_id}/messages/${message_id}/votes`, {
+      method: "POST",
+      data: { score },
+    });
   }
 
   get_models() {

@@ -203,7 +203,14 @@
     },
     {
       "name": "ML engineers",
-      "members": ["theblackcat102", "sanagno", "johnflux", "dvruette", "karan4d", "jordiclive"]
+      "members": [
+        "theblackcat102",
+        "sanagno",
+        "johnflux",
+        "dvruette",
+        "karan4d",
+        "jordiclive"
+      ]
     },
     {
       "name": "Data Team",

@@ -30,7 +30,12 @@ export type UserAcceptesdTos = {
 export type Stat = {
   name: string;
   last_updated: string;
-  stats: HumanMessagesByLang | HumanMessagesByRole | MessageTreesByState | MessageTreesStatesByLang | UserAcceptesdTos;
+  stats:
+    | HumanMessagesByLang
+    | HumanMessagesByRole
+    | MessageTreesByState
+    | MessageTreesStatesByLang
+    | UserAcceptesdTos;
 };
 
 export type Stats = {

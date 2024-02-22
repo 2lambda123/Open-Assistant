@@ -16,13 +16,11 @@ import uswSWRImmutable from "swr/immutable";
 export default function Account() {
   const { t } = useTranslation(["leaderboard", "account"]);
   const { data: session } = useSession();
-  const { data: stats } = uswSWRImmutable<Partial<{ [time in LeaderboardTimeFrame]: LeaderboardEntity }>>(
-    "/api/user_stats",
-    get,
-    {
-      fallbackData: {},
-    }
-  );
+  const { data: stats } = uswSWRImmutable<
+    Partial<{ [time in LeaderboardTimeFrame]: LeaderboardEntity }>
+  >("/api/user_stats", get, {
+    fallbackData: {},
+  });
   if (!session) {
     return;
   }
@@ -37,11 +35,22 @@ export default function Account() {
         />
       </Head>
       <main className="oa-basic-theme p-6">
-        <Flex direction="column" m="auto" className="max-w-7xl" alignContent="center" gap={4}>
+        <Flex
+          direction="column"
+          m="auto"
+          className="max-w-7xl"
+          alignContent="center"
+          gap={4}
+        >
           <SurveyCard className="w-full">
             <Title>{t("your_account")}</Title>
             <Divider />
-            <Grid gridTemplateColumns="repeat(2, max-content)" alignItems="center" gap={6} py={4}>
+            <Grid
+              gridTemplateColumns="repeat(2, max-content)"
+              alignItems="center"
+              gap={6}
+              py={4}
+            >
               <Text as="b">{t("username")}</Text>
               <Flex gap={2}>
                 {session.user.name ?? t("no_username")}

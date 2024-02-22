@@ -6,7 +6,8 @@ import { buildTree } from "src/utils/buildTree";
 export default withoutRole("banned", async (req, res, token) => {
   const client = await createApiClient(token);
   const messageId = req.query.id as string;
-  const isModOrAdmin = token.role === ROLES.ADMIN || token.role === ROLES.MODERATOR;
+  const isModOrAdmin =
+    token.role === ROLES.ADMIN || token.role === ROLES.MODERATOR;
   const response = await client.fetch_message_tree(messageId, {
     include_deleted: isModOrAdmin,
     include_spam: true,
@@ -18,5 +19,8 @@ export default withoutRole("banned", async (req, res, token) => {
 
   const tree = buildTree(response.messages);
 
-  return res.json({ tree, message: response.messages.find((m) => m.id === messageId) });
+  return res.json({
+    tree,
+    message: response.messages.find((m) => m.id === messageId),
+  });
 });

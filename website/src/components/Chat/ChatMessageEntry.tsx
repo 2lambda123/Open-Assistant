@@ -14,7 +14,15 @@ import { Check, Edit, RotateCcw, ThumbsUp, X, XCircle } from "lucide-react";
 import { ThumbsDown } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
-import { forwardRef, KeyboardEvent, memo, ReactNode, useCallback, useMemo, useRef } from "react";
+import {
+  forwardRef,
+  KeyboardEvent,
+  memo,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import { InferenceMessage } from "src/types/Chat";
 
 import { BaseMessageEntry } from "../Messages/BaseMessageEntry";
@@ -22,11 +30,20 @@ import { BaseMessageEmojiButton } from "../Messages/MessageEmojiButton";
 import { MessageInlineEmojiRow } from "../Messages/MessageInlineEmojiRow";
 import { WorkParametersDisplay } from "./WorkParameters";
 
-export type EditPromptParams = { parentId: string; chatId: string; content: string };
+export type EditPromptParams = {
+  parentId: string;
+  chatId: string;
+  content: string;
+};
 
 export type ChatMessageEntryProps = {
   message: InferenceMessage;
-  onVote: (data: { newScore: number; oldScore: number; chatId: string; messageId: string }) => void;
+  onVote: (data: {
+    newScore: number;
+    oldScore: number;
+    chatId: string;
+    messageId: string;
+  }) => void;
   onRetry?: (params: { parentId: string; chatId: string }) => void;
   isSending?: boolean;
   pagingSlot?: ReactNode;
@@ -47,13 +64,21 @@ export const ChatMessageEntry = memo(function ChatMessageEntry({
   ...props
 }: ChatMessageEntryProps) {
   const { t } = useTranslation("common");
-  const { chat_id: chatId, parent_id: parentId, id: messageId, content, score, state, work_parameters } = message;
+  const {
+    chat_id: chatId,
+    parent_id: parentId,
+    id: messageId,
+    content,
+    score,
+    state,
+    work_parameters,
+  } = message;
   const handleVote = useCallback(
     (emoji: "+1" | "-1") => {
       const newScore = getNewScore(emoji, score);
       onVote({ newScore, chatId, messageId, oldScore: score });
     },
-    [chatId, messageId, onVote, score]
+    [chatId, messageId, onVote, score],
   );
 
   const handleThumbsUp = useCallback(() => {
@@ -96,20 +121,38 @@ export const ChatMessageEntry = memo(function ChatMessageEntry({
         handleEditSubmit();
       }
     },
-    [handleEditSubmit, setIsEditing]
+    [handleEditSubmit, setIsEditing],
   );
 
   return (
-    <PendingMessageEntry ref={ref} {...props} isAssistant={isAssistant} content={isEditing ? "" : content!}>
+    <PendingMessageEntry
+      ref={ref}
+      {...props}
+      isAssistant={isAssistant}
+      content={isEditing ? "" : content!}
+    >
       {!isAssistant && parentId !== null && (
-        <Box position="absolute" top={{ base: "4", md: 0 }} style={{ insetInlineEnd: `0.5rem` }}>
+        <Box
+          position="absolute"
+          top={{ base: "4", md: 0 }}
+          style={{ insetInlineEnd: `0.5rem` }}
+        >
           {isEditing ? (
             <MessageInlineEmojiRow spacing="0">
-              <BaseMessageEmojiButton emoji={Check} onClick={handleEditSubmit}></BaseMessageEmojiButton>
-              <BaseMessageEmojiButton emoji={X} onClick={setIsEditing.off}></BaseMessageEmojiButton>
+              <BaseMessageEmojiButton
+                emoji={Check}
+                onClick={handleEditSubmit}
+              ></BaseMessageEmojiButton>
+              <BaseMessageEmojiButton
+                emoji={X}
+                onClick={setIsEditing.off}
+              ></BaseMessageEmojiButton>
             </MessageInlineEmojiRow>
           ) : (
-            <BaseMessageEmojiButton emoji={Edit} onClick={setIsEditing.on}></BaseMessageEmojiButton>
+            <BaseMessageEmojiButton
+              emoji={Edit}
+              onClick={setIsEditing.on}
+            ></BaseMessageEmojiButton>
           )}
         </Box>
       )}
@@ -135,25 +178,44 @@ export const ChatMessageEntry = memo(function ChatMessageEntry({
               {(state === "pending" || state === "in_progress") && (
                 <CircularProgress isIndeterminate size="20px" title={state} />
               )}
-              {(state === "aborted_by_worker" || state === "cancelled" || state === "timeout") && (
+              {(state === "aborted_by_worker" ||
+                state === "cancelled" ||
+                state === "timeout") && (
                 <>
                   <Icon as={XCircle} color="red" />
                   <Text color="red">{`Error: ${state}`}</Text>
-                  {onRetry && !isSending && <Button onClick={handleRetry}>{t("retry")}</Button>}
+                  {onRetry && !isSending && (
+                    <Button onClick={handleRetry}>{t("retry")}</Button>
+                  )}
                 </>
               )}
               {state === "complete" && (
                 <>
-                  {canRetry && <BaseMessageEmojiButton emoji={RotateCcw} onClick={handleRetry} />}
-                  <BaseMessageEmojiButton emoji={ThumbsUp} checked={score === 1} onClick={handleThumbsUp} />
-                  <BaseMessageEmojiButton emoji={ThumbsDown} checked={score === -1} onClick={handleThumbsDown} />
+                  {canRetry && (
+                    <BaseMessageEmojiButton
+                      emoji={RotateCcw}
+                      onClick={handleRetry}
+                    />
+                  )}
+                  <BaseMessageEmojiButton
+                    emoji={ThumbsUp}
+                    checked={score === 1}
+                    onClick={handleThumbsUp}
+                  />
+                  <BaseMessageEmojiButton
+                    emoji={ThumbsDown}
+                    checked={score === -1}
+                    onClick={handleThumbsDown}
+                  />
                 </>
               )}
             </MessageInlineEmojiRow>
           )}
         </Flex>
       )}
-      {work_parameters && <WorkParametersDisplay parameters={work_parameters} />}
+      {work_parameters && (
+        <WorkParametersDisplay parameters={work_parameters} />
+      )}
     </PendingMessageEntry>
   );
 });
@@ -166,9 +228,12 @@ type PendingMessageEntryProps = {
   "data-id"?: string;
 };
 
-export const PendingMessageEntry = forwardRef<HTMLDivElement, PendingMessageEntryProps>(function PendingMessageEntry(
+export const PendingMessageEntry = forwardRef<
+  HTMLDivElement,
+  PendingMessageEntryProps
+>(function PendingMessageEntry(
   { content, isAssistant, children, ...props },
-  ref
+  ref,
 ) {
   const bgUser = useColorModeValue("white", "gray.700");
   const bgAssistant = useColorModeValue("#DFE8F1", "#42536B");
@@ -176,8 +241,12 @@ export const PendingMessageEntry = forwardRef<HTMLDivElement, PendingMessageEntr
   const image = session?.user?.image;
 
   const avatarProps = useMemo(
-    () => ({ src: isAssistant ? `/images/logos/logo.png` : image ?? "/images/temp-avatars/av1.jpg" }),
-    [isAssistant, image]
+    () => ({
+      src: isAssistant
+        ? `/images/logos/logo.png`
+        : image ?? "/images/temp-avatars/av1.jpg",
+    }),
+    [isAssistant, image],
   );
 
   return (

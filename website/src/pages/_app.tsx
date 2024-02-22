@@ -25,7 +25,12 @@ const swrConfig: SWRConfiguration = {
   revalidateOnMount: true,
 };
 
-function MyApp({ Component, pageProps: { session, ...pageProps }, cookie, env }: AppPropsWithLayout) {
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+  cookie,
+  env,
+}: AppPropsWithLayout) {
   // expose env vars on the client
   if (typeof window !== "undefined") {
     (window as unknown as { __env: BrowserEnv }).__env = env;
@@ -43,7 +48,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, cookie, env }:
   return (
     <>
       <Head>
-        <meta name="description" key="description" content={t("index:description")} />
+        <meta
+          name="description"
+          key="description"
+          content={t("index:description")}
+        />
       </Head>
       <FlagsProvider value={flags}>
         <Chakra cookie={cookie}>
@@ -63,7 +72,9 @@ MyApp.getInitialProps = ({ ctx: { req } }: AppContext): AppInitialProps => {
     env: {
       ENABLE_CHAT: boolean(process.env.ENABLE_CHAT),
       ENABLE_EMAIL_SIGNIN: boolean(process.env.ENABLE_EMAIL_SIGNIN),
-      ENABLE_EMAIL_SIGNIN_CAPTCHA: boolean(process.env.ENABLE_EMAIL_SIGNIN_CAPTCHA),
+      ENABLE_EMAIL_SIGNIN_CAPTCHA: boolean(
+        process.env.ENABLE_EMAIL_SIGNIN_CAPTCHA,
+      ),
       CLOUDFLARE_CAPTCHA_SITE_KEY: process.env.CLOUDFLARE_CAPTCHA_SITE_KEY,
       CURRENT_ANNOUNCEMENT: process.env.CURRENT_ANNOUNCEMENT,
       NODE_ENV: process.env.NODE_ENV,

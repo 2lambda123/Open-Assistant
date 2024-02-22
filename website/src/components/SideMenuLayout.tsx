@@ -1,6 +1,10 @@
 import { Box, BoxProps } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
-import { SIDE_MENU_WIDTH, SideMenu, SideMenuProps } from "src/components/SideMenu";
+import {
+  SIDE_MENU_WIDTH,
+  SideMenu,
+  SideMenuProps,
+} from "src/components/SideMenu";
 
 export const SideMenuLayout = ({
   items,

@@ -5,8 +5,7 @@ from loguru import logger
 
 
 class Printer(typing.Protocol):
-    def __call__(self, value: int) -> None:
-        ...
+    def __call__(self, value: int) -> None: ...
 
 
 def _unpack(value):

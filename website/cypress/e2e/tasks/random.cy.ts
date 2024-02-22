@@ -60,7 +60,9 @@ describe("handles random tasks", () => {
                 break;
               }
               case undefined: {
-                throw new Error("No tasks available, but at least create initial prompt expected");
+                throw new Error(
+                  "No tasks available, but at least create initial prompt expected",
+                );
               }
               default:
                 throw new Error(`Unexpected task type: ${type}`);

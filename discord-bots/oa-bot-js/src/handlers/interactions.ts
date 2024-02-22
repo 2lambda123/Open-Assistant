@@ -13,7 +13,7 @@ export default async function interactionsHandler(client) {
   const interactions = [];
   if (!client.interactions)
     return console.log(
-      chalk.yellow(`[WARNING] Missing interactions collection.`)
+      chalk.yellow(`[WARNING] Missing interactions collection.`),
     );
 
   for (const file of interactionFiles) {
@@ -26,8 +26,8 @@ export default async function interactionsHandler(client) {
     } else {
       console.log(
         chalk.yellow(
-          `[WARNING] The interaction at ${filePath} is missing a required "data" or "execute" property.`
-        )
+          `[WARNING] The interaction at ${filePath} is missing a required "data" or "execute" property.`,
+        ),
       );
     }
   }

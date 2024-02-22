@@ -2,7 +2,10 @@ import { Story } from "@storybook/react";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
 
-import { MessageConversation, MessageConversationProps } from "./MessageConversation";
+import {
+  MessageConversation,
+  MessageConversationProps,
+} from "./MessageConversation";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -10,10 +13,18 @@ export default {
   component: MessageConversation,
 };
 
-const Template: Story<any> = ({ messages, enableLink, highlightLastMessage }: MessageConversationProps) => {
+const Template: Story<any> = ({
+  messages,
+  enableLink,
+  highlightLastMessage,
+}: MessageConversationProps) => {
   return (
     <SessionProvider>
-      <MessageConversation messages={messages} enableLink={enableLink} highlightLastMessage={highlightLastMessage} />
+      <MessageConversation
+        messages={messages}
+        enableLink={enableLink}
+        highlightLastMessage={highlightLastMessage}
+      />
     </SessionProvider>
   );
 };

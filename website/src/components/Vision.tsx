@@ -9,12 +9,17 @@ const Vision = () => {
           <div>
             <h2 className="text-4xl text-white mb-6">Our Vision</h2>
             <p className="text-2xl text-gray-400">
-              We want OpenAssistant to be the single, unifying platform that all other systems use to interface with
-              humans.
+              We want OpenAssistant to be the single, unifying platform that all
+              other systems use to interface with humans.
             </p>
           </div>
           <div className="m-auto rounded-tl-[45px] rounded-br-[45px] overflow-hidden">
-            <Image src="/images/temp-avatars/av2.jpg" width={450} height={450} alt="temp-image" />
+            <Image
+              src="/images/temp-avatars/av2.jpg"
+              width={450}
+              height={450}
+              alt="temp-image"
+            />
           </div>
         </div>
       </Container>

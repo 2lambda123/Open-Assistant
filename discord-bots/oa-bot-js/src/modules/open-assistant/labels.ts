@@ -2,7 +2,7 @@ export async function getLabel(translation, previousTask: string, task) {
   var labels = await getLabels(task);
   if (previousTask) {
     var previousTaskIndex = labels.findIndex(
-      (x) => x.name == previousTask.replaceAll("-", "_")
+      (x) => x.name == previousTask.replaceAll("-", "_"),
     );
   } else {
     var previousTaskIndex = -1;

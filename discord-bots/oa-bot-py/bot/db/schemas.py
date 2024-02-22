@@ -1,4 +1,5 @@
 """Database schemas."""
+
 import typing as t
 
 from aiosqlite import Connection, Row

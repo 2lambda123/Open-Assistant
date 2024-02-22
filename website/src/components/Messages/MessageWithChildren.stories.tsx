@@ -2,7 +2,10 @@ import { Story } from "@storybook/react";
 import { rest } from "msw";
 import { SessionProvider } from "next-auth/react";
 
-import { MessageWithChildren, MessageWithChildrenProps } from "./MessageWithChildren";
+import {
+  MessageWithChildren,
+  MessageWithChildrenProps,
+} from "./MessageWithChildren";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -19,7 +22,7 @@ export default {
                 text: "Some message Text",
                 is_assistant: false,
                 id: "id-1",
-              })
+              }),
             );
           }),
           rest.get("/api/messages/id-1/children", (req, res, ctx) => {
@@ -58,7 +61,7 @@ WithChildren.parameters = {
               text: "Some child message Text",
               is_assistant: false,
               id: "id-2",
-            })
+            }),
           );
         }),
         rest.get("/api/messages/id-3", (req, res, ctx) => {
@@ -67,7 +70,7 @@ WithChildren.parameters = {
               text: "Some child message Text",
               is_assistant: false,
               id: "id-3",
-            })
+            }),
           );
         }),
         rest.get("/api/messages/id-1/children", (req, res, ctx) => {
@@ -83,7 +86,7 @@ WithChildren.parameters = {
                 is_assistant: false,
                 id: "id-3",
               },
-            ])
+            ]),
           );
         }),
         rest.get("/api/messages/id-2/children", (req, res, ctx) => {
@@ -94,7 +97,7 @@ WithChildren.parameters = {
                 is_assistant: false,
                 id: "id-4",
               },
-            ])
+            ]),
           );
         }),
         rest.get("/api/messages/id-3/children", (req, res, ctx) => {

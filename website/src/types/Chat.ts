@@ -33,7 +33,14 @@ export interface InferenceMessage {
   parent_id: string | null;
   created_at: string; //timestamp
   content: string | null;
-  state: "manual" | "pending" | "in_progress" | "complete" | "aborted_by_worker" | "cancelled" | "timeout";
+  state:
+    | "manual"
+    | "pending"
+    | "in_progress"
+    | "complete"
+    | "aborted_by_worker"
+    | "cancelled"
+    | "timeout";
   role: "assistant" | "prompter";
   score: number;
   reports: any[];
@@ -76,7 +83,11 @@ interface InferenceEventPending {
   queue_size: number;
 }
 
-export type InferenceEvent = InferenceEventMessage | InferenceEventError | InferenceEventToken | InferenceEventPending;
+export type InferenceEvent =
+  | InferenceEventMessage
+  | InferenceEventError
+  | InferenceEventToken
+  | InferenceEventPending;
 
 export type ModelInfo = {
   name: string;

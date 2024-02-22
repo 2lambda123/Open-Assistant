@@ -20,9 +20,20 @@ export const AnimatedCircles = () => {
           stroke={baseRingColor}
           strokeOpacity="0.7"
         />
-        <path d="M513 1025C230.23 1025 1 795.77 1 513" stroke={`url(#${id}-gradient-1)`} strokeLinecap="round" />
+        <path
+          d="M513 1025C230.23 1025 1 795.77 1 513"
+          stroke={`url(#${id}-gradient-1)`}
+          strokeLinecap="round"
+        />
         <defs>
-          <linearGradient id={`${id}-gradient-1`} x1="1" y1="513" x2="1" y2="1025" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id={`${id}-gradient-1`}
+            x1="1"
+            y1="513"
+            x2="1"
+            y2="1025"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop stopColor={gradStopColor} />
             <stop offset="1" stopColor={gradStopColor} stopOpacity="0" />
           </linearGradient>
@@ -39,9 +50,20 @@ export const AnimatedCircles = () => {
           stroke={baseRingColor}
           strokeOpacity="0.7"
         />
-        <path d="M913 513c0 220.914-179.086 400-400 400" stroke={`url(#${id}-gradient-2)`} strokeLinecap="round" />
+        <path
+          d="M913 513c0 220.914-179.086 400-400 400"
+          stroke={`url(#${id}-gradient-2)`}
+          strokeLinecap="round"
+        />
         <defs>
-          <linearGradient id={`gradient-2`} x1="913" y1="513" x2="913" y2="913" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id={`gradient-2`}
+            x1="913"
+            y1="513"
+            x2="913"
+            y2="913"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop stopColor={gradStopColor} />
             <stop offset="1" stopColor={gradStopColor} stopOpacity="0" />
           </linearGradient>

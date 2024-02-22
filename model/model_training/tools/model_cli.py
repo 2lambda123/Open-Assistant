@@ -61,10 +61,12 @@ if __name__ == "__main__":
             conversation_history.append(user_input)
 
             batch = tokenizer.encode(
-                format_system_prefix(args.system_prefix, tokenizer.eos_token)
-                if args.system_prefix
-                else ""
-                + "".join(format_pairs(conversation_history, tokenizer.eos_token, add_initial_reply_token=True)),
+                (
+                    format_system_prefix(args.system_prefix, tokenizer.eos_token)
+                    if args.system_prefix
+                    else ""
+                    + "".join(format_pairs(conversation_history, tokenizer.eos_token, add_initial_reply_token=True))
+                ),
                 return_tensors="pt",
             )
 

@@ -8,7 +8,10 @@ const handler = withoutRole("banned", async (req, res, token) => {
   }
   const { chat_id, message_id } = req.query;
   const client = createInferenceClient(token);
-  const stream = await client.stream_events({ chat_id: chat_id as string, message_id: message_id as string });
+  const stream = await client.stream_events({
+    chat_id: chat_id as string,
+    message_id: message_id as string,
+  });
   res.status(200);
   stream.pipe(res);
 });

@@ -15,18 +15,30 @@ import {
 import { mutate } from "swr";
 
 import { useChatContext } from "./ChatContext";
-import { ChatConversationTree, LAST_ASSISTANT_MESSAGE_ID } from "./ChatConversationTree";
+import {
+  ChatConversationTree,
+  LAST_ASSISTANT_MESSAGE_ID,
+} from "./ChatConversationTree";
 import { ChatForm } from "./ChatForm";
-import { ChatMessageEntryProps, EditPromptParams, PendingMessageEntry } from "./ChatMessageEntry";
+import {
+  ChatMessageEntryProps,
+  EditPromptParams,
+  PendingMessageEntry,
+} from "./ChatMessageEntry";
 
 interface ChatConversationProps {
   chatId: string;
   getConfigValues: UseFormGetValues<ChatConfigFormData>;
 }
 
-export const ChatConversation = memo(function ChatConversation({ chatId, getConfigValues }: ChatConversationProps) {
+export const ChatConversation = memo(function ChatConversation({
+  chatId,
+  getConfigValues,
+}: ChatConversationProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const [messages, setMessages] = useState<InferenceMessage[]>(useChatContext().messages);
+  const [messages, setMessages] = useState<InferenceMessage[]>(
+    useChatContext().messages,
+  );
 
   const [streamedResponse, setResponse] = useState<string | null>(null);
   const [queueInfo, setQueueInfo] = useState<QueueInfo | null>(null);
@@ -42,18 +54,25 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
         sampling_parameters,
       };
 
-      const assistant_message: InferenceMessage = await post(API_ROUTES.CREATE_ASSISTANT_MESSAGE, {
-        arg: assistant_arg,
-      });
+      const assistant_message: InferenceMessage = await post(
+        API_ROUTES.CREATE_ASSISTANT_MESSAGE,
+        {
+          arg: assistant_arg,
+        },
+      );
 
       // we have to do this manually since we want to stream the chunks
       // there is also EventSource, but it is callback based
-      const { body, status } = await fetch(API_ROUTES.STREAM_CHAT_MESSAGE(chatId, assistant_message.id));
+      const { body, status } = await fetch(
+        API_ROUTES.STREAM_CHAT_MESSAGE(chatId, assistant_message.id),
+      );
 
       let message: InferenceMessage | null;
       if (status === 204) {
         // message already processed, get it immediately
-        message = await get(API_ROUTES.GET_MESSAGE(chatId, assistant_message.id));
+        message = await get(
+          API_ROUTES.GET_MESSAGE(chatId, assistant_message.id),
+        );
       } else {
         message = await handleChatEventStream({
           stream: body!,
@@ -73,7 +92,7 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
       setResponse(null);
       setIsSending.off();
     },
-    [getConfigValues, setIsSending]
+    [getConfigValues, setIsSending],
   );
   const toast = useToast();
   const sendPrompterMessage = useCallback(async () => {
@@ -85,7 +104,8 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
     inputRef.current!.value = "";
 
     // TODO: maybe at some point we won't need to access the rendered HTML directly, but use react state
-    const parentId = document.getElementById(LAST_ASSISTANT_MESSAGE_ID)?.dataset.id ?? null;
+    const parentId =
+      document.getElementById(LAST_ASSISTANT_MESSAGE_ID)?.dataset.id ?? null;
     if (parentId !== null) {
       const parent = messages.find((m) => m.id === parentId);
       if (!parent) {
@@ -106,7 +126,10 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
       parent_id: parentId,
     };
 
-    const prompter_message: InferenceMessage = await post(API_ROUTES.CREATE_PROMPTER_MESSAGE, { arg: prompter_arg });
+    const prompter_message: InferenceMessage = await post(
+      API_ROUTES.CREATE_PROMPTER_MESSAGE,
+      { arg: prompter_arg },
+    );
     if (messages.length === 0) {
       // revalidte chat list after creating the first prompter message to make sure the message already has title
       mutate(API_ROUTES.LIST_CHAT);
@@ -114,12 +137,24 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
     setMessages((messages) => [...messages, prompter_message]);
 
     // after creating the prompters message, handle the assistant's case
-    await createAndFetchAssistantMessage({ parentId: prompter_message.id, chatId });
-  }, [setIsSending, chatId, messages, createAndFetchAssistantMessage, toast, isSending]);
+    await createAndFetchAssistantMessage({
+      parentId: prompter_message.id,
+      chatId,
+    });
+  }, [
+    setIsSending,
+    chatId,
+    messages,
+    createAndFetchAssistantMessage,
+    toast,
+    isSending,
+  ]);
 
   const sendVote = useMessageVote();
 
-  const [retryingParentId, setReytryingParentId] = useState<string | null>(null);
+  const [retryingParentId, setReytryingParentId] = useState<string | null>(
+    null,
+  );
 
   const handleOnRetry = useCallback(
     async (params: { parentId: string; chatId: string }) => {
@@ -128,29 +163,37 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
       await createAndFetchAssistantMessage(params);
       setReytryingParentId(null);
     },
-    [createAndFetchAssistantMessage, setIsSending]
+    [createAndFetchAssistantMessage, setIsSending],
   );
   const handleOnVote: ChatMessageEntryProps["onVote"] = useCallback(
     async ({ chatId, messageId, newScore, oldScore }) => {
       // immediately set score
       setMessages((messages) =>
         messages.map((message) => {
-          return message.id !== messageId ? message : { ...message, score: newScore };
-        })
+          return message.id !== messageId
+            ? message
+            : { ...message, score: newScore };
+        }),
       );
       try {
-        await sendVote({ chat_id: chatId, message_id: messageId, score: newScore });
+        await sendVote({
+          chat_id: chatId,
+          message_id: messageId,
+          score: newScore,
+        });
       } catch {
         // TODO maybe we should trigger a toast or something
         // revert on any error
         setMessages((messages) =>
           messages.map((message) => {
-            return message.id !== messageId ? message : { ...message, score: oldScore };
-          })
+            return message.id !== messageId
+              ? message
+              : { ...message, score: oldScore };
+          }),
         );
       }
     },
-    [sendVote]
+    [sendVote],
   );
 
   const handleEditPrompt = useCallback(
@@ -181,9 +224,14 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
       try {
         // push the dummy message first to avoid layout shift
         setMessages((messages) => [...messages, dummyMessage]);
-        prompter_message = await post(API_ROUTES.CREATE_PROMPTER_MESSAGE, { arg: prompter_arg });
+        prompter_message = await post(API_ROUTES.CREATE_PROMPTER_MESSAGE, {
+          arg: prompter_arg,
+        });
         // filter out the dummy message and push the real one
-        setMessages((messages) => [...messages.filter((m) => m.id !== "__dummy__"), prompter_message!]);
+        setMessages((messages) => [
+          ...messages.filter((m) => m.id !== "__dummy__"),
+          prompter_message!,
+        ]);
       } catch {
         // revert on any error
         // TODO consider to trigger notification
@@ -191,12 +239,15 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
       }
 
       if (prompter_message) {
-        await createAndFetchAssistantMessage({ parentId: prompter_message.id, chatId: chatId });
+        await createAndFetchAssistantMessage({
+          parentId: prompter_message.id,
+          chatId: chatId,
+        });
       }
 
       setReytryingParentId(null);
     },
-    [createAndFetchAssistantMessage, isSending, setIsSending]
+    [createAndFetchAssistantMessage, isSending, setIsSending],
   );
 
   return (
@@ -209,9 +260,16 @@ export const ChatConversation = memo(function ChatConversation({ chatId, getConf
         retryingParentId={retryingParentId}
         onEditPromtp={handleEditPrompt}
       ></ChatConversationTree>
-      {isSending && streamedResponse && <PendingMessageEntry isAssistant content={streamedResponse} />}
+      {isSending && streamedResponse && (
+        <PendingMessageEntry isAssistant content={streamedResponse} />
+      )}
 
-      <ChatForm ref={inputRef} isSending={isSending} onSubmit={sendPrompterMessage} queueInfo={queueInfo}></ChatForm>
+      <ChatForm
+        ref={inputRef}
+        isSending={isSending}
+        onSubmit={sendPrompterMessage}
+        queueInfo={queueInfo}
+      ></ChatForm>
     </Flex>
   );
 });

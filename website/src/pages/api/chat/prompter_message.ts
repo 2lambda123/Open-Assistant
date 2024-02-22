@@ -9,7 +9,9 @@ const handler = withoutRole("banned", async (req, res, token) => {
   }
   const client = createInferenceClient(token);
 
-  const data = await client.post_prompter_message(req.body as InferencePostPrompterMessageParams);
+  const data = await client.post_prompter_message(
+    req.body as InferencePostPrompterMessageParams,
+  );
 
   if (data) {
     return res.status(200).json(data);

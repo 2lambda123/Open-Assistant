@@ -1,10 +1,19 @@
-import { Box, CircularProgress, Flex, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  CircularProgress,
+  Flex,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import React, { useMemo } from "react";
 import { useHasAnyRole } from "src/hooks/auth/useHasAnyRole";
-import { LeaderboardEntity, LeaderboardReply, LeaderboardTimeFrame } from "src/types/Leaderboard";
+import {
+  LeaderboardEntity,
+  LeaderboardReply,
+  LeaderboardTimeFrame,
+} from "src/types/Leaderboard";
 
 import { DataTable, DataTableColumnDef } from "../DataTable/DataTable";
 import { createJsonExpandRowModel } from "../DataTable/jsonExpandRowModel";
@@ -38,8 +47,10 @@ export const LeaderboardTable = ({
     isLoading,
     error,
     lastUpdated,
-  } = useFetchBoard<LeaderboardReply & { user_stats_window?: LeaderboardReply["leaderboard"] }>(
-    `/api/leaderboard?time_frame=${timeFrame}&limit=${limit}&includeUserStats=${!hideCurrentUserRanking}`
+  } = useFetchBoard<
+    LeaderboardReply & { user_stats_window?: LeaderboardReply["leaderboard"] }
+  >(
+    `/api/leaderboard?time_frame=${timeFrame}&limit=${limit}&includeUserStats=${!hideCurrentUserRanking}`,
   );
 
   const isAdminOrMod = useHasAnyRole(["admin", "moderator"]);
@@ -58,7 +69,8 @@ export const LeaderboardTable = ({
               ctx.getValue()
             ),
         }),
-        span: (cell) => (cell.row.original.isSpaceRow ? 6 : jsonExpandRowModel.span(cell)),
+        span: (cell) =>
+          cell.row.original.isSpaceRow ? 6 : jsonExpandRowModel.span(cell),
       },
       columnHelper.accessor("display_name", {
         header: t("user"),
@@ -80,33 +92,49 @@ export const LeaderboardTable = ({
       columnHelper.accessor("prompts", {
         header: t("prompt"),
       }),
-      columnHelper.accessor((row) => row.replies_assistant + row.replies_prompter, {
-        header: t("reply"),
-      }),
+      columnHelper.accessor(
+        (row) => row.replies_assistant + row.replies_prompter,
+        {
+          header: t("reply"),
+        },
+      ),
       columnHelper.accessor((row) => row.labels_full + row.labels_simple, {
         header: t("label"),
       }),
     ],
-    [isAdminOrMod, t]
+    [isAdminOrMod, t],
   );
 
   const {
     data: paginatedData,
     end,
     ...pagnationProps
-  } = useBoardPagination({ rowPerPage, data: jsonExpandRowModel.toExpandable(reply?.leaderboard || []), limit });
+  } = useBoardPagination({
+    rowPerPage,
+    data: jsonExpandRowModel.toExpandable(reply?.leaderboard || []),
+    limit,
+  });
   const data = useMemo(() => {
-    if (hideCurrentUserRanking || !reply?.user_stats_window || reply.user_stats_window.length === 0) {
+    if (
+      hideCurrentUserRanking ||
+      !reply?.user_stats_window ||
+      reply.user_stats_window.length === 0
+    ) {
       return paginatedData;
     }
-    const userStatsWindow: WindowLeaderboardEntity[] = jsonExpandRowModel.toExpandable(reply.user_stats_window);
+    const userStatsWindow: WindowLeaderboardEntity[] =
+      jsonExpandRowModel.toExpandable(reply.user_stats_window);
     const userStats = userStatsWindow.find((stats) => stats.highlighted);
     if (userStats && userStats.rank > end) {
       paginatedData.push(
         { isSpaceRow: true } as WindowLeaderboardEntity,
         ...userStatsWindow.filter(
-          (stats) => paginatedData.findIndex((leaderBoardEntity) => leaderBoardEntity.user_id === stats.user_id) === -1
-        ) // filter to avoid duplicated row
+          (stats) =>
+            paginatedData.findIndex(
+              (leaderBoardEntity) =>
+                leaderBoardEntity.user_id === stats.user_id,
+            ) === -1,
+        ), // filter to avoid duplicated row
       );
     }
     return paginatedData;

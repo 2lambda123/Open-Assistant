@@ -16,7 +16,7 @@ export default async function eventHandler(client: Client) {
     const { default: event } = await import(filePath);
     if (event.once) {
       client.once(event.name, async (...args) =>
-        event.execute(...args, client)
+        event.execute(...args, client),
       );
     } else {
       client.on(event.name, async (...args) => {

@@ -29,7 +29,7 @@ providers.push(
       },
     },
     from: process.env.EMAIL_FROM,
-  })
+  }),
 );
 
 if (process.env.DISCORD_CLIENT_ID) {
@@ -37,7 +37,7 @@ if (process.env.DISCORD_CLIENT_ID) {
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    })
+    }),
   );
 }
 
@@ -55,11 +55,14 @@ if (process.env.GOOGLE_CLIENT_ID) {
           response_type: "code",
         },
       },
-    })
+    }),
   );
 }
 
-if (boolean(process.env.DEBUG_LOGIN) || process.env.NODE_ENV === "development") {
+if (
+  boolean(process.env.DEBUG_LOGIN) ||
+  process.env.NODE_ENV === "development"
+) {
   providers.push(
     CredentialsProvider({
       name: "Debug Credentials",
@@ -83,28 +86,34 @@ if (boolean(process.env.DEBUG_LOGIN) || process.env.NODE_ENV === "development") 
         });
         return user;
       },
-    })
+    }),
   );
 }
 
 // Create a map of provider types to a set of admin user identifiers based on
 // the environment variables.  We assume the list is separated by ',' and each
 // entry is separated by ':'.
-const adminUserMap = process.env.ADMIN_USERS.split(",").reduce((result, entry) => {
-  const [authType, id] = entry.split(":");
-  const s = result.get(authType) || new Set();
-  s.add(id);
-  result.set(authType, s);
-  return result;
-}, new Map());
+const adminUserMap = process.env.ADMIN_USERS.split(",").reduce(
+  (result, entry) => {
+    const [authType, id] = entry.split(":");
+    const s = result.get(authType) || new Set();
+    s.add(id);
+    result.set(authType, s);
+    return result;
+  },
+  new Map(),
+);
 
-const moderatorUserMap = process.env.MODERATOR_USERS.split(",").reduce((result, entry) => {
-  const [authType, id] = entry.split(":");
-  const s = result.get(authType) || new Set();
-  s.add(id);
-  result.set(authType, s);
-  return result;
-}, new Map());
+const moderatorUserMap = process.env.MODERATOR_USERS.split(",").reduce(
+  (result, entry) => {
+    const [authType, id] = entry.split(":");
+    const s = result.get(authType) || new Set();
+    s.add(id);
+    result.set(authType, s);
+    return result;
+  },
+  new Map(),
+);
 
 const authOptions: AuthOptions = {
   // Ensure we can store user data in a database.
@@ -197,12 +206,20 @@ export default function auth(req: NextApiRequest, res: NextApiResponse) {
       async jwt({ token }) {
         const frontendUser = await prisma.user.findUnique({
           where: { id: token.sub },
-          select: { name: true, role: true, isNew: true, accounts: true, id: true },
+          select: {
+            name: true,
+            role: true,
+            isNew: true,
+            accounts: true,
+            id: true,
+          },
         });
 
         const backendUser = convertToBackendUserCore(frontendUser);
         if (backendUser.auth_method === "discord") {
-          const discordAccount = frontendUser.accounts.find((a) => a.provider === "discord");
+          const discordAccount = frontendUser.accounts.find(
+            (a) => a.provider === "discord",
+          );
           discordAvatarRefresh.updateImageIfNecessary(discordAccount);
         }
 
@@ -222,7 +239,8 @@ export default function auth(req: NextApiRequest, res: NextApiResponse) {
              * in the frontend, when the user accepts the tos, we do a full refresh
              * which means this function will be called again.
              */
-            const { user_id, tos_acceptance_date } = await oasstApiClient.fetch_frontend_user(backendUser);
+            const { user_id, tos_acceptance_date } =
+              await oasstApiClient.fetch_frontend_user(backendUser);
             token.backendUserId = user_id;
             token.tosAcceptanceDate = tos_acceptance_date;
           } catch (err) {
@@ -234,13 +252,22 @@ export default function auth(req: NextApiRequest, res: NextApiResponse) {
         return token;
       },
       async signIn({ account }) {
-        const isVerifyEmail = req.url ? req.url.includes("/api/auth/callback/email") : false;
+        const isVerifyEmail = req.url
+          ? req.url.includes("/api/auth/callback/email")
+          : false;
 
-        if (account.provider !== "email" || !boolean(process.env.ENABLE_EMAIL_SIGNIN_CAPTCHA) || isVerifyEmail) {
+        if (
+          account.provider !== "email" ||
+          !boolean(process.env.ENABLE_EMAIL_SIGNIN_CAPTCHA) ||
+          isVerifyEmail
+        ) {
           return true;
         }
 
-        if (account.provider === "email" && !boolean(process.env.ENABLE_EMAIL_SIGNIN)) {
+        if (
+          account.provider === "email" &&
+          !boolean(process.env.ENABLE_EMAIL_SIGNIN)
+        ) {
           return false;
         }
 
@@ -262,7 +289,9 @@ const getIp = (req: NextApiRequest) => {
   try {
     // https://stackoverflow.com/questions/66111742/get-the-client-ip-on-nextjs-and-use-ssr
     const forwarded = req.headers["x-forwarded-for"];
-    return typeof forwarded === "string" ? forwarded.split(/, /)[0] : req.socket.remoteAddress;
+    return typeof forwarded === "string"
+      ? forwarded.split(/, /)[0]
+      : req.socket.remoteAddress;
   } catch {
     return "";
   }

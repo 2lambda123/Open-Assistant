@@ -1,4 +1,5 @@
 """Hot reload plugin."""
+
 from glob import glob
 
 import hikari

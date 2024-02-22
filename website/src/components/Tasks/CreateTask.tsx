@@ -60,7 +60,7 @@ export const CreateTask = ({
         <RenderedMarkdown markdown={inputText}></RenderedMarkdown>
       </Suspense>
     ),
-    [inputText]
+    [inputText],
   );
 
   useEffect(() => {
@@ -88,7 +88,10 @@ export const CreateTask = ({
           <TaskHeader taskType={taskType} />
           {task.type !== TaskType.initial_prompt && (
             <Box mt="4" borderRadius="lg" bg={cardColor} className="p-3 sm:p-6">
-              <MessageConversation messages={task.conversation.messages} highlightLastMessage />
+              <MessageConversation
+                messages={task.conversation.messages}
+                highlightLastMessage
+              />
             </Box>
           )}
         </>
@@ -101,7 +104,8 @@ export const CreateTask = ({
             )}
             {isDesktop && (
               <Text color={tipColor}>
-                {t(getTypeSafei18nKey(`tasks:${taskType.id}.shotcut_tip`)) + " "}
+                {t(getTypeSafei18nKey(`tasks:${taskType.id}.shotcut_tip`)) +
+                  " "}
                 {window.navigator.userAgent.indexOf("Mac") !== -1 ? (
                   <>
                     <Kbd>cmd</Kbd>+<Kbd>Enter</Kbd>
@@ -128,7 +132,11 @@ export const CreateTask = ({
                       onTextChange={textChangeHandler}
                       thresholds={{ low: 20, medium: 40, goal: 50 }}
                       textareaProps={{
-                        placeholder: t(getTypeSafei18nKey(`tasks:${taskType.id}.response_placeholder`)),
+                        placeholder: t(
+                          getTypeSafei18nKey(
+                            `tasks:${taskType.id}.response_placeholder`,
+                          ),
+                        ),
                         isDisabled,
                         minRows: 5,
                       }}

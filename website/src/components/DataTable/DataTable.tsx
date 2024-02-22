@@ -64,7 +64,9 @@ export type FilterItem = {
 
 export type DataTableRowPropsCallback<T> = (row: Row<T>) => TableRowProps;
 
-export type DataTableCellPropsCallback<T> = (cell: Cell<T, unknown>) => TableCellProps;
+export type DataTableCellPropsCallback<T> = (
+  cell: Cell<T, unknown>,
+) => TableCellProps;
 
 export type DataTableProps<T> = {
   data: T[];
@@ -122,7 +124,9 @@ export const DataTable = <T,>({
     if (idx === -1) {
       newValues = [...filterValues, value];
     } else {
-      newValues = filterValues.map((oldValue) => (oldValue.id === value.id ? value : oldValue));
+      newValues = filterValues.map((oldValue) =>
+        oldValue.id === value.id ? value : oldValue,
+      );
     }
     onFilterChange && onFilterChange(newValues);
   };
@@ -130,7 +134,10 @@ export const DataTable = <T,>({
     <>
       {!disablePagination && (
         <Flex mb="2" justifyContent="space-between" alignItems="center">
-          <Button onClick={onPreviousClick} isDisabled={disablePrevious || isLoading}>
+          <Button
+            onClick={onPreviousClick}
+            isDisabled={disablePrevious || isLoading}
+          >
             {t("previous")}
           </Button>
           {isLoading && <CircularProgress size="24px" isIndeterminate />}
@@ -148,12 +155,26 @@ export const DataTable = <T,>({
                 {headerGroup.headers.map((header) => (
                   <Th key={header.id}>
                     <Box display="flex" alignItems="center">
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                      {(header.column.columnDef as DataTableColumnDef<T>).filterable && (
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                      {(header.column.columnDef as DataTableColumnDef<T>)
+                        .filterable && (
                         <FilterModal
-                          value={filterValues.find((value) => value.id === header.id)?.value ?? ""}
-                          onChange={(value) => handleFilterChange({ id: header.id, value })}
-                          label={flexRender(header.column.columnDef.header, header.getContext())}
+                          value={
+                            filterValues.find((value) => value.id === header.id)
+                              ?.value ?? ""
+                          }
+                          onChange={(value) =>
+                            handleFilterChange({ id: header.id, value })
+                          }
+                          label={flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                         ></FilterModal>
                       )}
                     </Box>
@@ -164,7 +185,8 @@ export const DataTable = <T,>({
           </Thead>
           <Tbody position="relative">
             {getRowModel().rows.map((row) => {
-              const props = typeof rowProps === "function" ? rowProps(row) : rowProps;
+              const props =
+                typeof rowProps === "function" ? rowProps(row) : rowProps;
               return (
                 <Tr key={row.id} {...props}>
                   <DataTableRow row={row}></DataTableRow>
@@ -219,12 +241,20 @@ const FilterModal = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialFocusRef = useRef<HTMLInputElement>(null);
-  const handleInputChange = useDebouncedCallback((e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  }, 500);
+  const handleInputChange = useDebouncedCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+    },
+    500,
+  );
 
   return (
-    <Popover isOpen={isOpen} onOpen={onOpen} initialFocusRef={initialFocusRef} onClose={onClose}>
+    <Popover
+      isOpen={isOpen}
+      onOpen={onOpen}
+      initialFocusRef={initialFocusRef}
+      onClose={onClose}
+    >
       <PopoverTrigger>
         <Button variant={"unstyled"} ml="2">
           <Filter size="1em"></Filter>
@@ -236,7 +266,12 @@ const FilterModal = ({
         <PopoverBody mt="4">
           <FormControl>
             <FormLabel>{label}</FormLabel>
-            <Input ref={initialFocusRef} onChange={handleInputChange} autoFocus defaultValue={value}></Input>
+            <Input
+              ref={initialFocusRef}
+              onChange={handleInputChange}
+              autoFocus
+              defaultValue={value}
+            ></Input>
           </FormControl>
         </PopoverBody>
       </PopoverContent>

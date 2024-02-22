@@ -9,11 +9,12 @@ describe("no tasks available", () => {
       {
         statusCode: 500,
         body: {
-          message: "No tasks of type 'label_prompter_reply' are currently available.",
+          message:
+            "No tasks of type 'label_prompter_reply' are currently available.",
           errorCode: 1006,
           httpStatusCode: 503,
         },
-      }
+      },
     ).as("newTaskPrompterReply");
     cy.visit("/create/user_reply");
     cy.wait("@newTaskPrompterReply").then(() => {

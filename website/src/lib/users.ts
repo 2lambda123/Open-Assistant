@@ -9,7 +9,9 @@ import type { BackendUserCore } from "src/types/Users";
  * @param {string} id The user's web auth id.
  *
  */
-export const getBackendUserCore = async (id: string): Promise<BackendUserCore> => {
+export const getBackendUserCore = async (
+  id: string,
+): Promise<BackendUserCore> => {
   const user = await prisma.user.findUnique({
     where: { id },
     select: { id: true, name: true, accounts: true },
@@ -24,8 +26,10 @@ export const getBackendUserCore = async (id: string): Promise<BackendUserCore> =
  * convert a user object to a canoncial representation used for interacting with the backend
  * @param user frontend user object, from prisma db
  */
-export const convertToBackendUserCore = <T extends { accounts: Account[]; id: string; name: string }>(
-  user: T
+export const convertToBackendUserCore = <
+  T extends { accounts: Account[]; id: string; name: string },
+>(
+  user: T,
 ): BackendUserCore => {
   // If there are no linked accounts, just use what we have locally.
   if (user.accounts.length === 0) {
@@ -55,15 +59,22 @@ export const convertToBackendUserCore = <T extends { accounts: Account[]; id: st
  * @param {string} id the id of the user, this field is called 'username' in the python backend's user table
  * not to be confused with the user's UUID
  */
-export const getFrontendUserIdForUser = async (id: string, provider: Exclude<AuthMethod, "local">) => {
-  const { userId } = await prisma.account.findFirst({ where: { provider: provider, providerAccountId: id } });
+export const getFrontendUserIdForUser = async (
+  id: string,
+  provider: Exclude<AuthMethod, "local">,
+) => {
+  const { userId } = await prisma.account.findFirst({
+    where: { provider: provider, providerAccountId: id },
+  });
   return userId;
 };
 
 /**
  * Map backend users to their frontend ids, we might have to do a db call to
  */
-export const getBatchFrontendUserIdFromBackendUser = async (users: { username: string; auth_method: AuthMethod }[]) => {
+export const getBatchFrontendUserIdFromBackendUser = async (
+  users: { username: string; auth_method: AuthMethod }[],
+) => {
   // for users signed up with email, the 'username' field from the backend is the id of the user in the frontend db
   // we initialize the output for all users with the username for now:
   const outputIds = users.map((user) => user.username);
@@ -81,7 +92,9 @@ export const getBatchFrontendUserIdFromBackendUser = async (users: { username: s
 
   // get the frontendUserIds for the external users
   // the `username` field for external users is the id of the their account at the provider
-  const externalAccountIds = indicesOfNonLocalUsers.map((idx) => users[idx].username);
+  const externalAccountIds = indicesOfNonLocalUsers.map(
+    (idx) => users[idx].username,
+  );
   const externalAccounts = await prisma.account.findMany({
     where: {
       provider: { in: ["discord", "google"] },
@@ -93,7 +106,9 @@ export const getBatchFrontendUserIdFromBackendUser = async (users: { username: s
   indicesOfNonLocalUsers.forEach((userIdx) => {
     // NOTE: findMany will return the values unsorted, which is why we have to 'find' here
     const account = externalAccounts.find(
-      (a) => a.provider === users[userIdx].auth_method && a.providerAccountId === users[userIdx].username
+      (a) =>
+        a.provider === users[userIdx].auth_method &&
+        a.providerAccountId === users[userIdx].username,
     );
     // TODO check why the account is undefined
     if (account) {

@@ -49,7 +49,8 @@ export function Header({ preLogoSlot }: HeaderProps) {
   }
   const announcementIsNotInCache = announcementInCache !== announcement;
 
-  const initialShowAnnouncement = session && announcement && announcementIsNotInCache;
+  const initialShowAnnouncement =
+    session && announcement && announcementIsNotInCache;
 
   const [showAnnouncement, setShowAnnouncement] = React.useState(true);
 
@@ -96,9 +97,25 @@ export function Header({ preLogoSlot }: HeaderProps) {
       >
         <Flex alignItems="center">
           {preLogoSlot}
-          <Flex as={Link} gap="3" href={homeURL} aria-label="Home" alignItems="center">
-            <Image src="/images/logos/logo.svg" className="mx-auto object-fill" width="50" height="50" alt="logo" />
-            <Text fontSize={["lg", "2xl"]} fontWeight="bold" className="hidden sm:block">
+          <Flex
+            as={Link}
+            gap="3"
+            href={homeURL}
+            aria-label="Home"
+            alignItems="center"
+          >
+            <Image
+              src="/images/logos/logo.svg"
+              className="mx-auto object-fill"
+              width="50"
+              height="50"
+              alt="logo"
+            />
+            <Text
+              fontSize={["lg", "2xl"]}
+              fontWeight="bold"
+              className="hidden sm:block"
+            >
               {t("title")}
             </Text>
           </Flex>
@@ -118,11 +135,18 @@ export function Header({ preLogoSlot }: HeaderProps) {
   );
 }
 
-export const HeaderLayout = ({ children, ...props }: { children: ReactNode } & HeaderProps) => {
+export const HeaderLayout = ({
+  children,
+  ...props
+}: { children: ReactNode } & HeaderProps) => {
   return (
     <>
       <Header {...props}></Header>
-      <Box paddingTop={HEADER_HEIGHT} minH={`calc(100vh - ${HEADER_HEIGHT})`} h="full">
+      <Box
+        paddingTop={HEADER_HEIGHT}
+        minH={`calc(100vh - ${HEADER_HEIGHT})`}
+        h="full"
+      >
         {children}
       </Box>
     </>

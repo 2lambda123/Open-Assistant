@@ -13,4 +13,7 @@ export interface LabelTaskReply {
   message_id: string;
 }
 
-export type AllTaskReplies = CreateTaskReply | EvaluateTaskReply | LabelTaskReply;
+export type AllTaskReplies =
+  | CreateTaskReply
+  | EvaluateTaskReply
+  | LabelTaskReply;

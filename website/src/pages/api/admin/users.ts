@@ -19,16 +19,25 @@ const PAGE_SIZE = 20;
  *   direction.
  */
 const handler = withAnyRole(["admin", "moderator"], async (req, res, token) => {
-  const { cursor, direction, searchDisplayName = "", sortKey = "username" } = req.query;
+  const {
+    cursor,
+    direction,
+    searchDisplayName = "",
+    sortKey = "username",
+  } = req.query;
 
   const oasstApiClient = await createApiClient(token);
   // First, get all the users according to the backend.
   const { items: all_users, ...rest } = await oasstApiClient.fetch_users({
-    searchDisplayName: searchDisplayName as FetchUsersParams["searchDisplayName"],
+    searchDisplayName:
+      searchDisplayName as FetchUsersParams["searchDisplayName"],
     direction: direction as FetchUsersParams["direction"],
     limit: PAGE_SIZE,
     cursor: cursor as FetchUsersParams["cursor"],
-    sortKey: sortKey === "username" || sortKey === "display_name" ? sortKey : undefined,
+    sortKey:
+      sortKey === "username" || sortKey === "display_name"
+        ? sortKey
+        : undefined,
   });
 
   // Next, get all the users stored in the web's auth database to fetch their role.

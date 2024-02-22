@@ -1,4 +1,5 @@
 """Custom help command."""
+
 import lightbulb
 from bot.messages import help_message, tutorial_message
 from bot.settings import Settings

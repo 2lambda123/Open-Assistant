@@ -17,5 +17,9 @@ export default withAnyRole(["admin", "moderator"], async (req, res, token) => {
 
   const tree = buildTree(response.messages);
 
-  return res.json({ tree, message: response.messages.find((m) => m.id === messageId), tree_state: treeState });
+  return res.json({
+    tree,
+    message: response.messages.find((m) => m.id === messageId),
+    tree_state: treeState,
+  });
 });

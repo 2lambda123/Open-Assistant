@@ -10,15 +10,16 @@ import { get } from "src/lib/api";
 import { Message, MessageWithChildren } from "src/types/Conversation";
 import useSWRImmutable from "swr/immutable";
 
-const MessageDetail = ({ id }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const MessageDetail = ({
+  id,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t } = useTranslation(["message", "common"]);
-  const { data, isLoading, error } = useSWRImmutable<{ tree: MessageWithChildren | null; message?: Message }>(
-    `/api/messages/${id}/tree`,
-    get,
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { data, isLoading, error } = useSWRImmutable<{
+    tree: MessageWithChildren | null;
+    message?: Message;
+  }>(`/api/messages/${id}/tree`, get, {
+    keepPreviousData: true,
+  });
 
   return (
     <>
@@ -38,7 +39,11 @@ const MessageDetail = ({ id }: InferGetServerSidePropsType<typeof getServerSideP
               (data.tree === null ? (
                 "Unable to build tree"
               ) : (
-                <MessageTree tree={data.tree} messageId={data.message?.id} scrollToHighlighted />
+                <MessageTree
+                  tree={data.tree}
+                  messageId={data.message?.id}
+                  scrollToHighlighted
+                />
               ))}
           </CardBody>
         </Card>
@@ -49,14 +54,18 @@ const MessageDetail = ({ id }: InferGetServerSidePropsType<typeof getServerSideP
 
 MessageDetail.getLayout = getDashboardLayout;
 
-export const getServerSideProps: GetServerSideProps<{ id: string }, { id: string }> = async ({
-  locale = "en",
-  params,
-}) => ({
+export const getServerSideProps: GetServerSideProps<
+  { id: string },
+  { id: string }
+> = async ({ locale = "en", params }) => ({
   props: {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     id: params!.id,
-    ...(await serverSideTranslations(locale, ["common", "message", "labelling"])),
+    ...(await serverSideTranslations(locale, [
+      "common",
+      "message",
+      "labelling",
+    ])),
   },
 });
 

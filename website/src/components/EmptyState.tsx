@@ -15,8 +15,20 @@ export const EmptyState = (props: EmptyStateProps) => {
   const { t } = useTranslation("common");
 
   return (
-    <Box data-cy={props["data-cy"]} bg={backgroundColor} p="10" borderRadius="xl" shadow="base">
-      <Box display="flex" flexDirection="column" alignItems="center" gap="8" fontSize="lg">
+    <Box
+      data-cy={props["data-cy"]}
+      bg={backgroundColor}
+      p="10"
+      borderRadius="xl"
+      shadow="base"
+    >
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        gap="8"
+        fontSize="lg"
+      >
         <props.icon size="30" color="DarkOrange" />
         <Text data-cy="cy-no-tasks">{props.text}</Text>
         <NextLink href="/dashboard">
@@ -30,5 +42,7 @@ export const EmptyState = (props: EmptyStateProps) => {
 export const TaskEmptyState = () => {
   const { t } = useTranslation("tasks");
 
-  return <EmptyState text={t("no_more_tasks")} icon={AlertTriangle} data-cy="task" />;
+  return (
+    <EmptyState text={t("no_more_tasks")} icon={AlertTriangle} data-cy="task" />
+  );
 };

@@ -65,7 +65,8 @@ export const getDashBoardLayoutSidebarItem = () => {
     },
     {
       labelID: "guidelines",
-      pathname: "https://projects.laion.ai/Open-Assistant/docs/guides/guidelines",
+      pathname:
+        "https://projects.laion.ai/Open-Assistant/docs/guides/guidelines",
       icon: ExternalLink,
       target: "_blank",
     },

@@ -20,7 +20,7 @@ type CheckCaptchaResponse = {
 export const checkCaptcha = async (
   token: string,
   ipAdress: string,
-  options?: { cdata?: string; action?: string }
+  options?: { cdata?: string; action?: string },
 ): Promise<CheckCaptchaResponse> => {
   if (!token) {
     return {
@@ -34,10 +34,13 @@ export const checkCaptcha = async (
   data.append("response", token);
   data.append("remoteip", ipAdress);
 
-  const result = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    body: data,
-    method: "POST",
-  });
+  const result = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      body: data,
+      method: "POST",
+    },
+  );
 
   const res: CheckCaptchaResponse = await result.json();
   return {
@@ -47,7 +50,11 @@ export const checkCaptcha = async (
 };
 
 // This function hasn't been tested yet, Cloudflare doesn't send `action` and `cdata` with a demo key.
-const getSuccess = (response: CheckCaptchaResponse, action: string | undefined, cdata: string | undefined) => {
+const getSuccess = (
+  response: CheckCaptchaResponse,
+  action: string | undefined,
+  cdata: string | undefined,
+) => {
   if (action === undefined && cdata === undefined) {
     return response.success;
   }

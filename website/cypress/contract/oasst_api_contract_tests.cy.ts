@@ -12,7 +12,8 @@ describe("Contract test for Oasst API", function () {
   } as BackendUserCore;
 
   it("can fetch a task", async () => {
-    expect(await oasstApiClient.fetchTask("random", testUser, "en")).to.be.not.null;
+    expect(await oasstApiClient.fetchTask("random", testUser, "en")).to.be.not
+      .null;
   });
 
   it("can ack a task", async () => {
@@ -23,7 +24,15 @@ describe("Contract test for Oasst API", function () {
   it("can record a taskInteraction", async () => {
     const task = await oasstApiClient.fetchTask("random", testUser, "en");
     expect(
-      await oasstApiClient.interactTask("text_reply_to_message", task.id, "321", "1", { text: "Test" }, testUser, "en")
+      await oasstApiClient.interactTask(
+        "text_reply_to_message",
+        task.id,
+        "321",
+        "1",
+        { text: "Test" },
+        testUser,
+        "en",
+      ),
     ).to.be.not.null;
   });
 
@@ -56,7 +65,7 @@ describe("Contract test for Oasst API", function () {
           JSON.stringify({
             message: "error message",
             error_code: 1000,
-          })
+          }),
         ),
     });
 

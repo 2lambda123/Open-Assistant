@@ -7,7 +7,10 @@ import useSWRImmutable from "swr/immutable";
 export { getServerSideProps } from "src/lib/defaultServerSideProps";
 
 export default function Parameters() {
-  const { data, isLoading, error } = useSWRImmutable("/api/admin/parameters", get);
+  const { data, isLoading, error } = useSWRImmutable(
+    "/api/admin/parameters",
+    get,
+  );
 
   return (
     <>

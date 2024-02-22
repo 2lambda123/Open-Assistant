@@ -1,4 +1,10 @@
-import { Box, CircularProgress, SimpleGrid, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  CircularProgress,
+  SimpleGrid,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
 import { getDashboardLayout } from "src/components/Layout";
@@ -17,7 +23,11 @@ const MessagesDashboard = () => {
   const boxAccentColor = useColorModeValue("gray.200", "gray.900");
 
   const lang = useCurrentLocale();
-  const { data: messages } = useSWRImmutable(API_ROUTES.RECENT_MESSAGES({ lang }), get, { revalidateOnMount: true });
+  const { data: messages } = useSWRImmutable(
+    API_ROUTES.RECENT_MESSAGES({ lang }),
+    get,
+    { revalidateOnMount: true },
+  );
 
   const currentLanguage = useCurrentLocale();
 
@@ -25,7 +35,10 @@ const MessagesDashboard = () => {
     <>
       <Head>
         <title>Messages - Open Assistant</title>
-        <meta name="description" content="Chat with Open Assistant and provide feedback." />
+        <meta
+          name="description"
+          content="Chat with Open Assistant and provide feedback."
+        />
       </Head>
       <SimpleGrid columns={[1, 1, 1, 1, 1, 2]} gap={4}>
         <Box>
@@ -42,7 +55,11 @@ const MessagesDashboard = () => {
             className="p-6 shadow-sm"
           >
             {messages ? (
-              <MessageConversation enableLink messages={messages} showCreatedDate />
+              <MessageConversation
+                enableLink
+                messages={messages}
+                showCreatedDate
+              />
             ) : (
               <CircularProgress isIndeterminate />
             )}

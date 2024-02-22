@@ -24,7 +24,9 @@ CONSOLE_FAIL_TYPES.forEach((type) => {
   const orig_f = console[type];
   console[type] = (...message) => {
     orig_f(...message);
-    throw new Error(`Failing due to console.${type} while running test!\n\n${message.join(" ")}`);
+    throw new Error(
+      `Failing due to console.${type} while running test!\n\n${message.join(" ")}`,
+    );
   };
 });
 

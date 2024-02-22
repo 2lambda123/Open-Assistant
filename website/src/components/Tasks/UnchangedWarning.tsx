@@ -36,7 +36,9 @@ export const UnchangedWarning = (props: UnchangedWarningProps) => {
               <Button variant={"ghost"} onClick={props.onClose}>
                 {t("cancel")}
               </Button>
-              <Button onClick={props.onContinueAnyway}>{props.continueButtonText}</Button>
+              <Button onClick={props.onContinueAnyway}>
+                {props.continueButtonText}
+              </Button>
             </Flex>
           </ModalFooter>
         </ModalContent>

@@ -27,23 +27,38 @@ interface ValidLabelsResponse {
   valid_labels: Label[];
 }
 
-export const LabelMessagePopup = ({ message, show, onClose }: LabelMessagePopupProps) => {
+export const LabelMessagePopup = ({
+  message,
+  show,
+  onClose,
+}: LabelMessagePopupProps) => {
   return (
     <Modal isOpen={show} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <LabelMessagePopupContent onClose={onClose} message={message}></LabelMessagePopupContent>
+        <LabelMessagePopupContent
+          onClose={onClose}
+          message={message}
+        ></LabelMessagePopupContent>
       </ModalContent>
     </Modal>
   );
 };
 
-const LabelMessagePopupContent = ({ message, onClose }: Omit<LabelMessagePopupProps, "show">) => {
+const LabelMessagePopupContent = ({
+  message,
+  onClose,
+}: Omit<LabelMessagePopupProps, "show">) => {
   const { t } = useTranslation();
 
-  const { data: response } = useSWRImmutable<ValidLabelsResponse>(`/api/valid_labels?message_id=${message.id}`, get);
+  const { data: response } = useSWRImmutable<ValidLabelsResponse>(
+    `/api/valid_labels?message_id=${message.id}`,
+    get,
+  );
   const valid_labels = useMemo(() => response?.valid_labels ?? [], [response]);
-  const [values, setValues] = useState<number[]>(new Array(valid_labels.length).fill(null));
+  const [values, setValues] = useState<number[]>(
+    new Array(valid_labels.length).fill(null),
+  );
 
   useEffect(() => {
     setValues(new Array(valid_labels.length).fill(null));

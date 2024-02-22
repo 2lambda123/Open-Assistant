@@ -46,7 +46,10 @@ export const TaskPage = ({ type }: TaskPageProps) => {
     <>
       <Head>
         <title>{t(getTypeSafei18nKey(`${taskInfo.id}.label`))}</title>
-        <meta name="description" content={t(getTypeSafei18nKey(`${taskInfo.id}.desc`))} />
+        <meta
+          name="description"
+          content={t(getTypeSafei18nKey(`${taskInfo.id}.desc`))}
+        />
       </Head>
       {body}
     </>

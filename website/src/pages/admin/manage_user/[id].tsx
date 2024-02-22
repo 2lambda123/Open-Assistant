@@ -48,16 +48,24 @@ interface UserForm {
   show_on_leaderboard: boolean;
 }
 
-const ManageUser = ({ user }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ManageUser = ({
+  user,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const toast = useToast();
 
-  const { data: stats } = uswSWRImmutable<Partial<{ [time in LeaderboardTimeFrame]: LeaderboardEntity }>>(
+  const { data: stats } = uswSWRImmutable<
+    Partial<{ [time in LeaderboardTimeFrame]: LeaderboardEntity }>
+  >(
     "/api/user_stats?" +
-      new URLSearchParams({ id: user.id, auth_method: user.auth_method, display_name: user.display_name }),
+      new URLSearchParams({
+        id: user.id,
+        auth_method: user.auth_method,
+        display_name: user.display_name,
+      }),
     get,
     {
       fallbackData: {},
-    }
+    },
   );
 
   // Trigger to let us update the user's role.  Triggers a toast when complete.
@@ -155,10 +163,10 @@ const ManageUser = ({ user }: InferGetServerSidePropsType<typeof getServerSidePr
 /**
  * Fetch the user's data on the server side when rendering.
  */
-export const getServerSideProps: GetServerSideProps<{ user: User<Role> }, { id: string }> = async ({
-  params,
-  locale = "en",
-}) => {
+export const getServerSideProps: GetServerSideProps<
+  { user: User<Role> },
+  { id: string }
+> = async ({ params, locale = "en" }) => {
   const backend_user = await userlessApiClient.fetch_user(params!.id as string);
   if (!backend_user) {
     return {
@@ -167,8 +175,14 @@ export const getServerSideProps: GetServerSideProps<{ user: User<Role> }, { id: 
   }
 
   let frontendUserId = backend_user.id;
-  if (backend_user.auth_method === "discord" || backend_user.auth_method === "google") {
-    frontendUserId = await getFrontendUserIdForUser(backend_user.id, backend_user.auth_method);
+  if (
+    backend_user.auth_method === "discord" ||
+    backend_user.auth_method === "google"
+  ) {
+    frontendUserId = await getFrontendUserIdForUser(
+      backend_user.id,
+      backend_user.auth_method,
+    );
   }
 
   const local_user = await prisma.user.findUnique({
@@ -190,7 +204,11 @@ export const getServerSideProps: GetServerSideProps<{ user: User<Role> }, { id: 
   return {
     props: {
       user,
-      ...(await serverSideTranslations(locale, ["common", "message", "leaderboard"])),
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "message",
+        "leaderboard",
+      ])),
     },
   };
 };

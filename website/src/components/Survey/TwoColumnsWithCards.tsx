@@ -1,7 +1,11 @@
 import { Box, Stack } from "@chakra-ui/react";
 import { SurveyCard } from "src/components/Survey/SurveyCard";
 
-export const TwoColumnsWithCards = ({ children }: { children: React.ReactNode[] }) => {
+export const TwoColumnsWithCards = ({
+  children,
+}: {
+  children: React.ReactNode[];
+}) => {
   if (!Array.isArray(children) || children.length !== 2) {
     throw new Error("TwoColumns expects 2 children");
   }

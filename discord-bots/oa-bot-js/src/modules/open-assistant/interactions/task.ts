@@ -9,14 +9,14 @@ import { getLocaleDisplayName } from "../langs.js";
 import { formatTaskType } from "../tasks.js";
 var oa: OpenAssistant = new OpenAssistant(
   process.env.OA_APIKEY,
-  process.env.OA_APIURL
+  process.env.OA_APIURL,
 );
 export async function taskInteraction(
   interaction,
   lang,
   user,
   translation,
-  client
+  client,
 ) {
   /*var ispremium = await isPremium(interaction.user.id, interaction.guildId);
       if (!ispremium) {
@@ -62,7 +62,7 @@ export async function taskInteraction(
       new ButtonBuilder()
         .setCustomId(`oa_text-modal_${task.id}_${interaction.user.id}`)
         .setLabel(`${translation[formatTaskType(task.type)].label}`)
-        .setStyle(ButtonStyle.Primary)
+        .setStyle(ButtonStyle.Primary),
     );
     embeds.push(embed);
     if (task.type == "assistant_reply" || task.type == "prompter_reply") {
@@ -92,7 +92,7 @@ export async function taskInteraction(
       new ButtonBuilder()
         .setCustomId(`oa_label_${task.id}_${interaction.user.id}`)
         .setLabel(`${translation[formatTaskType(task.type)].label}`)
-        .setStyle(ButtonStyle.Primary)
+        .setStyle(ButtonStyle.Primary),
     );
     embeds.push(embed);
     task.conversation.messages.forEach((x, i) => {
@@ -125,7 +125,7 @@ export async function taskInteraction(
       .setLabel("Change language")
       .setCustomId(`oa_lang-btn_n_${interaction.user.id}`)
       .setStyle(ButtonStyle.Secondary)
-      .setDisabled(false)
+      .setDisabled(false),
   );
   rows.push(row);
   await interaction.editReply({

@@ -17,7 +17,7 @@ export default {
 
     //const { data, error } = await supabase.from("conversations").delete();
     console.log(
-      chalk.white(`Ready! Logged in as `) + chalk.blue.bold(client.user.tag)
+      chalk.white(`Ready! Logged in as `) + chalk.blue.bold(client.user.tag),
     );
   },
 };

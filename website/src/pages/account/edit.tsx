@@ -1,4 +1,10 @@
-import { Button, FormControl, FormErrorMessage, Input, InputGroup } from "@chakra-ui/react";
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  Input,
+  InputGroup,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import Router from "next/router";
 import { useSession } from "next-auth/react";
@@ -66,7 +72,10 @@ const EditForm = () => {
           <Input
             placeholder="Edit Username"
             type="text"
-            {...register("username", { required: true, pattern: validDisplayNameRegex })}
+            {...register("username", {
+              required: true,
+              pattern: validDisplayNameRegex,
+            })}
           ></Input>
           <FormErrorMessage>
             {errors.username?.type === "required" && "Username is required"}
@@ -79,7 +88,11 @@ const EditForm = () => {
   );
 };
 
-const SubmitButton = ({ control }: { control: Control<{ username: string }> }) => {
+const SubmitButton = ({
+  control,
+}: {
+  control: Control<{ username: string }>;
+}) => {
   const username = useWatch({ control, name: "username" });
   return (
     <Button isDisabled={!username} type="submit" value="Change">

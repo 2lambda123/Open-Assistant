@@ -21,13 +21,19 @@ export const LabelTask = ({
   onValidityChanged,
 }: TaskSurveyProps<LabelTaskType, LabelTaskReply>) => {
   const { t } = useTranslation("labelling");
-  const [values, setValues] = useState<number[]>(new Array(task.labels.length).fill(null));
+  const [values, setValues] = useState<number[]>(
+    new Array(task.labels.length).fill(null),
+  );
   const [userInputMade, setUserInputMade] = useBoolean(false);
 
   // Initial setup to run when the task changes
   useEffect(() => {
     setValues(new Array(task.labels.length).fill(null));
-    onValidityChanged(task.labels.some(({ name }) => isRequired(name, task.mandatory_labels)) ? "INVALID" : "DEFAULT");
+    onValidityChanged(
+      task.labels.some(({ name }) => isRequired(name, task.mandatory_labels))
+        ? "INVALID"
+        : "DEFAULT",
+    );
     setUserInputMade.off();
   }, [task, setUserInputMade, onValidityChanged]);
 
@@ -35,29 +41,44 @@ export const LabelTask = ({
   useEffect(() => {
     onReplyChanged({
       text: "unused?",
-      labels: Object.fromEntries(task.labels.map(({ name }, idx) => [name, values[idx] || 0])),
+      labels: Object.fromEntries(
+        task.labels.map(({ name }, idx) => [name, values[idx] || 0]),
+      ),
       message_id: task.message_id,
     });
     onValidityChanged(
-      task.labels.some(({ name }, idx) => values[idx] === null && isRequired(name, task.mandatory_labels))
+      task.labels.some(
+        ({ name }, idx) =>
+          values[idx] === null && isRequired(name, task.mandatory_labels),
+      )
         ? "INVALID"
         : userInputMade
-        ? "VALID"
-        : "DEFAULT"
+          ? "VALID"
+          : "DEFAULT",
     );
   }, [task, values, onReplyChanged, userInputMade, onValidityChanged]);
 
   const cardColor = useColorModeValue("gray.50", "gray.800");
-  const isSpamTask = task.mode === "simple" && task.valid_labels.length === 1 && task.valid_labels[0] === "spam";
+  const isSpamTask =
+    task.mode === "simple" &&
+    task.valid_labels.length === 1 &&
+    task.valid_labels[0] === "spam";
 
-  const lastMessage = task.conversation.messages[task.conversation.messages.length - 1];
+  const lastMessage =
+    task.conversation.messages[task.conversation.messages.length - 1];
   return (
-    <div data-cy="task" data-task-type={isSpamTask ? "spam-task" : "label-task"}>
+    <div
+      data-cy="task"
+      data-task-type={isSpamTask ? "spam-task" : "label-task"}
+    >
       <TwoColumnsWithCards>
         <>
           <TaskHeader taskType={taskType} />
           <Box mt="4" p={[4, 6]} borderRadius="lg" bg={cardColor}>
-            <MessageConversation messages={task.conversation.messages} highlightLastMessage />
+            <MessageConversation
+              messages={task.conversation.messages}
+              highlightLastMessage
+            />
           </Box>
         </>
         <LabelInputGroup

@@ -18,14 +18,12 @@ const thresholds = Array.from(generateThresholds());
 export const useUserScore = () => {
   const { status } = useSession();
   const isLoggedIn = status === "authenticated";
-  const { data: entries } = uswSWRImmutable<Partial<{ [time in LeaderboardTimeFrame]: LeaderboardEntity }>>(
-    isLoggedIn && "/api/user_stats",
-    get,
-    {
-      dedupingInterval: 1000 * 60, // once per minute
-      keepPreviousData: true,
-    }
-  );
+  const { data: entries } = uswSWRImmutable<
+    Partial<{ [time in LeaderboardTimeFrame]: LeaderboardEntity }>
+  >(isLoggedIn && "/api/user_stats", get, {
+    dedupingInterval: 1000 * 60, // once per minute
+    keepPreviousData: true,
+  });
   const score = entries?.total?.leader_score ?? 0;
   const level = entries?.total?.level ?? 0;
 
@@ -34,5 +32,12 @@ export const useUserScore = () => {
   const scoreUntilNextLevel = nextLevelScore - score;
   const reachedMaxLevel = level === 100;
 
-  return { score, level, currentLevelScore, nextLevelScore, scoreUntilNextLevel, reachedMaxLevel };
+  return {
+    score,
+    level,
+    currentLevelScore,
+    nextLevelScore,
+    scoreUntilNextLevel,
+    reachedMaxLevel,
+  };
 };

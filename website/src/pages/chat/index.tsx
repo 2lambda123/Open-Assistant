@@ -14,7 +14,9 @@ type ChatListProps = {
   chatResponse: GetChatsResponse;
 };
 
-const ChatList = ({ chatResponse }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ChatList = ({
+  chatResponse,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { t } = useTranslation(["chat"]);
 
   return (
@@ -22,14 +24,21 @@ const ChatList = ({ chatResponse }: InferGetServerSidePropsType<typeof getServer
       <Head>
         <title>{t("chat")}</title>
       </Head>
-      <ChatListBase chats={chatResponse} isSideBar={false} className="max-w-5xl mx-auto" />
+      <ChatListBase
+        chats={chatResponse}
+        isSideBar={false}
+        className="max-w-5xl mx-auto"
+      />
     </>
   );
 };
 
 ChatList.getLayout = getDashboardLayout;
 
-export const getServerSideProps: GetServerSideProps<ChatListProps> = async ({ locale = "en", req }) => {
+export const getServerSideProps: GetServerSideProps<ChatListProps> = async ({
+  locale = "en",
+  req,
+}) => {
   if (!isChatEnable()) {
     return {
       notFound: true,

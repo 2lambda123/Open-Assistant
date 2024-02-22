@@ -1,20 +1,33 @@
-import { Avatar, AvatarProps, Box, BoxProps, Flex, useColorModeValue } from "@chakra-ui/react";
+import {
+  Avatar,
+  AvatarProps,
+  Box,
+  BoxProps,
+  Flex,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { forwardRef, lazy, Suspense } from "react";
 import { colors } from "src/styles/Theme/colors";
 import { StrictOmit } from "ts-essentials";
 
 const RenderedMarkdown = lazy(() => import("./RenderedMarkdown"));
 
-export type BaseMessageEntryProps = StrictOmit<BoxProps, "bg" | "backgroundColor"> & {
+export type BaseMessageEntryProps = StrictOmit<
+  BoxProps,
+  "bg" | "backgroundColor"
+> & {
   content: string;
   avatarProps: Pick<AvatarProps, "name" | "src">;
   bg?: string;
   highlight?: boolean;
 };
 
-export const BaseMessageEntry = forwardRef<HTMLDivElement, BaseMessageEntryProps>(function BaseMessageEntry(
+export const BaseMessageEntry = forwardRef<
+  HTMLDivElement,
+  BaseMessageEntryProps
+>(function BaseMessageEntry(
   { content, avatarProps, children, highlight, ...props },
-  ref
+  ref,
 ) {
   const bg = useColorModeValue("#DFE8F1", "#42536B");
   const actualBg = props.bg ?? bg;

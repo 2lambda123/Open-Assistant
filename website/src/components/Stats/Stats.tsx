@@ -4,7 +4,11 @@ import React from "react";
 import { getTypeSafei18nKey } from "src/lib/i18n";
 import { Stats as StatsType } from "src/types/Stat";
 
-import { MessageTreeStateStatsStacked, MessageTreeStateStatsTable, statComponents } from "./Stats.components";
+import {
+  MessageTreeStateStatsStacked,
+  MessageTreeStateStatsTable,
+  statComponents,
+} from "./Stats.components";
 
 type StatsProps = {
   data: StatsType | undefined;
@@ -24,7 +28,9 @@ export const Stats = ({ data }: StatsProps) => {
     return null;
   }
 
-  const charts = Object.keys(data.stats_by_name).filter((key) => CHART_STATS.includes(key));
+  const charts = Object.keys(data.stats_by_name).filter((key) =>
+    CHART_STATS.includes(key),
+  );
 
   const getStatByName = (name: string) => data.stats_by_name[name];
 
@@ -44,7 +50,11 @@ export const Stats = ({ data }: StatsProps) => {
         const stat = getStatByName(key);
         const component = statComponents[key];
         return (
-          <Card key={key} minH={500} gridColumn={["span 2", "span 2", "span 1"]}>
+          <Card
+            key={key}
+            minH={500}
+            gridColumn={["span 2", "span 2", "span 1"]}
+          >
             <CardHeader>
               <Heading size="md">{t(getTypeSafei18nKey(stat.name))}</Heading>
             </CardHeader>
@@ -54,7 +64,9 @@ export const Stats = ({ data }: StatsProps) => {
       })}
       <Card minH={500} gridColumn="span 2">
         <CardHeader>
-          <Heading size="md">{t(getTypeSafei18nKey(messageTreeStats.name))}</Heading>
+          <Heading size="md">
+            {t(getTypeSafei18nKey(messageTreeStats.name))}
+          </Heading>
         </CardHeader>
         <CardBody>
           <MessageTreeStateStatsTable stat={messageTreeStats} />
@@ -62,7 +74,9 @@ export const Stats = ({ data }: StatsProps) => {
       </Card>
       <Card minH={500} gridColumn="span 2">
         <CardHeader>
-          <Heading size="md">{t(getTypeSafei18nKey(messageTreeStats.name))}</Heading>
+          <Heading size="md">
+            {t(getTypeSafei18nKey(messageTreeStats.name))}
+          </Heading>
         </CardHeader>
         <CardBody>
           <MessageTreeStateStatsStacked stat={messageTreeStats} />

@@ -1,4 +1,12 @@
-import { Grid, GridItem, Icon, keyframes, Progress, Text, usePrefersReducedMotion } from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  Icon,
+  keyframes,
+  Progress,
+  Text,
+  usePrefersReducedMotion,
+} from "@chakra-ui/react";
 import { Star } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import { useMemo } from "react";
@@ -35,7 +43,13 @@ export const XPBar = () => {
       alignItems="center"
     >
       <GridItem area="star" justifySelf="center">
-        <Icon as={Star} boxSize={20} fill="gold" color="gold" animation={useMotion && starAnimation} />
+        <Icon
+          as={Star}
+          boxSize={20}
+          fill="gold"
+          color="gold"
+          animation={useMotion && starAnimation}
+        />
       </GridItem>
       <GridItem area="row1">
         <Text>{t("level_progress_message", { score, level })}</Text>

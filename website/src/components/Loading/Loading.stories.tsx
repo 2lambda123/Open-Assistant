@@ -11,7 +11,9 @@ export default {
   },
 };
 
-const Template: ComponentStory<typeof LoadingScreen> = (args) => <LoadingScreen {...args} />;
+const Template: ComponentStory<typeof LoadingScreen> = (args) => (
+  <LoadingScreen {...args} />
+);
 
 export const Default = Template.bind({});
 

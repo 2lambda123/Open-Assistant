@@ -2,7 +2,7 @@ import { EmbedBuilder } from "discord.js";
 import OpenAssistant from "open-assistant.js";
 var oa: OpenAssistant = new OpenAssistant(
   process.env.OA_APIKEY,
-  process.env.OA_APIURL
+  process.env.OA_APIURL,
 );
 import { getLocaleDisplayName, getTranlation } from "./langs.js";
 import { taskInteraction } from "./interactions.js";
@@ -43,7 +43,7 @@ export async function submitTask(
   lang,
   task,
   client,
-  messageId?
+  messageId?,
 ) {
   var res = await oa.acceptTask(taskId, user, messageId);
   if (!messageId) messageId = res;
@@ -59,9 +59,9 @@ export async function submitTask(
         solveTask.type == "task_done"
           ? "#51F73A"
           : solveTask == true
-          ? "#51F73A"
-          : "#F73A3A"
-      }`
+            ? "#51F73A"
+            : "#F73A3A"
+      }`,
     )
     .setTimestamp()
     .setDescription(
@@ -69,9 +69,9 @@ export async function submitTask(
         solveTask.type == "task_done"
           ? "Task done"
           : solveTask == true
-          ? "Task done"
-          : "Task failed"
-      }(loading new task...)`
+            ? "Task done"
+            : "Task failed"
+      }(loading new task...)`,
     )
     .setURL("https://open-assistant.io/?ref=turing")
     .setFooter({ text: `${getLocaleDisplayName(lang)}` });

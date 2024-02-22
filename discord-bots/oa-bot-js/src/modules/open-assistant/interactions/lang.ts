@@ -17,7 +17,7 @@ export async function langInteraction(interaction) {
     .setThumbnail("https://open-assistant.io/images/logos/logo.png")
     .setTitle("Select the lang.")
     .setDescription(
-      `By selecting a language you accept our [tos](https://open-assistant.io/terms-of-service)`
+      `By selecting a language you accept our [tos](https://open-assistant.io/terms-of-service)`,
     );
   //   .setTimestamp();
   const row = new ActionRowBuilder().addComponents(
@@ -26,7 +26,7 @@ export async function langInteraction(interaction) {
       .setPlaceholder("Nothing selected")
       .setMinValues(1)
       .setMaxValues(1)
-      .setOptions(arr)
+      .setOptions(arr),
   );
   await interaction.editReply({
     embeds: [embed],

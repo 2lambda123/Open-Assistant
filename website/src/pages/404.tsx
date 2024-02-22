@@ -1,4 +1,12 @@
-import { Box, Button, Center, Link, Text, theme, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Link,
+  Text,
+  theme,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { AlertTriangle } from "lucide-react";
 import Head from "next/head";
 import { useTranslation } from "next-i18next";
@@ -7,20 +15,40 @@ export { getDefaultServerSideProps as getStaticProps } from "src/lib/defaultServ
 
 function Error() {
   const { t } = useTranslation();
-  const iconColor = useColorModeValue(theme.colors.blue[500], theme.colors.blue[300]);
+  const iconColor = useColorModeValue(
+    theme.colors.blue[500],
+    theme.colors.blue[300],
+  );
   return (
     <>
       <Head>
         <title>404 - Open Assistant</title>
         <meta name="404" content="Sorry, this page doesn't exist." />
       </Head>
-      <Center flexDirection="column" gap="4" fontSize="lg" className="subpixel-antialiased oa-basic-theme">
+      <Center
+        flexDirection="column"
+        gap="4"
+        fontSize="lg"
+        className="subpixel-antialiased oa-basic-theme"
+      >
         <EmptyState text={t("sorry_404")} icon={AlertTriangle} />
-        <Box display="flex" flexDirection="column" alignItems="center" gap="2" mt="6">
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          gap="2"
+          mt="6"
+        >
           <Text fontSize="sm">{t("bug_description")}</Text>
           <Button
             width="fit-content"
-            leftIcon={<AlertTriangle size={"1em"} color={iconColor} aria-hidden="false" />}
+            leftIcon={
+              <AlertTriangle
+                size={"1em"}
+                color={iconColor}
+                aria-hidden="false"
+              />
+            }
             variant="solid"
             size="xs"
           >

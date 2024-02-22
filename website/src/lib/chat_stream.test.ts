@@ -26,7 +26,9 @@ describe("iteratorSSE", () => {
     const outputs = [{ data: '{"test": "123"}' }];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(res).toEqual(outputs[idx]);
       idx += 1;
     }
@@ -38,7 +40,9 @@ describe("iteratorSSE", () => {
     const outputs = [{ data: '{"test": "123"}' }];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(res).toEqual(outputs[idx]);
       idx += 1;
     }
@@ -50,7 +54,9 @@ describe("iteratorSSE", () => {
     const outputs = [{ test: "" }];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(res).toEqual(outputs[idx]);
       idx += 1;
     }
@@ -62,7 +68,9 @@ describe("iteratorSSE", () => {
     const outputs = [{ data: '{"test": "123"}' }, { data: '{"test": "234"}' }];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(res).toEqual(outputs[idx]);
       idx += 1;
     }
@@ -70,11 +78,20 @@ describe("iteratorSSE", () => {
   });
 
   it("iteratorSSE multiple lines - unfinished line ", async () => {
-    const inputs = ['data: {"test": "123"}\ndata: {"test": "234"}\ndata: {"test": "', '345"}\n'];
-    const outputs = [{ data: '{"test": "123"}' }, { data: '{"test": "234"}' }, { data: '{"test": "345"}' }];
+    const inputs = [
+      'data: {"test": "123"}\ndata: {"test": "234"}\ndata: {"test": "',
+      '345"}\n',
+    ];
+    const outputs = [
+      { data: '{"test": "123"}' },
+      { data: '{"test": "234"}' },
+      { data: '{"test": "345"}' },
+    ];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(res).toEqual(outputs[idx]);
       idx += 1;
     }
@@ -82,11 +99,16 @@ describe("iteratorSSE", () => {
   });
 
   it("iteratorSSE multiple lines - unfinished line no end", async () => {
-    const inputs = ['data: {"test": "123"}\ndata: {"test": "234"}\ndata: {"test": "', '345"}'];
+    const inputs = [
+      'data: {"test": "123"}\ndata: {"test": "234"}\ndata: {"test": "',
+      '345"}',
+    ];
     const outputs = [{ data: '{"test": "123"}' }, { data: '{"test": "234"}' }];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(res).toEqual(outputs[idx]);
       idx += 1;
     }
@@ -98,7 +120,9 @@ describe("iteratorSSE", () => {
     const outputs = [{ data: '{"test": "\\n"}' }];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(res).toEqual(outputs[idx]);
       idx += 1;
     }
@@ -110,7 +134,9 @@ describe("iteratorSSE", () => {
     const outputs = [{ data: '{"test": ","}' }];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(res).toEqual(outputs[idx]);
       idx += 1;
     }
@@ -122,7 +148,9 @@ describe("iteratorSSE", () => {
     const outputs = [{ data: '{"test": "."}' }];
     let idx = 0;
 
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(outputs.length).toBeGreaterThan(idx);
       expect(res).toEqual(outputs[idx]);
       idx += 1;
@@ -176,7 +204,9 @@ data: {"token": "."}\n`,
       outputs.push({ data: '{"token": "' + output_token + '"}' });
     }
     let idx = 0;
-    for await (const res of iteratorSSE(streamFromIt(generatorFromList(inputs)))) {
+    for await (const res of iteratorSSE(
+      streamFromIt(generatorFromList(inputs)),
+    )) {
       expect(outputs.length).toBeGreaterThan(idx);
       expect(res).toEqual(outputs[idx]);
       idx += 1;

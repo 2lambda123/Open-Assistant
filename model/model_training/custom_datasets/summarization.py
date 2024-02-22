@@ -1,6 +1,7 @@
 """
     Summarize different spectrum of documents
 """
+
 import random
 
 import numpy as np

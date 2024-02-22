@@ -59,7 +59,8 @@ export interface ServerTaskResponse<Task extends BaseTask> {
   task: Task;
 }
 
-interface TaskAvailable<Task extends BaseTask> extends ServerTaskResponse<Task> {
+interface TaskAvailable<Task extends BaseTask>
+  extends ServerTaskResponse<Task> {
   taskAvailability: "AVAILABLE";
   taskInfo: TaskInfo;
 }
@@ -72,7 +73,10 @@ interface NoTaskAvailable {
   taskAvailability: "NONE_AVAILABLE";
 }
 
-export type TaskResponse<Task extends BaseTask> = TaskAvailable<Task> | AwaitingInitialTask | NoTaskAvailable;
+export type TaskResponse<Task extends BaseTask> =
+  | TaskAvailable<Task>
+  | AwaitingInitialTask
+  | NoTaskAvailable;
 
 export type TaskReplyValidity = "DEFAULT" | "VALID" | "INVALID";
 

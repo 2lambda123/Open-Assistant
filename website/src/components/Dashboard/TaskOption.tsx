@@ -33,11 +33,14 @@ export const TaskOption = ({ content }: TasksOptionProps) => {
     () =>
       Object.values(content)
         .flat()
-        .reduce((obj, { taskType }) => {
-          obj[taskType] = TaskInfos.filter((t) => t.type === taskType).pop()!;
-          return obj;
-        }, {} as Record<TaskType, TaskInfo>),
-    [content]
+        .reduce(
+          (obj, { taskType }) => {
+            obj[taskType] = TaskInfos.filter((t) => t.type === taskType).pop()!;
+            return obj;
+          },
+          {} as Record<TaskType, TaskInfo>,
+        ),
+    [content],
   );
 
   return (
@@ -49,23 +52,52 @@ export const TaskOption = ({ content }: TasksOptionProps) => {
               {t(TaskCategoryLabels[category])}
             </Heading>
             <Spacer />
-            <ExternalLink href="https://projects.laion.ai/Open-Assistant/docs/guides/guidelines" isExternal>
-              <IconButton variant="ghost" aria-label="More Information" icon={<HelpCircle size="2em" />} />
+            <ExternalLink
+              href="https://projects.laion.ai/Open-Assistant/docs/guides/guidelines"
+              isExternal
+            >
+              <IconButton
+                variant="ghost"
+                aria-label="More Information"
+                icon={<HelpCircle size="2em" />}
+              />
             </ExternalLink>
           </Flex>
           <SimpleGrid columns={[1, 1, 2, 2, 3, 4]} gap={4}>
             {items
-              .map(({ taskType, count }) => ({ ...taskInfoMap[taskType], count }))
+              .map(({ taskType, count }) => ({
+                ...taskInfoMap[taskType],
+                count,
+              }))
               .map((item) => (
                 <Link key={category + item.id} href={item.pathname}>
-                  <GridItem as={Card} height="100%" justifyContent="space-between">
-                    <Flex px="6" pt="6" flexDir="column" gap="3" justifyContent="space-between" height="100%">
+                  <GridItem
+                    as={Card}
+                    height="100%"
+                    justifyContent="space-between"
+                  >
+                    <Flex
+                      px="6"
+                      pt="6"
+                      flexDir="column"
+                      gap="3"
+                      justifyContent="space-between"
+                      height="100%"
+                    >
                       <Flex flexDir="column" gap="3">
-                        <Heading size="md">{t(getTypeSafei18nKey(`tasks:${item.id}.label`))}</Heading>
-                        <Text size="sm">{t(getTypeSafei18nKey(`tasks:${item.id}.desc`))}</Text>
+                        <Heading size="md">
+                          {t(getTypeSafei18nKey(`tasks:${item.id}.label`))}
+                        </Heading>
+                        <Text size="sm">
+                          {t(getTypeSafei18nKey(`tasks:${item.id}.desc`))}
+                        </Text>
                       </Flex>
                       <Box>
-                        <Badge textTransform="none">{t("tasks:available_task_count", { count: item.count })}</Badge>
+                        <Badge textTransform="none">
+                          {t("tasks:available_task_count", {
+                            count: item.count,
+                          })}
+                        </Badge>
                       </Box>
                     </Flex>
                     <Text

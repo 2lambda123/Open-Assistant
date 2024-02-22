@@ -2,7 +2,11 @@ import { Box, CircularProgress, Flex, IconButton } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { ThumbsDown, ThumbsUp, User } from "lucide-react";
 import NextLink from "next/link";
-import { FetchTrollBoardResponse, TrollboardEntity, TrollboardTimeFrame } from "src/types/Trollboard";
+import {
+  FetchTrollBoardResponse,
+  TrollboardEntity,
+  TrollboardTimeFrame,
+} from "src/types/Trollboard";
 
 import { DataTable, DataTableColumnDef } from "../DataTable/DataTable";
 import { createJsonExpandRowModel } from "../DataTable/jsonExpandRowModel";
@@ -91,7 +95,7 @@ export const TrollboardTable = ({
     error,
     lastUpdated,
   } = useFetchBoard<FetchTrollBoardResponse>(
-    `/api/admin/trollboard?time_frame=${timeFrame}&limit=${limit}&enabled=${enabled}`
+    `/api/admin/trollboard?time_frame=${timeFrame}&limit=${limit}&enabled=${enabled}`,
   );
 
   const { data, ...paginationProps } = useBoardPagination<TrollboardEntity>({

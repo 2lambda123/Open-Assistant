@@ -19,9 +19,10 @@ export const ChatListBase = memo(function ChatListBase({
   chats, // TODO: can we remove this?
   ...props
 }: CardProps & { isSideBar: boolean; chats?: GetChatsResponse }) {
-  const { data: response, mutate: mutateChatResponse } = useSWR<GetChatsResponse>(API_ROUTES.LIST_CHAT, get, {
-    fallbackData: chats,
-  });
+  const { data: response, mutate: mutateChatResponse } =
+    useSWR<GetChatsResponse>(API_ROUTES.LIST_CHAT, get, {
+      fallbackData: chats,
+    });
   const { t } = useTranslation(["common", "chat"]);
 
   const sideProps: CardProps = useMemo(
@@ -32,7 +33,7 @@ export const ChatListBase = memo(function ChatListBase({
             position: "fixed",
           }
         : {},
-    [isSideBar]
+    [isSideBar],
   );
 
   const handleUpdateTitle = useCallback(
@@ -40,12 +41,15 @@ export const ChatListBase = memo(function ChatListBase({
       mutateChatResponse(
         (chatResponse) => ({
           ...chatResponse,
-          chats: chatResponse?.chats.map((chat) => (chat.id === chatId ? { ...chat, title } : chat)) || [],
+          chats:
+            chatResponse?.chats.map((chat) =>
+              chat.id === chatId ? { ...chat, title } : chat,
+            ) || [],
         }),
-        false
+        false,
       );
     },
-    [mutateChatResponse]
+    [mutateChatResponse],
   );
 
   const handleHide = useCallback(
@@ -55,10 +59,10 @@ export const ChatListBase = memo(function ChatListBase({
           ...chatResponse,
           chats: chatResponse?.chats.filter((chat) => chat.id !== chatId) || [],
         }),
-        false
+        false,
       );
     },
-    [mutateChatResponse]
+    [mutateChatResponse],
   );
 
   return (
@@ -99,7 +103,12 @@ export const ChatListBase = memo(function ChatListBase({
         }}
       >
         {response?.chats.map((chat) => (
-          <ChatListItem key={chat.id} chat={chat} onUpdateTitle={handleUpdateTitle} onHide={handleHide}></ChatListItem>
+          <ChatListItem
+            key={chat.id}
+            chat={chat}
+            onUpdateTitle={handleUpdateTitle}
+            onHide={handleHide}
+          ></ChatListItem>
         ))}
       </SimpleBar>
     </Card>

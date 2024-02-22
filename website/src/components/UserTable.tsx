@@ -7,7 +7,11 @@ import { get } from "src/lib/api";
 import type { FetchUsersResponse, User } from "src/types/Users";
 import useSWR from "swr";
 
-import { DataTable, DataTableColumnDef, FilterItem } from "./DataTable/DataTable";
+import {
+  DataTable,
+  DataTableColumnDef,
+  FilterItem,
+} from "./DataTable/DataTable";
 import { useCursorPagination } from "./DataTable/useCursorPagination";
 
 const columnHelper = createColumnHelper<User>();
@@ -48,7 +52,8 @@ const columns: DataTableColumnDef<User>[] = [
 ];
 
 export const UserTable = memo(function UserTable() {
-  const { pagination, resetCursor, toNextPage, toPreviousPage } = useCursorPagination();
+  const { pagination, resetCursor, toNextPage, toPreviousPage } =
+    useCursorPagination();
   const [filterValues, setFilterValues] = useState<FilterItem[]>([]);
 
   const handleFilterValuesChange = (values: FilterItem[]) => {
@@ -63,7 +68,10 @@ export const UserTable = memo(function UserTable() {
   // This follows useSWR's recommendation for simple pagination:
   //   https://swr.vercel.app/docs/pagination#when-to-use-useswr
 
-  const filterValue = filterValues.find((value) => value.id === filterValues[filterValues.length - 1]?.id)?.value ?? "";
+  const filterValue =
+    filterValues.find(
+      (value) => value.id === filterValues[filterValues.length - 1]?.id,
+    )?.value ?? "";
   const { data, error } = useSWR<FetchUsersResponse<User>>(
     `/api/admin/users?direction=${pagination.direction}&cursor=${
       pagination.cursor
@@ -75,7 +83,7 @@ export const UserTable = memo(function UserTable() {
     get,
     {
       keepPreviousData: true,
-    }
+    },
   );
 
   return (

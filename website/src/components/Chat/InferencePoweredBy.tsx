@@ -23,8 +23,14 @@ const SponsorGroup = ({ heading, members }) => {
 export const InferencePoweredBy = () => {
   return (
     <>
-      <SponsorGroup heading="Inference powered by" members={["hf", "stability"]} />
-      <SponsorGroup heading="Model training supported by" members={["redmond", "wandb"]} />
+      <SponsorGroup
+        heading="Inference powered by"
+        members={["hf", "stability"]}
+      />
+      <SponsorGroup
+        heading="Model training supported by"
+        members={["redmond", "wandb"]}
+      />
     </>
   );
 };

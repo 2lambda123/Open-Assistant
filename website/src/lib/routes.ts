@@ -8,10 +8,9 @@ export const stringifyQuery = (query: RouteQuery | undefined) => {
     return "";
   }
 
-  const filteredQuery = Object.fromEntries(Object.entries(query).filter(([, value]) => value !== undefined)) as Record<
-    string,
-    string
-  >;
+  const filteredQuery = Object.fromEntries(
+    Object.entries(query).filter(([, value]) => value !== undefined),
+  ) as Record<string, string>;
 
   return new URLSearchParams(filteredQuery).toString();
 };
@@ -31,9 +30,8 @@ export const ROUTES = {
   CHAT: (id: string) => `/chat/${id}`,
 };
 
-export type QueryWithLang<T extends RouteQuery | undefined = undefined> = T extends undefined
-  ? { lang: string }
-  : T & { lang: string };
+export type QueryWithLang<T extends RouteQuery | undefined = undefined> =
+  T extends undefined ? { lang: string } : T & { lang: string };
 
 const withLang =
   <T extends RouteQuery | undefined = undefined>(path: string, q?: T) =>
@@ -42,18 +40,23 @@ const withLang =
   };
 
 export const API_ROUTES = {
-  NEW_TASK: (type: TaskType, query: QueryWithLang) => createRoute(`/api/new_task/${type}`, query),
+  NEW_TASK: (type: TaskType, query: QueryWithLang) =>
+    createRoute(`/api/new_task/${type}`, query),
   UPDATE_TASK: "/api/update_task",
   AVAILABLE_TASK: withLang("/api/available_tasks"),
   RECENT_MESSAGES: withLang("/api/messages"),
-  ADMIN_DELETE_MESSAGE: (messageId: string) => createRoute(`/api/admin/delete_message/${messageId}`),
-  ADMIN_UNDELETE_MESSAGE: (messageId: string) => createRoute(`/api/admin/undelete_message/${messageId}`),
-  ADMIN_MESSAGE_LIST: (query: CursorPaginationState & { user_id?: string; include_user?: boolean }) =>
-    createRoute("/api/admin/messages", query),
+  ADMIN_DELETE_MESSAGE: (messageId: string) =>
+    createRoute(`/api/admin/delete_message/${messageId}`),
+  ADMIN_UNDELETE_MESSAGE: (messageId: string) =>
+    createRoute(`/api/admin/undelete_message/${messageId}`),
+  ADMIN_MESSAGE_LIST: (
+    query: CursorPaginationState & { user_id?: string; include_user?: boolean },
+  ) => createRoute("/api/admin/messages", query),
   // chat:
   GET_CHAT: (chat_id: string) => createRoute(`/api/chat`, { chat_id }),
   LIST_CHAT: "/api/chat",
-  GET_MESSAGE: (chat_id: string, message_id: string) => createRoute(`/api/chat/message`, { chat_id, message_id }),
+  GET_MESSAGE: (chat_id: string, message_id: string) =>
+    createRoute(`/api/chat/message`, { chat_id, message_id }),
   CREATE_PROMPTER_MESSAGE: `/api/chat/prompter_message`,
   CREATE_ASSISTANT_MESSAGE: `/api/chat/assistant_message`,
   CHAT_MESSAGE_VOTE: `/api/chat/vote`,

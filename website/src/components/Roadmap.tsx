@@ -10,7 +10,9 @@ const Roadmap = () => {
             <div className="h-[5rem] w-[5rem] border-4 border-[#a72a1e] rounded-full flex items-center justify-center">
               <p className="font-bold text-[#a72a1e] text-center">ASAP</p>
             </div>
-            <h4 className="font-bold text-xl text-[#a72a1e] text-center max-w-[10rem]">Minimum Viable Prototype</h4>
+            <h4 className="font-bold text-xl text-[#a72a1e] text-center max-w-[10rem]">
+              Minimum Viable Prototype
+            </h4>
             <ul className="ml-6 md:ml-8 lg:ml-6 space-y-4 text-[#a72a1e] list-disc">
               <li>Data Collection Pipeline</li>
               <li>RL on Human Feedback</li>
@@ -30,7 +32,9 @@ const Roadmap = () => {
                 2023
               </p>
             </div>
-            <h4 className="font-bold text-xl text-[#858585] text-center max-w-[10rem]">Growing Up</h4>
+            <h4 className="font-bold text-xl text-[#858585] text-center max-w-[10rem]">
+              Growing Up
+            </h4>
             <ul className="ml-6 md:ml-8 lg:ml-6 space-y-4 text-[#858585] list-disc">
               <li>Retrieval Augmentation</li>
               <li>Rapid Personalization</li>
@@ -49,7 +53,9 @@ const Roadmap = () => {
                 2023
               </p>
             </div>
-            <h4 className="font-bold text-xl text-[#858585] text-center max-w-[10rem]">Growing Up</h4>
+            <h4 className="font-bold text-xl text-[#858585] text-center max-w-[10rem]">
+              Growing Up
+            </h4>
             <ul className="ml-6 md:ml-8 lg:ml-6 space-y-4 text-[#858585] list-disc">
               <li>Third-Party Extensions</li>
               <li>Device Control</li>
@@ -64,7 +70,9 @@ const Roadmap = () => {
             <div className="h-[5rem] w-[5rem] border-4 border-[#858585] rounded-full flex items-center justify-center">
               <p className="font-bold text-[#858585] text-center">...</p>
             </div>
-            <h4 className="font-bold text-xl text-[#858585] text-center max-w-[10rem]">Growing Up</h4>
+            <h4 className="font-bold text-xl text-[#858585] text-center max-w-[10rem]">
+              Growing Up
+            </h4>
             <ul className="ml-6 md:ml-8 lg:ml-6 space-y-4 text-[#858585] list-disc">
               <li>What do you need?</li>
             </ul>

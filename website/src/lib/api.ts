@@ -11,11 +11,13 @@ const api = axios.create({ headers });
 
 export const get = (url: string) => api.get(url).then((res) => res.data);
 
-export const post = (url: string, data?: { arg: any }) => api.post(url, data?.arg).then((res) => res.data);
+export const post = (url: string, data?: { arg: any }) =>
+  api.post(url, data?.arg).then((res) => res.data);
 
 export const del = (url: string) => api.delete(url).then((res) => res.data);
 
-export const put = (url: string, data?: { arg: any }) => api.put(url, data?.arg).then((res) => res.data);
+export const put = (url: string, data?: { arg: any }) =>
+  api.put(url, data?.arg).then((res) => res.data);
 
 api.interceptors.response.use(
   (response) => response,
@@ -28,7 +30,7 @@ api.interceptors.response.use(
       method: err?.config?.method,
       path: err?.config?.url,
     });
-  }
+  },
 );
 
 export default api;

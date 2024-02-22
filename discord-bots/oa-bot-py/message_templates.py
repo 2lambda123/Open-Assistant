@@ -1,4 +1,5 @@
 """Message templates for the discord bot."""
+
 import typing
 
 import jinja2

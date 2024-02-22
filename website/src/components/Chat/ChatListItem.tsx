@@ -1,4 +1,13 @@
-import { Box, Button, CircularProgress, Flex, Input, Tooltip, useBoolean, useOutsideClick } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Flex,
+  Input,
+  Tooltip,
+  useBoolean,
+  useOutsideClick,
+} from "@chakra-ui/react";
 import { Check, LucideIcon, Pencil, EyeOff, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -32,10 +41,8 @@ export const ChatListItem = ({
       }
     },
   });
-  const { trigger: updateChatTitle, isMutating: isUpdatingTitle } = useSWRMutation(
-    API_ROUTES.UPDATE_CHAT(chat.id),
-    put
-  );
+  const { trigger: updateChatTitle, isMutating: isUpdatingTitle } =
+    useSWRMutation(API_ROUTES.UPDATE_CHAT(chat.id), put);
   const handleConfirmEdit = useCallback(async () => {
     const title = inputRef.current?.value.trim();
     if (!title) return;
@@ -53,14 +60,16 @@ export const ChatListItem = ({
         handleConfirmEdit();
       }
     },
-    [handleConfirmEdit, setIsEditing]
+    [handleConfirmEdit, setIsEditing],
   );
 
   return (
     <Button
       // @ts-expect-error error due to dynamicly changing as prop
       ref={rootRef}
-      {...(!isEditing ? { as: Link, href: ROUTES.CHAT(chat.id) } : { as: "div" })}
+      {...(!isEditing
+        ? { as: Link, href: ROUTES.CHAT(chat.id) }
+        : { as: "div" })}
       variant={isActive ? "solid" : "ghost"}
       justifyContent="start"
       py="2"
@@ -107,7 +116,10 @@ export const ChatListItem = ({
           >
             {!isUpdatingTitle ? (
               <>
-                <ChatListItemIconButton icon={Check} onClick={handleConfirmEdit} />
+                <ChatListItemIconButton
+                  icon={Check}
+                  onClick={handleConfirmEdit}
+                />
                 <ChatListItemIconButton icon={X} onClick={setIsEditing.off} />
               </>
             ) : (
@@ -141,11 +153,26 @@ export const ChatListItem = ({
 const EditChatButton = ({ onClick }: { onClick: () => void }) => {
   const { t } = useTranslation("common");
 
-  return <ChatListItemIconButton label={t("edit")} icon={Pencil} onClick={onClick}></ChatListItemIconButton>;
+  return (
+    <ChatListItemIconButton
+      label={t("edit")}
+      icon={Pencil}
+      onClick={onClick}
+    ></ChatListItemIconButton>
+  );
 };
 
-const HideChatButton = ({ chatId, onHide }: { chatId: string; onHide?: (params: { chatId: string }) => void }) => {
-  const { trigger: triggerHide } = useSWRMutation(API_ROUTES.UPDATE_CHAT(chatId), put);
+const HideChatButton = ({
+  chatId,
+  onHide,
+}: {
+  chatId: string;
+  onHide?: (params: { chatId: string }) => void;
+}) => {
+  const { trigger: triggerHide } = useSWRMutation(
+    API_ROUTES.UPDATE_CHAT(chatId),
+    put,
+  );
 
   const onClick = useCallback(async () => {
     await triggerHide({ chat_id: chatId, hidden: true });
@@ -154,7 +181,9 @@ const HideChatButton = ({ chatId, onHide }: { chatId: string; onHide?: (params: 
 
   const { t } = useTranslation("common");
 
-  return <ChatListItemIconButton label={t("hide")} icon={EyeOff} onClick={onClick} />;
+  return (
+    <ChatListItemIconButton label={t("hide")} icon={EyeOff} onClick={onClick} />
+  );
 };
 
 type ChatListItemIconButtonProps = {
@@ -163,7 +192,11 @@ type ChatListItemIconButtonProps = {
   icon: LucideIcon;
 };
 
-const ChatListItemIconButton = ({ label, onClick, icon }: ChatListItemIconButtonProps) => {
+const ChatListItemIconButton = ({
+  label,
+  onClick,
+  icon,
+}: ChatListItemIconButtonProps) => {
   return (
     <Tooltip label={label}>
       <Box

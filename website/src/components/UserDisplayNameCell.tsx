@@ -35,7 +35,9 @@ export const UserDisplayNameCell = ({
           <Link as={NextLink} href={ROUTES.ADMIN_USER_DETAIL(userId)}>
             {displayName}
           </Link>
-          <Tooltip label={`Signed in with ${authMethod}`}>{AUTH_METHOD_TO_ICON[authMethod]}</Tooltip>
+          <Tooltip label={`Signed in with ${authMethod}`}>
+            {AUTH_METHOD_TO_ICON[authMethod]}
+          </Tooltip>
         </>
       ) : (
         displayName

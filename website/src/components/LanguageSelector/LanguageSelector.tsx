@@ -37,12 +37,16 @@ const LanguageSelector = () => {
       await router.push(path, path, { locale });
       router.reload();
     },
-    [router, setCookie]
+    [router, setCookie],
   );
 
   const { language: currentLanguage } = i18n;
   return (
-    <Select onChange={languageChanged} defaultValue={currentLanguage} maxW="fit-content">
+    <Select
+      onChange={languageChanged}
+      defaultValue={currentLanguage}
+      maxW="fit-content"
+    >
       {localesAndNames.map(({ locale, name }) => (
         <option key={locale} value={locale}>
           {name}
