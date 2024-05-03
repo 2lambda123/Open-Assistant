@@ -127,7 +127,7 @@ thop==0.1.1.post2209072238
 tinycss2==1.2.1
 tomli==2.0.1
 tornado==6.2
-tqdm==4.64.1
+tqdm==4.66.3
 traitlets==5.9.0
 typing_extensions==4.5.0
 uri-template==1.2.0
