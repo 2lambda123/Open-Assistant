@@ -1,2 +1,2 @@
-tqdm==4.64.1
+tqdm==4.66.3
 transformers==4.38.0
