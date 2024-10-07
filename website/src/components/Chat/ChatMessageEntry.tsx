@@ -244,7 +244,7 @@ export const PendingMessageEntry = forwardRef<
     () => ({
       src: isAssistant
         ? `/images/logos/logo.png`
-        : image ?? "/images/temp-avatars/av1.jpg",
+        : (image ?? "/images/temp-avatars/av1.jpg"),
     }),
     [isAssistant, image],
   );
