@@ -1,5 +1,5 @@
 """
-    Summarize different spectrum of documents
+Summarize different spectrum of documents
 """
 
 import random

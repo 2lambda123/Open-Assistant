@@ -1,9 +1,9 @@
 """
-    List of translation dataset
+List of translation dataset
 
-    GroNLP/divemt
+GroNLP/divemt
 
-    fill in the blanks : https://huggingface.co/datasets/m_lama
+fill in the blanks : https://huggingface.co/datasets/m_lama
 
 """
 

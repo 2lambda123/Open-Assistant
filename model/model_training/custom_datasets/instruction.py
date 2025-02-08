@@ -1,5 +1,5 @@
 """
-    These are in the form of 'INSTRUCTION', 'RESPONSE'
+These are in the form of 'INSTRUCTION', 'RESPONSE'
 """
 
 from datasets import load_dataset

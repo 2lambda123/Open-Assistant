@@ -1,8 +1,8 @@
 """
-    Recursive method to travese down the the conversation tree
+Recursive method to travese down the the conversation tree
 
-    Use fastlangid for language identification :
-    >> pip install fastlangid
+Use fastlangid for language identification :
+>> pip install fastlangid
 
 """
 

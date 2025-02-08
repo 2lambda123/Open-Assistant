@@ -1,9 +1,9 @@
 """
-    Augment oasst dataset with sft generated results
+Augment oasst dataset with sft generated results
 
-    You can use augment new response using a model with bad response, ie non SFT model
+You can use augment new response using a model with bad response, ie non SFT model
 
-    had to do this in a quick fashion, please tolerate the hackiness in the code
+had to do this in a quick fashion, please tolerate the hackiness in the code
 
 """
 

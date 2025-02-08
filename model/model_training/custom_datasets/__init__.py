@@ -1,5 +1,5 @@
 """
-    High level functions for model training
+High level functions for model training
 """
 
 from typing import Optional
